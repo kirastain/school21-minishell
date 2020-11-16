@@ -7,21 +7,31 @@
 
 echo - display a line of text
 
+
 SYNOPSIS
+
        echo [SHORT-OPTION]... [STRING]...
        echo LONG-OPTION
 
+
 -n     do not output the trailing newline
+
 
 ### cd
 
+
 NAME
+
     cd - Change the shell working directory.
 
+
 SYNOPSIS
+
     cd [-L|[-P [-e]] [-@]] [dir]
 
+
 DESCRIPTION
+
     Change the shell working directory.
     
     Change the current directory to DIR.  The default DIR is the value of the
