@@ -22,69 +22,155 @@ SYNOPSIS
 
 NAME
 
-    cd - Change the shell working directory.
+cd - Change the shell working directory.
 
 
 SYNOPSIS
 
-    cd [-L|[-P [-e]] [-@]] [dir]
+       cd [-L|[-P [-e]] [-@]] [dir]
 
 
 DESCRIPTION
 
-    Change the shell working directory.
+Change the shell working directory.
     
-    Change the current directory to DIR.  The default DIR is the value of the
-    HOME shell variable.
+Change the current directory to DIR.  The default DIR is the value of the
+HOME shell variable.
     
-    The variable CDPATH defines the search path for the directory containing
-    DIR.  Alternative directory names in CDPATH are separated by a colon (:).
-    A null directory name is the same as the current directory.  If DIR begins
-    with a slash (/), then CDPATH is not used.
+The variable CDPATH defines the search path for the directory containing
+DIR.  Alternative directory names in CDPATH are separated by a colon (:).
+A null directory name is the same as the current directory.  If DIR begins
+with a slash (/), then CDPATH is not used.
     
-    If the directory is not found, and the shell option `cdable_vars' is set,
-    the word is assumed to be  a variable name.  If that variable has a value,
-    its value is used for DIR.
+If the directory is not found, and the shell option \`cdable_vars\' is set,
+the word is assumed to be  a variable name.  If that variable has a value,
+its value is used for DIR.
     
-    Options:
-      -L	force symbolic links to be followed: resolve symbolic
-    		links in DIR after processing instances of `..'
-      -P	use the physical directory structure without following
+Options:
+
+-L	force symbolic links to be followed: resolve symbolic
+    		links in DIR after processing instances of \`..\'
+-P	use the physical directory structure without following
     		symbolic links: resolve symbolic links in DIR before
-    		processing instances of `..'
-      -e	if the -P option is supplied, and the current working
+    		processing instances of \`..\'
+-e	if the -P option is supplied, and the current working
     		directory cannot be determined successfully, exit with
     		a non-zero status
-      -@	on systems that support it, present a file with extended
+-@	on systems that support it, present a file with extended
     		attributes as a directory containing the file attributes
     
-    The default is to follow symbolic links, as if `-L' were specified.
-    `..' is processed by removing the immediately previous pathname component
-    back to a slash or the beginning of DIR.
+The default is to follow symbolic links, as if \`-L\' were specified.
+\`..\' is processed by removing the immediately previous pathname component
+back to a slash or the beginning of DIR.
     
-    Exit Status:
-    Returns 0 if the directory is changed, and if $PWD is set successfully when
-    -P is used; non-zero otherwise.
+Exit Status:
+
+Returns 0 if the directory is changed, and if $PWD is set successfully when
+-P is used; non-zero otherwise.
 
 ### pwd
 
+NAME
+
+pwd - print name of current/working directory
+
+SYNOPSIS
+
+       pwd [OPTION]...
+
+DESCRIPTION
+
+Print the full filename of the current working directory.
 
 
 ### export
 
+export - set the export attribute for variables
+ 
+SYNOPSIS
 
+       export name[=word]...
+
+export -p 
+ 
+DESCRIPTION
+
+The shell shall give the export attribute to the variables corresponding to the specified names, which shall cause them to be in the environment of subsequently executed commands. If the name of a variable is followed by = word, then the value of that variable shall be set to word.
+
+The export special built-in shall support the Base Definitions volume of IEEE Std 1003.1-2001, Section 12.2, Utility Syntax Guidelines.
+
+When -p is specified, export shall write to the standard output the names and values of all exported variables, in the following format:
+
+    "export %s=%s\n", <name>, <value>
+
+if name is set, and:
+
+
+    "export %s\n", <name>
+
+if name is unset.
+
+The shell shall format the output, including the proper use of quoting, so that it is suitable for reinput to the shell as commands that achieve the same exporting results, except:
+
+Read-only variables with values cannot be reset.
+
+Variables that were unset at the time they were output need not be reset to the unset state if a value is assigned to the variable between the time the state was saved and the time at which the saved output is reinput to the shell.
+
+When no arguments are given, the results are unspecified.   
 
 ### unset
 
+NAME
 
+unset - unset values and attributes of variables and functions 
+
+SYNOPSIS
+
+       unset [-fv] name ...  
+
+DESCRIPTION
+
+Each variable or function specified by name shall be unset.
+
+Unsetting a variable or function that was not previously set shall not be considered an error and does not cause the shell to abort.
+
+The unset special built-in shall support the Base Definitions volume of IEEE Std 1003.1-2001, Section 12.2, Utility Syntax Guidelines.
+
+Note that:
+
+    VARIABLE=
+
+is not equivalent to an unset of VARIABLE; in the example, VARIABLE is set to "" . Also, the variables that can be unset should not be misinterpreted to include the special parameters (see Special Parameters ).   
 
 ### env
 
+NAME
 
+unset - unset values and attributes of variables and functions
+ 
+SYNOPSIS
+
+       unset [-fv] name ...  
+
+DESCRIPTION
+
+Each variable or function specified by name shall be unset.
+
+Unsetting a variable or function that was not previously set shall not be considered an error and does not cause the shell to abort.
+
+The unset special built-in shall support the Base Definitions volume of IEEE Std 1003.1-2001, Section 12.2, Utility Syntax Guidelines.
+
+Note that:
+
+    VARIABLE=
+
+is not equivalent to an unset of VARIABLE; in the example, VARIABLE is set to "" . Also, the variables that can be unset should not be misinterpreted to include the special parameters (see Special Parameters ).   
 
 ### exit
 
+sh
 
+exit causes the calling shell or shell script to exit with the exit status specified by n. If n is omitted the exit status is that of the last command executed (an EOF also causes the shell to exit.) 
 
 ## Parser
 
