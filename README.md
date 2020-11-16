@@ -3,7 +3,19 @@
 
 ## Commands
 
-###
+### echo
+
+### cd
+
+### pwd
+
+### export
+
+### unset
+
+### env
+
+### exit
 
 ## Parser
 
