@@ -172,6 +172,12 @@ sh
 
 exit causes the calling shell or shell script to exit with the exit status specified by n. If n is omitted the exit status is that of the last command executed (an EOF also causes the shell to exit.) 
 
+## Main function and env
+
+       int main( int argc, char *argv[], char *envp[] )
+
+Третья строка приведенного выше примера, где функция main принимает три параметра, представляет собой расширение Майкрософт для стандарта ANSI C. Третий параметр (envp) — это массив указателей на переменные среды. Массив envp завершается пустым указателем. 
+
 ## Parser
 
 
