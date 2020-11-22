@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2020/11/22 18:53:00 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/11/22 19:02:41 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,18 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
+typedef struct  s_command
+{
+    char    *name;
+    char    **flags;
+}               t_command;
+
 typedef struct  s_struct
 {
     char        **env;
     char        *shell_line;
     int         signal;
+    t_command   *command;
 }               t_struct;
 
 /*-------------inits-----------------*/

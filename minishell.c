@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2020/11/22 18:52:01 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/11/22 19:24:29 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,26 @@ static char *get_shell_line(char **env)
 		}
     }
     free(path);
-	return (ft_strjoin(tmp, " $> "));
+	return (ft_strjoin(tmp, "$> "));
 }
 
 void    shell_line(t_struct *conf)
 {
     char    *line;
+    int     status;
 
-    if (conf->shell_line)
-        free(conf->shell_line);
-    conf->shell_line = get_shell_line(conf->env);
-    ft_putstr_fd(conf->shell_line, 1);
-    get_next_line(&line);
-    //parser_line(line, conf); <---------------------------------вот здесь уходит в парсер и нужно добавить в структуру
-    //run_command(conf); <---------------------------------------вот сюда пошла команда
+    status = 1;
+    while (status)
+    {
+        if (conf->shell_line)
+            free(conf->shell_line);
+        conf->shell_line = get_shell_line(conf->env);
+        ft_putstr_fd(conf->shell_line, 1);
+        get_next_line(0, &line);
+        //parser_line(line, conf); <---------------------------------вот здесь уходит в парсер и нужно добавить в структуру
+        //status = run_command(conf); <---------------------------------------вот сюда пошла команда
+        free(line);
+    }
 }
 
 int main(int argc, char **argv, char **envp)
