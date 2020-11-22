@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2020/11/18 21:25:33 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/11/22 18:53:00 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ typedef struct  s_struct
 {
     char        **env;
     char        *shell_line;
+    int         signal;
 }               t_struct;
-
-char					*global_path;
 
 /*-------------inits-----------------*/
 
