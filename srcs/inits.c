@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:05:06 by bbelen            #+#    #+#             */
-/*   Updated: 2020/11/22 19:04:38 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/12/02 18:24:41 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@ void    init_conf(t_struct *conf)
 {
     conf->shell_line = NULL;
     conf->signal = 0;
-    if (!(conf->command = (t_command*)malloc(sizeof(t_command))))
+    conf->command = NULL;
+    conf->env = NULL;
+    conf->command_array = NULL;
+    conf->command = init_command();
+}
+
+t_command    *init_command()
+{
+    t_command   *com;
+    
+    if (!(com = (t_command*)malloc(sizeof(t_command))))
         exit(-1);
+    com->args = (char**)malloc(sizeof(char*) * 1); //после убрать, память выделять надо в другом месте
+    com->args[0] = NULL;
+    com->file_in = NULL;
+    com->file_out = NULL;
+    com->name = NULL;
+    com->next = NULL;
+    return (com);
 }

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2020/11/22 19:24:29 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/12/02 18:26:05 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void    shell_line(t_struct *conf)
         conf->shell_line = get_shell_line(conf->env);
         ft_putstr_fd(conf->shell_line, 1);
         get_next_line(0, &line);
+        if (ft_strcmp(line, "pwd") == 0)
+        {
+            pwd_command(conf->command);
+        }
         //parser_line(line, conf); <---------------------------------вот здесь уходит в парсер и нужно добавить в структуру
         //status = run_command(conf); <---------------------------------------вот сюда пошла команда
         free(line);

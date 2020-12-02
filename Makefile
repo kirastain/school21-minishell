@@ -6,13 +6,14 @@
 #    By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/16 23:04:16 by bbelen            #+#    #+#              #
-#    Updated: 2020/11/18 21:10:55 by bbelen           ###   ########.fr        #
+#    Updated: 2020/12/02 17:59:30 by bbelen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -Wall -Wextra -Werror
-SRC = ./srcs/inits.c ./minishell.c ./srcs/parser.c ./srcs/utils.c
+SRC = ./srcs/inits.c ./minishell.c ./srcs/parser.c ./srcs/utils.c \
+		./srcs/commands/pwd.c
 HEADER = ./minishell.h
 CC = clang
 OBJS = $(SRC:.c=.o) 
