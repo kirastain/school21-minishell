@@ -1,5 +1,11 @@
 # school21-minishell
 
+## Current progress
+
+
+|echo|cd|pwd|export|unset|env|exit|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| | |done| | | | |
 
 ## Commands
 
