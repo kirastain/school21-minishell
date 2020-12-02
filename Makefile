@@ -6,32 +6,37 @@
 #    By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/16 23:04:16 by bbelen            #+#    #+#              #
-#    Updated: 2020/11/16 23:14:26 by bbelen           ###   ########.fr        #
+#    Updated: 2020/11/18 21:10:55 by bbelen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -Wall -Wextra -Werror
-SRC = ./srcs/*.c #убрать * позже
+SRC = ./srcs/inits.c ./minishell.c ./srcs/parser.c ./srcs/utils.c
 HEADER = ./minishell.h
 CC = clang
-OBJS = $(SRC:.s=.o) 
+OBJS = $(SRC:.c=.o) 
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@ar -rcs -o $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(HEADER)
+	@cd libft && $(MAKE) bonus
+	@cp libft/libft.a ./libft.a
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJS) libft.a
 	@echo minishell compiled
 
-%.o: %.s 
+%.o: %.c 
 	@$(CC) $(FLAGS) -o $@ -c $< 
 
 clean:
 	@rm -f $(OBJS)
+	@$(MAKE) clean -C ./libft
 	@echo files cleaned
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -f libft.a
+	@$(MAKE) fclean -C ./libft
 	@echo files cleaned and minishell deleted
 
 re: fclean all

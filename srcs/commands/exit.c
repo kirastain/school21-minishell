@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/06 15:44:47 by bbelen            #+#    #+#             */
-/*   Updated: 2020/11/22 18:33:44 by bbelen           ###   ########.fr       */
+/*   Created: 2020/11/16 23:41:09 by bbelen            #+#    #+#             */
+/*   Updated: 2020/11/18 20:50:15 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-char		*ft_strdup(const char *s)
+void    exit_command(t_struct *struc)
 {
-	char	*d;
-	int		i;
-
-	i = 0;
-	d = (char *)malloc(sizeof(char) * ft_strlen((char *)s) + 1);
-	if (!d)
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		d[i] = s[i];
-		i++;
-	}
-	d[i] = '\0';
-	return (d);
+    fre_all(struc);
+    exit(0);
 }
