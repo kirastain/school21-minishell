@@ -5,7 +5,7 @@
 
 |echo|cd|pwd|export|unset|env|exit|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| | |done| | | | |
+|done| |done| |done|done| |
 
 ## Commands
 

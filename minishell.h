@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2020/12/02 18:21:21 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:35:10 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct  s_command
     char                *file_in;
     char                *file_out;
     struct s_command    *next;
+    char                **spaces; //потому что 100500 пробелов на выводе сольется в 1 между аргами
 }               t_command;
 
 typedef struct  s_struct
@@ -38,7 +39,7 @@ typedef struct  s_struct
     char        *shell_line; //изначальная строка, которую считали
     int         signal;
     t_command   *command; //текущая команда
-    t_command   **command_array; //массив команд (на случай пайплайна)
+    t_command   **command_array; //массив команд (на случай пайплайна) 
 
 }               t_struct;
 
@@ -60,5 +61,12 @@ char		**parser_env(char **env);
 /*-------------commsnds-------------*/
 
 void    pwd_command(t_command *com);
+void    echo_command(t_command *command);
+void    env_command(t_command *com, char **env);
+void    unset_command(t_command *com, t_struct *conf);
+
+/*-------------output----------------*/
+
+void    write_command(t_command *command, char *response);
 
 #endif

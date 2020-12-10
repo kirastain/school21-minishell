@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2020/12/02 18:26:05 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:07:29 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void    shell_line(t_struct *conf)
         if (ft_strcmp(line, "pwd") == 0)
         {
             pwd_command(conf->command);
+        }
+        //check echo here
+        else if (ft_strcmp(line, "env") == 0)
+        {
+            env_command(conf->command, conf->env);
         }
         //parser_line(line, conf); <---------------------------------вот здесь уходит в парсер и нужно добавить в структуру
         //status = run_command(conf); <---------------------------------------вот сюда пошла команда
