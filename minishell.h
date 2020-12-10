@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2020/12/10 18:58:19 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:35:10 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char		**parser_env(char **env);
 void    pwd_command(t_command *com);
 void    echo_command(t_command *command);
 void    env_command(t_command *com, char **env);
+void    unset_command(t_command *com, t_struct *conf);
 
 /*-------------output----------------*/
 
