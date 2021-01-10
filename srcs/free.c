@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/15 01:45:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 23:57:32 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/11 01:26:55 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void		ft_lstadd_back(t_list **lst, t_list *new)
+void	clear_tokens(t_struct *conf)
 {
 	t_list	*current;
 
-	if (!new)
+	if (!conf || !(conf->tokens))
 		return ;
-	if (!*lst)
-		*lst = new;
-	else
+	while (conf->tokens)
 	{
-		current = *lst;
-		while (current->next)
-			current = current->next;
-		current->next = new;
+		current = conf->tokens->next;
+		free(conf->tokens->content);
+		conf->tokens = current;
 	}
 }
+

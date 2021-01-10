@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 18:51:05 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/11 01:15:57 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void    shell_line(t_struct *conf)
             {
                 env_command(conf->command, conf->env);
             }
-            if (parser_line(line, conf)) // <---------------------------------вот здесь уходит в парсер и нужно добавить в структуру
+            if (parser_line(line, conf)) // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
             {
-				printf("ok\n");
-                //status = run_command(conf); <---------------------------------------вот сюда пошла команда 
+				printf("---------------------ok\n");
+                //status = run_command(conf); <-------------------------------вот сюда пошла команда 
             }
         }
         free(line);
@@ -98,11 +98,15 @@ int main(int argc, char **argv, char **envp)
 {
     t_struct    conf;
 
+	signal_num = 0;
 	if (argc == 1 && argv[0])
 	{
     	conf.shell_line = NULL;
     	init_conf(&conf);
+		printf("ok start\n");
     	conf.env = parser_env(envp);
+		signal(SIGINT, work_signals);
+		signal(SIGQUIT, work_signals);
     	shell_line(&conf);
     	return (0);
 	}

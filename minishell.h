@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 18:58:45 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/11 01:09:43 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <stdio.h>
 # include "libft/libft.h"
+# include <signal.h>
 
 typedef struct			s_command
 {
@@ -38,9 +39,12 @@ typedef struct			s_struct
 	char				**env; //массив переменных окружения
 	char				*shell_line; //изначальная строка, которую считали
 	int					signal;
+	t_list				*tokens;
 	t_command			*command; //текущая команда
 	t_command			**command_array; //массив команд (на случай пайплайна) 
 }						t_struct;
+
+int			signal_num;
 
 /*-------------inits-----------------*/
 
@@ -57,6 +61,8 @@ void		ft_array_free(char **arr);
 
 char		**parser_env(char **env);
 int			parser_line(char *line, t_struct *conf);
+char		**split_tokens(char const *s);
+void		analyze_tokens(char **tokens, t_struct *conf);
 
 /*-------------checks---------------*/
 
@@ -76,5 +82,13 @@ void		unset_command(t_command *com, t_struct *conf);
 
 void		write_command(t_command *command, char *response);
 int			output_error(char *str);
+
+/*-------------signals---------------*/
+
+void		work_signals(int sgnl);
+
+/*-------------free------------------*/
+
+void		clear_tokens(t_struct *conf);
 
 #endif

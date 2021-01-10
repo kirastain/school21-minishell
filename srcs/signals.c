@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/15 01:45:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 23:57:32 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/10 21:22:54 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/10 21:31:53 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void		ft_lstadd_back(t_list **lst, t_list *new)
+void	work_signals(int sgnl)
 {
-	t_list	*current;
-
-	if (!new)
-		return ;
-	if (!*lst)
-		*lst = new;
-	else
+	if (sgnl == SIGINT)
 	{
-		current = *lst;
-		while (current->next)
-			current = current->next;
-		current->next = new;
+		ft_putstr_fd("\n", 1);
+	}
+	else if (sgnl == SIGQUIT)
+	{
+		ft_putstr_fd("Exit\n", 1);
 	}
 }
