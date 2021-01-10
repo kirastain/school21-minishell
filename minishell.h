@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2020/12/10 19:35:10 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/10 18:58:45 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,50 +23,58 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-typedef struct  s_command
+typedef struct			s_command
 {
-    char                *name;
-    char                **args;
-    char                *file_in;
-    char                *file_out;
-    struct s_command    *next;
-    char                **spaces; //потому что 100500 пробелов на выводе сольется в 1 между аргами
-}               t_command;
+	char				*name;
+	char				**args;
+	char				*file_in;
+	char				*file_out;
+	struct s_command	*next;
+	char				**spaces; //потому что 100500 пробелов на выводе сольется в 1 между аргами
+}						t_command;
 
-typedef struct  s_struct
+typedef struct			s_struct
 {
-    char        **env; //массив переменных окружения
-    char        *shell_line; //изначальная строка, которую считали
-    int         signal;
-    t_command   *command; //текущая команда
-    t_command   **command_array; //массив команд (на случай пайплайна) 
-
-}               t_struct;
+	char				**env; //массив переменных окружения
+	char				*shell_line; //изначальная строка, которую считали
+	int					signal;
+	t_command			*command; //текущая команда
+	t_command			**command_array; //массив команд (на случай пайплайна) 
+}						t_struct;
 
 /*-------------inits-----------------*/
 
-void    init_conf(t_struct *conf);
-t_command    *init_command();
+void		init_conf(t_struct *conf);
+t_command	*init_command();
 
 /*-------------utils---------------*/
 
-int	    ft_arrlen(char **arr);
-char	**ft_array_realloc(char **src, char *line);
-void	ft_array_free(char **arr);
+int			ft_arrlen(char **arr);
+char		**ft_array_realloc(char **src, char *line);
+void		ft_array_free(char **arr);
 
 /*-------------parser---------------*/
 
 char		**parser_env(char **env);
+int			parser_line(char *line, t_struct *conf);
+
+/*-------------checks---------------*/
+
+int			checking_line(char *line);
+void		check_after_vertline(char *line);
+int			check_streams(char *line);
+int			check_for_pc_vertline(char *line);
 
 /*-------------commsnds-------------*/
 
-void    pwd_command(t_command *com);
-void    echo_command(t_command *command);
-void    env_command(t_command *com, char **env);
-void    unset_command(t_command *com, t_struct *conf);
+void		pwd_command(t_command *com);
+void		echo_command(t_command *command);
+void		env_command(t_command *com, char **env);
+void		unset_command(t_command *com, t_struct *conf);
 
 /*-------------output----------------*/
 
-void    write_command(t_command *command, char *response);
+void		write_command(t_command *command, char *response);
+int			output_error(char *str);
 
 #endif

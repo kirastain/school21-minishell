@@ -6,14 +6,14 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:41:09 by bbelen            #+#    #+#             */
-/*   Updated: 2020/11/18 20:50:15 by bbelen           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:37:05 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    exit_command(t_struct *struc)
+void    exit_command(t_struct *conf)
 {
-    fre_all(struc);
+    free_all(conf);
     exit(0);
 }

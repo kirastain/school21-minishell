@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_line.c                                      :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 18:53:12 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/10 18:59:02 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int    parser_line(char *line, t_struct *conf)
+int	output_error(char *str)
 {
-    char    **tokens;
-    //char    **spaces;
-
-	if (conf)
-		printf("go into parser\n");
-    tokens = ft_split(line, ' ');
-    if (!checking_line(line))
-        return (0);
-	return (1);
+	ft_putstr_fd("bash: syntax error near unexpected token \'", 1);
+	ft_putstr_fd(str, 1);
+	ft_putstr_fd("\'\n", 1);
+	return (0);
 }
