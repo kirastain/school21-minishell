@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/15 01:45:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 23:57:32 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/10 18:59:02 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void		ft_lstadd_back(t_list **lst, t_list *new)
+int	output_error(char *str)
 {
-	t_list	*current;
-
-	if (!new)
-		return ;
-	if (!*lst)
-		*lst = new;
-	else
-	{
-		current = *lst;
-		while (current->next)
-			current = current->next;
-		current->next = new;
-	}
+	ft_putstr_fd("bash: syntax error near unexpected token \'", 1);
+	ft_putstr_fd(str, 1);
+	ft_putstr_fd("\'\n", 1);
+	return (0);
 }

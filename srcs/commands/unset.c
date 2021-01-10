@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 19:14:10 by bbelen            #+#    #+#             */
-/*   Updated: 2020/12/10 19:34:37 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/10 16:10:55 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static char **create_env(t_command *com, t_struct *conf)
             i = i + 2;
         else
         {
-            env = ft_realloc_mass(env, conf->env[i++]);
-            env = ft_realloc_mass(env, conf->env[i++]);
+            env = ft_array_realloc(env, conf->env[i++]);
+            env = ft_array_realloc(env, conf->env[i++]);
         }
     }
     return (env);
