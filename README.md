@@ -2,10 +2,32 @@
 
 ## Current progress
 
+### Parser
+
+list tokens			| done
+
+анализ списка -> в	|
+
+структуру t_command	|
+
+открытую кавычку	|
+
+в поток				|
+
+### Commands
 
 |echo|cd|pwd|export|unset|env|exit|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |done| |done| |done|done| |
+
+### Extra
+
+Ctrl+C				|
+
+Ctrl+D				|
+
+исполняемые файлы	|
+
 
 ## Commands
 
