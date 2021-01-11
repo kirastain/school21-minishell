@@ -16,7 +16,7 @@ list tokens			| done
 
 |echo|cd|pwd|export|unset|env|exit|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|check| |DONE|check|check|DONE|DONE|
+|check|check|DONE|check|check|DONE|DONE|
 
 ### Extra
 
