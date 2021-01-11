@@ -15,7 +15,7 @@
 
 |exit|Done|
 |:-:|:-:|
-|with or without| |
+|with or without args| |
 
 |Return value|Done|
 |:-:|:-:|
@@ -43,9 +43,9 @@
 
 |env|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 
-|wxport|Done|
+|export|Done|
 |:-:|:-:|
 |Works| |
 
@@ -66,7 +66,7 @@
 
 |pwd|Done|
 |:-:|:-:|
-|Works| |
+|Works| + |
 
 |Relative path|Done|
 |:-:|:-:|
