@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:41:09 by bbelen            #+#    #+#             */
-/*   Updated: 2020/12/10 19:37:05 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:23:52 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void    exit_command(t_struct *conf)
 {
-    free_all(conf);
+    clear_conf(conf);
     exit(0);
 }

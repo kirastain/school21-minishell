@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 01:09:43 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:43:47 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,29 @@ typedef struct			s_command
 	char				*file_in;
 	char				*file_out;
 	struct s_command	*next;
-	char				**spaces; //потому что 100500 пробелов на выводе сольется в 1 между аргами
+	char				**spaces; //нужно для echo пока что
 }						t_command;
 
 typedef struct			s_struct
 {
 	char				**env; //массив переменных окружения
+	char				**export;
 	char				*shell_line; //изначальная строка, которую считали
 	int					signal;
+	int					error;
 	t_list				*tokens;
 	t_command			*command; //текущая команда
 	t_command			**command_array; //массив команд (на случай пайплайна) 
 }						t_struct;
 
-int			signal_num;
-
 /*-------------inits-----------------*/
 
 void		init_conf(t_struct *conf);
 t_command	*init_command();
+
+/*-------------main----------------*/
+
+void		shell_line(t_struct *conf);
 
 /*-------------utils---------------*/
 
@@ -77,11 +81,19 @@ void		pwd_command(t_command *com);
 void		echo_command(t_command *command);
 void		env_command(t_command *com, char **env);
 void		unset_command(t_command *com, t_struct *conf);
+void    	export_command(t_command *com, t_struct *conf);
+void		export_command_2(t_struct *conf, t_command *com, int i);
+int			check_arg(char **args);
+char		**add_arg_new(char **env, char *value);
+char		**change_exist_arg(char **env, char *value);
+int			check_arg_env(char **env, char *value);
+void    	exit_command(t_struct *conf);
 
 /*-------------output----------------*/
 
 void		write_command(t_command *command, char *response);
 int			output_error(char *str);
+void		error_quit(char *str, t_struct *conf);
 
 /*-------------signals---------------*/
 
@@ -90,5 +102,8 @@ void		work_signals(int sgnl);
 /*-------------free------------------*/
 
 void		clear_tokens(t_struct *conf);
+void		clear_conf(t_struct *conf);
+void		clear_env_export(char **arr);
+void		clear_command(t_command **coms);
 
 #endif
