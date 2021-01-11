@@ -23,10 +23,10 @@ void		export_command_2(t_struct *conf, t_command *com, int i)
 		j++;
 	if (com->args[i][j] != '\0')
 	{
-		if (export_check_args(conf->env, com->args[i]) == 1)
-			conf->env = export_change_env(conf->env, com->args[i]);
+		if (check_arg_env(conf->env, com->args[i]) == 1)
+			conf->env = change_exist_arg(conf->env, com->args[i]);
 		else
-			conf->env = export_add_args(conf->env, com->args[i]);
+			conf->env = add_arg_new(conf->env, com->args[i]);
 	}
 	else
 		conf->export = ft_array_realloc(conf->export, com->args[i]);

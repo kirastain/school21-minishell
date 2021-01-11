@@ -7,24 +7,22 @@
 list tokens			| done
 
 анализ списка -> в	|
-
 структуру t_command	|
 
 открытую кавычку	|
-
 в поток				|
 
 ### Commands
 
 |echo|cd|pwd|export|unset|env|exit|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|check| |done|check|check|done| |
+|check| |DONE|check|check|DONE|DONE|
 
 ### Extra
 
-Ctrl+C				|
+Ctrl+C				| +-
 
-Ctrl+D				|
+Ctrl+D				| +-
 
 исполняемые файлы	|
 

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:32:08 by bbelen            #+#    #+#             */
-/*   Updated: 2020/12/10 18:43:37 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:40:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void    echo_command(t_command *com)
     while (com->args[i])
     {
         tmp = response;
-        response = ft_strjoin(response, ft_strjoin(com->args[i], com->spaces[i]));
+        response = ft_strjoin(response, com->args[i]);
         free(tmp);
         i++;
     }
