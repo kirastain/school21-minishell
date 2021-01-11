@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 17:43:47 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 01:41:32 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_command
 	char				*file_out;
 	struct s_command	*next;
 	char				**spaces; //нужно для echo пока что
+	char				pipe_sc;
 }						t_command;
 
 typedef struct			s_struct
@@ -40,7 +41,7 @@ typedef struct			s_struct
 	char				**export;
 	char				*shell_line; //изначальная строка, которую считали
 	int					signal;
-	int					error;
+	char				*error;
 	t_list				*tokens;
 	t_command			*command; //текущая команда
 	t_command			**command_array; //массив команд (на случай пайплайна) 
@@ -70,10 +71,17 @@ void		analyze_tokens(char **tokens, t_struct *conf);
 
 /*-------------checks---------------*/
 
-int			checking_line(char *line);
-void		check_after_vertline(char *line);
-int			check_streams(char *line);
-int			check_for_pc_vertline(char *line);
+void		checking_line(char *line, t_struct *conf);
+void  	  check_after_vertline(char *line, t_struct *conf);
+void 		check_streams(char *line, t_struct *conf);
+void 		check_double_stream(char *line, t_struct *conf);
+void 		check_for_pc_vertline(char *line, t_struct *conf);
+void		check_quotes(char *line, t_struct *conf);
+
+/*-------parser to command----------*/
+
+void		*delete_quotes(t_list *token, t_struct *conf);
+void		replace_env_var(char *arg, t_struct *conf, char **env);
 
 /*-------------commsnds-------------*/
 
@@ -92,7 +100,7 @@ void    	exit_command(t_struct *conf);
 /*-------------output----------------*/
 
 void		write_command(t_command *command, char *response);
-int			output_error(char *str);
+void		output_error(char *str, t_struct *conf);
 void		error_quit(char *str, t_struct *conf);
 
 /*-------------signals---------------*/

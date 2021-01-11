@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 01:29:00 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 01:32:18 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int		count_len(char *line)
 	{
 		i++;
 		while (line[i] != '\"' && line[i] != '\0')
+			i++;
+		i++;
+	}
+	else if (line[i] == '\'')
+	{
+		i++;
+		while (line[i] != '\'' && line[i] != '\0')
 			i++;
 		i++;
 	}
@@ -80,10 +87,7 @@ int    	parser_line(char *line, t_struct *conf)
 {
     //char    **spaces;
 
-	if (conf->tokens)
-		clear_tokens(conf);
-    if (!checking_line(line))
-        return (0);
+    checking_line(line, conf);
 	split_line(line, conf);
 	//tokens = split_tokens(line);
 	//analyze_tokens(tokens, conf);
