@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 17:51:12 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 01:31:57 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ void    shell_line(t_struct *conf)
     status = 1;
     while (status)
     {
+		if (conf->tokens)
+			clear_tokens(conf);
+		if (conf->command_array)
+			clear_command(conf->command_array);
         if (conf->shell_line)
             free(conf->shell_line);
         conf->shell_line = get_shell_line(conf->env);
