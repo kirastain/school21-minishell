@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 01:09:43 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/11 14:17:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_command
 typedef struct			s_struct
 {
 	char				**env; //массив переменных окружения
+	char				**export;
 	char				*shell_line; //изначальная строка, которую считали
 	int					signal;
 	t_list				*tokens;
@@ -50,6 +51,10 @@ int			signal_num;
 
 void		init_conf(t_struct *conf);
 t_command	*init_command();
+
+/*-------------main----------------*/
+
+void		shell_line(t_struct *conf);
 
 /*-------------utils---------------*/
 
@@ -77,11 +82,18 @@ void		pwd_command(t_command *com);
 void		echo_command(t_command *command);
 void		env_command(t_command *com, char **env);
 void		unset_command(t_command *com, t_struct *conf);
+void    	export_command(t_command *com, t_struct *conf);
+void		export_command_2(t_struct *conf, t_command *com, int i);
+int			check_arg(char **args);
+char		**add_arg_new(char **env, char *value);
+char		**change_exist_arg(char **env, char *value);
+int			check_arg_env(char **env, char *value);
 
 /*-------------output----------------*/
 
 void		write_command(t_command *command, char *response);
 int			output_error(char *str);
+void	error_quit(char *str, t_struct *conf);
 
 /*-------------signals---------------*/
 

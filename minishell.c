@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 01:15:57 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/11 14:03:44 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ void    shell_line(t_struct *conf)
             {
                 env_command(conf->command, conf->env);
             }
+			else if (ft_strcmp(line, "export") == 0)
+			{
+				export_command(conf->command, conf);
+			}
             if (parser_line(line, conf)) // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
             {
 				printf("---------------------ok\n");
