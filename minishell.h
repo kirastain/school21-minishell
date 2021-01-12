@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 17:11:56 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 00:59:22 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct			s_command
 	char				*file_in;
 	char				*file_out;
 	struct s_command	*next;
-	char				**spaces; //нужно для echo пока что
+	//char				**spaces; //нужно для echo пока что
 	char				pipe_sc;
 }						t_command;
 
@@ -42,7 +42,8 @@ typedef struct			s_struct
 	char				error;
 	t_list				*tokens;
 	t_command			*command; //текущая команда
-	t_command			**command_array; //массив команд (на случай пайплайна) 
+	t_command			**command_array; //массив команд (на случай пайплайна)
+	char				**betweens; 
 }						t_struct;
 
 int			g_signal;
@@ -70,12 +71,12 @@ void		ft_array_free(char **arr);
 char		**parser_env(char **env);
 int			parser_line(char *line, t_struct *conf);
 char		**split_tokens(char const *s);
-void		analyze_tokens(char **tokens, t_struct *conf);
+void		analyze_tokens(t_struct *conf, t_list *tokens);
 
 /*-------------checks---------------*/
 
 void		checking_line(char *line, t_struct *conf);
-void  	  check_after_vertline(char *line, t_struct *conf);
+void		check_after_vertline(char *line, t_struct *conf);
 void 		check_streams(char *line, t_struct *conf);
 void 		check_double_stream(char *line, t_struct *conf);
 void 		check_for_pc_vertline(char *line, t_struct *conf);
@@ -83,8 +84,10 @@ void		check_quotes(char *line, t_struct *conf);
 
 /*-------parser to command----------*/
 
+t_list		*create_command(t_list *tokens, t_struct *conf);
 void		*delete_quotes(t_list *token, t_struct *conf);
 void		replace_env_var(char *arg, t_struct *conf, char **env);
+int			is_command_end(char *token);
 
 /*-------------commsnds-------------*/
 

@@ -9,9 +9,6 @@ list tokens			| done
 анализ списка -> в	|
 структуру t_command	|
 
-открытую кавычку	|
-в поток				|
-
 ### Commands
 
 |echo|cd|pwd|export|unset|env|exit|
@@ -20,9 +17,11 @@ list tokens			| done
 
 ### Extra
 
-Ctrl+C				| +-
+Ctrl+C				| +
 
-Ctrl+D				| +-
+Ctrl+D				| +
+
+Ctrl+/
 
 исполняемые файлы	|
 

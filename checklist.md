@@ -27,12 +27,12 @@
 
 |Signals|Done|
 |:-:|:-:|
-|ctrl+C empty prompt| |
+|ctrl+C empty prompt|+|
 |ctrl+\ empty prompt| |
-|ctrl+D empty prompt| |
-|ctrl+C after wrote stuff| |
+|ctrl+D empty prompt|+|
+|ctrl+C after wrote stuff|+|
 |ctrl+\ after wrote stuff| |
-|ctrl+D after wrote stuff| |
+|ctrl+D after wrote stuff|+|
 |ctrl+C after cat or grep with no args| |
 |ctrl+\ after cat or grep with no args| |
 |ctrl+D after cat or grep with no args| |
