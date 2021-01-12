@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:32:18 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 17:15:59 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ int    	parser_line(char *line, t_struct *conf)
 	split_line(line, conf);
 	//tokens = split_tokens(line);
 	//analyze_tokens(tokens, conf);
-	return (1);
+	return (0);
 }

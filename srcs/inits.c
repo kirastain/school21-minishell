@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:05:06 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:48:45 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 16:26:31 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void    init_conf(t_struct *conf)
 {
-    conf->shell_line = NULL;
-    conf->signal = 0;
     conf->env = NULL;
     conf->command_array = NULL;
     conf->command = init_command();
