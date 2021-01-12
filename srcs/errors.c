@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:46:49 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 16:47:53 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,17 @@ void	output_error(char *str, t_struct *conf)
 	error_quit(str_error, conf);
 }
 
+void	simple_quit(t_struct *conf)
+{
+	ft_putstr_fd("\n", 1);
+	clear_conf(conf);
+	exit(1);
+}
+
 void	error_quit(char *str, t_struct *conf)
 {
 	ft_putstr_fd("Error: ", 1);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd("\n", 1);
-	shell_line(conf);
+	read_shell_line(conf);
 }

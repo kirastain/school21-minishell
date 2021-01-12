@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:37:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 17:49:48 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 17:18:47 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	change_pwd(char **cwd, t_struct *conf)
 		i++;
 	if (!(conf->env[i]))
 	{
-		conf->env = ft_realloc_mass(conf->env, "OLDPWD");
-		conf->env = ft_realloc_mass(conf->env, "");
+		conf->env = ft_array_realloc(conf->env, "OLDPWD");
+		conf->env = ft_array_realloc(conf->env, "");
 	}
 	free(conf->env[++i]);
 	conf->env[i] = ft_strdup(*cwd);
@@ -53,7 +53,7 @@ int		reset_cd(char *cwd, char *path, t_command *command)
 {
 	free(cwd);
 	free(path);
-	write_in_file(command, ft_strdup(""));
+	write_command(command, ft_strdup(""));
 	return (0);
 }
 

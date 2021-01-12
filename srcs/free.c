@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:49:06 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 17:14:40 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	clear_env_export(char **arr)
 
 void	clear_conf(t_struct *conf)
 {
-	free(conf->shell_line);
+	g_flag = 0;
+	free(g_shell_line);
 	clear_tokens(conf);
 	clear_command(conf->command_array);
 	clear_env_export(conf->env);

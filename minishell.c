@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:31:57 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 17:16:08 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int     if_line_empty(char *line)
     return (1);
 }
 
-void    shell_line(t_struct *conf)
+void    read_shell_line(t_struct *conf)
 {
     char    *line;
     int     status;
@@ -72,34 +72,18 @@ void    shell_line(t_struct *conf)
 			clear_tokens(conf);
 		if (conf->command_array)
 			clear_command(conf->command_array);
-        if (conf->shell_line)
-            free(conf->shell_line);
-        conf->shell_line = get_shell_line(conf->env);
-        ft_putstr_fd(conf->shell_line, 1);
-        get_next_line(0, &line);
+        if (g_shell_line)
+            free(g_shell_line);
+		g_signal = 0;
+        g_shell_line = get_shell_line(conf->env);
+        ft_putstr_fd(g_shell_line, 1);
+        gnl_shell(0, &line, conf);
         if (!if_line_empty(line))
         {
-           if (ft_strcmp(line, "pwd") == 0)
-            {
-                pwd_command(conf->command);
-            }
-            //check echo here
-            else if (ft_strcmp(line, "env") == 0)
-            {
-                env_command(conf->command, conf->env);
-            }
-			else if (ft_strcmp(line, "export") == 0)
-			{
-				export_command(conf->command, conf);
-			}
-			else if (ft_strcmp(line, "exit") == 0)
-			{
-				exit_command(conf);
-			}
-            if (parser_line(line, conf)) // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
+            if (!parser_line(line, conf)) // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
             {
 				printf("---------------------ok\n");
-                //status = run_command(conf); <-------------------------------вот сюда пошла команда 
+				//command_main(conf);
             }
         }
         free(line);
@@ -110,15 +94,17 @@ int main(int argc, char **argv, char **envp)
 {
     t_struct    conf;
 
-	conf.signal = 0;
+	g_signal = 0;
+	conf.error = '0';
+	g_flag = 0;
+	g_shell_line = NULL;
 	if (argc == 1 && argv[0])
 	{
-    	conf.shell_line = NULL;
     	init_conf(&conf);
     	conf.env = parser_env(envp);
 		signal(SIGINT, work_signals);
 		signal(SIGQUIT, work_signals);
-    	shell_line(&conf);
+    	read_shell_line(&conf);
     	return (0);
 	}
 }

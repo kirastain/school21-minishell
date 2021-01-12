@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:41:32 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/12 17:11:56 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ typedef struct			s_struct
 {
 	char				**env; //массив переменных окружения
 	char				**export;
-	char				*shell_line; //изначальная строка, которую считали
-	int					signal;
-	char				*error;
+	char				error;
 	t_list				*tokens;
 	t_command			*command; //текущая команда
 	t_command			**command_array; //массив команд (на случай пайплайна) 
 }						t_struct;
+
+int			g_signal;
+int			g_flag;
+char		*g_shell_line;
 
 /*-------------inits-----------------*/
 
@@ -54,7 +56,8 @@ t_command	*init_command();
 
 /*-------------main----------------*/
 
-void		shell_line(t_struct *conf);
+void		read_shell_line(t_struct *conf);
+int			gnl_shell(int fd, char **line, t_struct *conf);
 
 /*-------------utils---------------*/
 
@@ -85,6 +88,7 @@ void		replace_env_var(char *arg, t_struct *conf, char **env);
 
 /*-------------commsnds-------------*/
 
+void		command_main(t_struct *conf);
 void		pwd_command(t_command *com);
 void		echo_command(t_command *command);
 void		env_command(t_command *com, char **env);
@@ -96,12 +100,15 @@ char		**add_arg_new(char **env, char *value);
 char		**change_exist_arg(char **env, char *value);
 int			check_arg_env(char **env, char *value);
 void    	exit_command(t_struct *conf);
+int			cd_command(t_command *com, t_struct *conf);
+void		outsource(t_command *com, t_struct *conf);
 
 /*-------------output----------------*/
 
 void		write_command(t_command *command, char *response);
 void		output_error(char *str, t_struct *conf);
 void		error_quit(char *str, t_struct *conf);
+void		simple_quit(t_struct *conf);
 
 /*-------------signals---------------*/
 
