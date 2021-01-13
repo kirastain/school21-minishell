@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 14:49:15 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:43:10 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ void		ft_array_free(char **arr);
 /*-------------parser---------------*/
 
 char		**parser_env(char **env);
-void		parser_line(char *line, t_struct *conf);
+void    	parser_line(char **line, t_struct *conf);
 char		**split_tokens(char const *s);
+void		split_line(char **line, t_struct *conf);
 void		analyze_tokens(t_struct *conf, t_list *tokens);
 
 /*-------------checks---------------*/
@@ -126,6 +127,6 @@ void		work_signals(int sgnl);
 void		clear_tokens(t_struct *conf);
 void		clear_conf(t_struct *conf);
 void		clear_env_export(char **arr);
-void		clear_command(t_command **coms);
+void		clear_command(t_command *coms);
 
 #endif

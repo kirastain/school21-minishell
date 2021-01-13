@@ -6,27 +6,27 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 02:10:40 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:26:12 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	clear_command(t_command **coms)
+void	clear_command(t_command *coms)
 {
 	t_command	*com;
 	if (!coms)
 		return ;
-	while(*coms)
+	while(coms)
 	{
-		com = (*coms)->next;
-		free((*coms)->name);
-		free((*coms)->file_in);
-		free((*coms)->file_out);
-		free(*coms);
+		com = coms->next;
+		free(coms->name);
+		free(coms->file_in);
+		free(coms->file_out);
+		free(coms);
 		//if (*com->spaces)
 		//	clear_env_export(com->spaces);
-		*coms = com;
+		coms = com;
 	}
 }
 
@@ -64,7 +64,7 @@ void	clear_conf(t_struct *conf)
 	g_flag = 0;
 	free(g_shell_line);
 	clear_tokens(conf);
-	clear_command(conf->command_array);
+	clear_command(conf->command);
 	clear_env_export(conf->env);
 	if (conf->export)
 		clear_env_export(conf->export);

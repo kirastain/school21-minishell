@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:34:08 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 16:48:27 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:33:24 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int		is_strchr(char **left, int fd)
 int				gnl_shell(int fd, char **line, t_struct *conf)
 {
 	static char	*left[65535];
-	char		buff[BUFFER_SIZE + 1];
+	char		buff[1 + 1];
 	int			rd;
 
 	if (fd < 0 || !line || read(fd, buff, 0) < 0)
@@ -97,7 +97,7 @@ int				gnl_shell(int fd, char **line, t_struct *conf)
 	rd = 1;
 	while (is_strchr(left, fd) == 0 && rd != 0)
 	{
-		if ((rd = read(fd, buff, BUFFER_SIZE)) >= 0)
+		if ((rd = read(fd, buff, 1)) >= 0)
 		{
 			if (g_signal == 1)
 				return (0);

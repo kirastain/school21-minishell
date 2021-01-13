@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 02:16:58 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:38:51 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,24 @@ void    read_shell_line(t_struct *conf)
     status = 1;
     while (status)
     {
-		if (conf->tokens)
-			clear_tokens(conf);
-		if (conf->command_array)
-			clear_command(conf->command_array);
-        if (g_shell_line)
-            free(g_shell_line);
+		line = NULL;
 		g_signal = 0;
         g_shell_line = get_shell_line(conf->env);
         ft_putstr_fd(g_shell_line, 1);
         gnl_shell(0, &line, conf);
         if (!if_line_empty(line))
         {
-			printf("go into parser\n");
-            parser_line(line, conf); // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
+			printf("go into parser with line:%s\n", line);
+            parser_line(&line, conf); // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
 			printf("---------------------ok\n");
 			command_main(conf);
         }
+		if (conf->tokens)
+			clear_tokens(conf);
+		if (conf->command)
+			clear_command(conf->command);
+        if (g_shell_line)
+            free(g_shell_line);
         free(line);
     }
 }

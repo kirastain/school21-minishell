@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:00:37 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:20:33 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 	if (!(com = init_command(conf)))
 		error_quit("Memory issue", conf);
 	printf("com init done\n");
-	while (tokens &&!(is_command_end(tokens->content)))
+	printf("tokens len is %d\n", ft_lstsize(tokens));
+	while ((tokens != NULL) && !(is_command_end(tokens->content)))
 	{
-		if (flag_name == 0 && if_command_name(tokens->content, get_env_var("PATH", conf->env)))
+		if (flag_name == 0)
 		{
+			if (!(if_command_name(tokens->content, get_env_var("PATH", conf->env))))
+				error_quit("Command not found", conf);
 			printf("com name found\n");
 			com->name = ft_strdup(tokens->content);
 			flag_name = 1;
