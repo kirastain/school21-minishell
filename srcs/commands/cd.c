@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:37:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 17:18:47 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 14:39:01 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,27 @@ int		cd_command(t_command *com, t_struct *conf)
 	int			len;
 	int			i;
 	char		*path;
-	char		*cwd;
+	char		*cur_path;
 
-	errno = 0;
+	conf->error = 0;
 	len = ft_arrlen(com->args);
-	cwd = getcwd(NULL, 10);
+	cur_path = getcwd(NULL, 50);
+	printf("current path is %s\n", cur_path);
 	path = NULL;
 	if (len > 1)
-		return (fail_cd(conf, &cwd, &path));
+		return (fail_cd(conf, &cur_path, &path));
 	if (len == 0)
 	{
 		i = 0;
 		while (conf->env[i] && ft_strcmp(conf->env[i], "HOME") != 0)
 			i++;
-		path = conf->env[i] ? ft_strdup(conf->env[++i]) : ft_strdup(cwd);
+		path = conf->env[i] ? ft_strdup(conf->env[++i]) : ft_strdup(cur_path);
 	}
 	else
 		path = ft_strdup(com->args[0]);
 	if (chdir(path) != 0)
-		return (fail_cd(conf, &cwd, &path));
+		return (fail_cd(conf, &cur_path, &path));
 	else
-		change_pwd(&cwd, conf);
-	return (reset_cd(cwd, path, com));
+		change_pwd(&cur_path, conf);
+	return (reset_cd(cur_path, path, com));
 }

@@ -6,11 +6,30 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 02:42:34 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:00:37 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*get_env_var(char *arg, char **env)
+{
+	char	*value;
+	int		i;
+
+	i = 0;
+	value = NULL;
+	while (env[i])
+	{
+		if (ft_strcmp(arg, env[i]) == 0)
+		{
+			value = ft_strdup(env[i + 1]);
+			return (value);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 t_list	*create_command(t_list *tokens, t_struct *conf)
 {
@@ -27,7 +46,7 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 	printf("com init done\n");
 	while (tokens &&!(is_command_end(tokens->content)))
 	{
-		if (flag_name == 0 && if_command_name(tokens->content))
+		if (flag_name == 0 && if_command_name(tokens->content, get_env_var("PATH", conf->env)))
 		{
 			printf("com name found\n");
 			com->name = ft_strdup(tokens->content);

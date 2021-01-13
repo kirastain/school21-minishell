@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:51:27 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 02:28:52 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:01:37 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char *edit_arg(char *token)
 	return (name);
 }
 
-int	if_command_name(char *token)
+int	if_command_name(char *token, char *path)
 {
-	if (token)
+	if (token && path)
 		return (1);
 	return (0);
 }
