@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 19:53:42 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 22:23:08 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ void	clear_conf(t_struct *conf)
 	g_flag = 0;
 	if (g_shell_line)
 		free(g_shell_line);
-	clear_tokens(conf);
-	clear_command(conf->command);
+	printf("shell_line cleared\n");
+	if (conf->tokens)
+		clear_tokens(conf);
+	printf("tokens cleared\n");
 	clear_env_export(conf->env);
 	if (conf->export)
 		clear_env_export(conf->export);

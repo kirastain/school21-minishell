@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 19:47:06 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 21:27:54 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void		write_command(t_command *command, char *response);
 void		output_error(char *str, t_struct *conf);
 void		error_quit(char *str, t_struct *conf);
 void		simple_quit(t_struct *conf);
-void		error_code(char	*com, int code);
+void		error_code(char	*com, int code, t_struct *conf);
 
 /*-------------signals---------------*/
 
@@ -136,7 +136,7 @@ void		clear_command(t_command *coms);
 /*--------------forkszhopa-----------*/
 
 void		do_forks(t_command *com, char **args, int flag, t_struct *conf);
-void		do_fork(t_command *com, char **args);
+void		do_fork(t_command *com, char **args, t_struct *conf);
 void		redirect_fork(char *file, char *sym, char **args);
 void	arrow_to(int fd, char **args, pid_t curr_pid, int *p_fd);
 void	arrow_from(int fd, char **args, pid_t curr_pid, int *p_fd);

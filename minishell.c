@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 19:55:38 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 21:39:29 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char *get_shell_line(char **env)
         }
     }
     tmp = ft_strjoin(tmp, ":");
-    path = getcwd(NULL, 50); //понять бы с размерностью, ибо если выделено меньше байт, то возвращает null
+    path = getcwd(NULL, 200); //понять бы с размерностью, ибо если выделено меньше байт, то возвращает null
     j = ft_strlen(path);
     j--;
 	while (path[j--])
@@ -66,14 +66,15 @@ void    read_shell_line(t_struct *conf)
     char    *line;
     int     status;
 
+	printf("read sheel line\n");
     status = 1;
     while (status)
     {
-		if (line)
-			free(line);
 		line = NULL;
 		g_signal = 0;
+		printf("getting line\n");
         g_shell_line = get_shell_line(conf->env);
+		printf("got shell line\n");
         ft_putstr_fd(g_shell_line, 1);
         gnl_shell(0, &line, conf);
         if (!if_line_empty(line))
@@ -89,6 +90,8 @@ void    read_shell_line(t_struct *conf)
 			clear_command(conf->command);
         if (g_shell_line)
             free(g_shell_line);
+		if (line)
+			free(line);
     }
 }
 

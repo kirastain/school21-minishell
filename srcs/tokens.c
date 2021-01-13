@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:20:33 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 22:04:00 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ char	*get_env_var(char *arg, char **env)
 	return (NULL);
 }
 
+int		if_internal(char *name)
+{
+	if (ft_strcmp(name, "cd") == 0)
+		return (1);
+	if (ft_strcmp(name, "env") == 0)
+		return (1);
+	if (ft_strcmp(name, "echo") == 0)
+		return (1);
+	if (ft_strcmp(name, "exit") == 0)
+		return (1);
+	if (ft_strcmp(name, "export") == 0)
+		return (1);
+	if (ft_strcmp(name, "pwd") == 0)
+		return (1);
+	if (ft_strcmp(name, "unset") == 0)
+		return (1);
+	return (0);
+}
+
 t_list	*create_command(t_list *tokens, t_struct *conf)
 {
 	t_command	*com;
@@ -49,8 +68,8 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 	{
 		if (flag_name == 0)
 		{
-			if (!(if_command_name(tokens->content, get_env_var("PATH", conf->env))))
-				error_quit("Command not found", conf);
+			if (!(if_internal(tokens->content)) && !(if_command_name(tokens->content, get_env_var("PATH", conf->env))))
+				error_code(tokens->content, -5, conf);
 			printf("com name found\n");
 			com->name = ft_strdup(tokens->content);
 			flag_name = 1;

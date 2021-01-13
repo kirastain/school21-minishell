@@ -6,11 +6,17 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 18:33:14 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 22:30:50 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	get_current_error(t_struct *conf)
+{
+	ft_putstr_fd(ft_strjoin(conf->error, ": command not found\n"), 1);
+	conf->error = ft_strdup("127");
+}
 
 void	command_hub(t_command *com, t_struct *conf)
 {
@@ -57,7 +63,7 @@ void	command_hub(t_command *com, t_struct *conf)
 	else if (ft_strcmp(com->name, "$?") == 0)
 	{
 		printf("---------------error output\n");
-		//get_current_error(com, conf);
+		get_current_error(conf);
 	}
 	else
 	{

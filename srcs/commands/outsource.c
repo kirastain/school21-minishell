@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 19:56:58 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 21:26:39 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
 		}
 		else
 			conf->error = ft_strdup("1");
-		error_code(com->name, -5);
+		error_code(com->name, -5, conf);
 		flag = -1;
 		return (flag);
 	}
