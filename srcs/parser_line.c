@@ -6,16 +6,11 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 17:15:59 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 02:18:34 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*void	analyze_tokens(char **tokens, t_struct *conf)
-{
-	
-}*/
 
 int		count_len(char *line)
 {
@@ -83,13 +78,19 @@ void	split_line(char *line, t_struct *conf)
 *Внутри кавычек сохраняется все содержимое
 *Одна кавычка - открывается поток на чтение до закрывающей кавычки
 */
-int    	parser_line(char *line, t_struct *conf)
+void    	parser_line(char *line, t_struct *conf)
 {
     //char    **spaces;
 
+	printf("checking line\n");
     checking_line(line, conf);
+	printf("checking line ok\n");
+	if (g_signal == 8)
+		return ;
+	printf("splitting into tokens\n");
 	split_line(line, conf);
+	printf("to analyzing tokens\n");
+	analyze_tokens(conf, conf->tokens);
 	//tokens = split_tokens(line);
 	//analyze_tokens(tokens, conf);
-	return (0);
 }

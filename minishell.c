@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 17:16:08 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 02:16:58 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,10 @@ void    read_shell_line(t_struct *conf)
         gnl_shell(0, &line, conf);
         if (!if_line_empty(line))
         {
-            if (!parser_line(line, conf)) // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
-            {
-				printf("---------------------ok\n");
-				//command_main(conf);
-            }
+			printf("go into parser\n");
+            parser_line(line, conf); // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
+			printf("---------------------ok\n");
+			command_main(conf);
         }
         free(line);
     }

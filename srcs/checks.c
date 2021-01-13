@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 15:11:21 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:42:32 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 00:17:12 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ void checking_line(char *line, t_struct *conf)
     while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
         i++;
     if (line[i] == '|')
-        error_quit("Pipeline in the beginning of the line", conf);
+        output_error("|", conf);
+	else if (line[i] == ';')
+		output_error(";", conf);
     while (line[i] != '\0')
     {
         if (line[i] == ';' || line[i] == '|')
