@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:43:10 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 19:47:06 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@
 # include <stdio.h>
 # include "libft/libft.h"
 # include <signal.h>
+# include <sys/wait.h>
 
 typedef struct			s_command
 {
 	char				*name;
 	char				**args;
-	char				*file_in;
-	char				*file_out;
+	char				**file;
 	struct s_command	*next;
+	char				**arrows;
 	//char				**spaces; //нужно для echo пока что
 	char				pipe_sc;
 }						t_command;
@@ -39,7 +40,7 @@ typedef struct			s_struct
 {
 	char				**env; //массив переменных окружения
 	char				**export;
-	char				error;
+	char				*error;
 	t_list				*tokens;
 	t_command			*command; //текущая команда
 	t_command			**command_array; //массив команд (на случай пайплайна)
@@ -65,6 +66,7 @@ int			gnl_shell(int fd, char **line, t_struct *conf);
 int			ft_arrlen(char **arr);
 char		**ft_array_realloc(char **src, char *line);
 void		ft_array_free(char **arr);
+int			is_in(char *str, char c);
 
 /*-------------parser---------------*/
 
@@ -110,6 +112,7 @@ int			check_arg_env(char **env, char *value);
 void    	exit_command(t_struct *conf);
 int			cd_command(t_command *com, t_struct *conf);
 void		outsource(t_command *com, t_struct *conf);
+char		*outsource_relative(char *path, t_struct *conf);
 
 /*-------------output----------------*/
 
@@ -117,6 +120,7 @@ void		write_command(t_command *command, char *response);
 void		output_error(char *str, t_struct *conf);
 void		error_quit(char *str, t_struct *conf);
 void		simple_quit(t_struct *conf);
+void		error_code(char	*com, int code);
 
 /*-------------signals---------------*/
 
@@ -128,5 +132,13 @@ void		clear_tokens(t_struct *conf);
 void		clear_conf(t_struct *conf);
 void		clear_env_export(char **arr);
 void		clear_command(t_command *coms);
+
+/*--------------forkszhopa-----------*/
+
+void		do_forks(t_command *com, char **args, int flag, t_struct *conf);
+void		do_fork(t_command *com, char **args);
+void		redirect_fork(char *file, char *sym, char **args);
+void	arrow_to(int fd, char **args, pid_t curr_pid, int *p_fd);
+void	arrow_from(int fd, char **args, pid_t curr_pid, int *p_fd);
 
 #endif

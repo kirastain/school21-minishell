@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:26:12 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 19:53:42 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ void	clear_command(t_command *coms)
 	{
 		com = coms->next;
 		free(coms->name);
-		free(coms->file_in);
-		free(coms->file_out);
+		if (coms->file)
+			ft_array_free(coms->file);
+		if (com->args)
+			ft_array_free(com->args);
+		if (com->arrows)
+			ft_array_free(com->arrows);
 		free(coms);
 		//if (*com->spaces)
 		//	clear_env_export(com->spaces);
@@ -62,7 +66,8 @@ void	clear_env_export(char **arr)
 void	clear_conf(t_struct *conf)
 {
 	g_flag = 0;
-	free(g_shell_line);
+	if (g_shell_line)
+		free(g_shell_line);
 	clear_tokens(conf);
 	clear_command(conf->command);
 	clear_env_export(conf->env);

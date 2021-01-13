@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 03:11:05 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:33:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ void	command_hub(t_command *com, t_struct *conf)
 	{
 		printf("--------------to echo\n");
 		echo_command(com);
+	}
+	else if (ft_strcmp(com->name, ">") == 0)
+	{
+		printf("------------to redirect\n");
+		//redirect_command(com, conf);
+	}
+	else if (ft_strcmp(com->name, "$?") == 0)
+	{
+		printf("---------------error output\n");
+		//get_current_error(com, conf);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:38:51 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 19:55:38 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static char *get_shell_line(char **env)
 			break ;
 		}
     }
-    free(path);
+	if (path)
+    	free(path);
 	return (ft_strjoin(tmp, "$> "));
 }
 
@@ -68,6 +69,8 @@ void    read_shell_line(t_struct *conf)
     status = 1;
     while (status)
     {
+		if (line)
+			free(line);
 		line = NULL;
 		g_signal = 0;
         g_shell_line = get_shell_line(conf->env);
@@ -86,7 +89,6 @@ void    read_shell_line(t_struct *conf)
 			clear_command(conf->command);
         if (g_shell_line)
             free(g_shell_line);
-        free(line);
     }
 }
 
@@ -95,7 +97,7 @@ int main(int argc, char **argv, char **envp)
     t_struct    conf;
 
 	g_signal = 0;
-	conf.error = '0';
+	conf.error = ft_strdup("0");
 	g_flag = 0;
 	g_shell_line = NULL;
 	if (argc == 1 && argv[0])

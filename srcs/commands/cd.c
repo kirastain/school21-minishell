@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:37:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 16:09:34 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:37:55 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		cd_command(t_command *com, t_struct *conf)
 	char		*path;
 	char		*cur_path;
 
-	conf->error = 0;
+	conf->error = ft_strdup("0");
 	len = ft_arrlen(com->args);
 	cur_path = getcwd(NULL, 50);
 	printf("current path is %s\n", cur_path);
