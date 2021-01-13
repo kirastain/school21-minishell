@@ -15,7 +15,7 @@
 
 |exit|Done|
 |:-:|:-:|
-|with or without args| |
+|with or without args|+|
 
 |Return value|Done|
 |:-:|:-:|
@@ -75,7 +75,7 @@
 |Environment path|Done|
 |:-:|:-:|
 |unset $PATH and check|+|
-|set multiple dirs and check| |
+|set multiple dirs and check|+|
 
 |Simple quotes|Done|
 |:-:|:-:|
@@ -83,10 +83,10 @@
 
 |Redirection|Done|
 |:-:|:-:|
-|/ or >| |
+|/ or >| - + watch checks|
 
 |Pipes|Done|
 |:-:|:-:|
-|Works| |
-|Pipes and redirections| |
+|Works|+|
+|Pipes and redirections|watch checks|
 

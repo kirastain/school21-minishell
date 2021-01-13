@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 22:01:31 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 02:00:01 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,12 @@ void	error_code(char	*com, int code, t_struct *conf)
 	ft_putstr_fd(response, 1);
 	if (response)
 		free(response);
-	printf("clearing error code\n");
 	if (conf->tokens)
 		clear_tokens(conf);
-	//if (conf->command)
-	//	clear_command(conf->command);
+	if (conf->command)
+		clear_command(conf->command);
     if (g_shell_line)
     	free(g_shell_line);
-	printf("clearing error code done\n");
 	read_shell_line(conf);
 }
 
@@ -65,13 +63,13 @@ void	error_quit(char *str, t_struct *conf)
 	ft_putstr_fd("Error: ", 1);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd("\n", 1);
-	printf("hello error quit\n");
 	if (conf->tokens)
 		clear_tokens(conf);
 	if (conf->command)
 		clear_command(conf->command);
     if (g_shell_line)
     	free(g_shell_line);
-	printf("cleared\n");
+	free(conf->command);
+	free(conf->tokens);
 	read_shell_line(conf);
 }

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 00:50:22 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 01:56:16 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	clear_command(t_command *coms)
 	while(coms)
 	{
 		com = coms->next;
-		free(coms->name);
+		if (coms->name)
+			free(coms->name);
 		if (coms->file)
 			ft_array_free(coms->file);
 		if (com->args)
@@ -48,8 +49,6 @@ void	clear_command(t_command *coms)
 		if (com->arrows)
 			ft_array_free(com->arrows);
 		free(coms);
-		//if (*com->spaces)
-		//	clear_env_export(com->spaces);
 		coms = com;
 	}
 }

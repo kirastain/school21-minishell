@@ -39,7 +39,7 @@ void    export_command(t_command *com, t_struct *conf)
 	i = 0;
 	if (com->args[0] == NULL)
 	{
-		env_command(com, conf->env);
+		env_command(com, conf->env, conf);
 		while (conf->export[i] != NULL)
 		{
 			ft_putstr_fd(conf->export[i], 1);

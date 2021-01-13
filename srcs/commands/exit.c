@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:41:09 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 22:17:09 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 01:44:24 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void    exit_command(t_struct *conf)
 {
-	printf("exiting...\n");
     clear_conf(conf);
     exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 00:43:57 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 01:45:39 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	command_hub(t_command *com, t_struct *conf)
 	if (ft_strcmp(com->name, "pwd") == 0)
 	{
 		printf("------------------to pwd\n");
-    	pwd_command(com);
+    	pwd_command(com, conf);
 	}
 	else if (ft_strcmp(com->name, "env") == 0)
 	{
 		printf("------------------to env\n");
-        env_command(com, conf->env);
+        env_command(com, conf->env, conf);
 	}
 	else if (ft_strcmp(com->name, "export") == 0)
 	{
@@ -53,7 +53,7 @@ void	command_hub(t_command *com, t_struct *conf)
 	else if (ft_strcmp(com->name, "echo") == 0)
 	{
 		printf("--------------to echo\n");
-		echo_command(com);
+		echo_command(com, conf);
 	}
 	else if (ft_strcmp(com->name, ">") == 0)
 	{
@@ -105,7 +105,6 @@ void	command_main(t_struct *conf)
 		}
 		else
 		{
-			printf("to command hub\n");
 			command_hub(conf->command, conf);
 			conf->command = conf->command->next;
 		}

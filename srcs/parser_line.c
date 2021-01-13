@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:45:34 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 01:41:04 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	split_line(char **line, t_struct *conf)
 	t_list	*current;
 
 	i = 0;
-	printf("line is:%s", *line);
 	tmp = ft_strdup(*line);
 	while (tmp[i] != '\0')
 	{
@@ -84,17 +83,10 @@ void	split_line(char **line, t_struct *conf)
 */
 void    	parser_line(char **line, t_struct *conf)
 {
-    //char    **spaces;
-
-	printf("checking line:%s\n", *line);
     checking_line(*line, conf);
 	printf("checking line ok:%s\n", *line);
 	if (g_signal == 8)
 		return ;
-	printf("splitting into tokens\n");
 	split_line(line, conf);
-	printf("to analyzing tokens\n");
 	analyze_tokens(conf, conf->tokens);
-	//tokens = split_tokens(line);
-	//analyze_tokens(tokens, conf);
 }

@@ -6,22 +6,20 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 21:39:29 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 01:38:56 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static char *get_shell_line(char **env)
+static char	*get_logname(char **env)
 {
-    char    *path;
-    int     i;
-    char    *tmp;
-    int     j;
+	int	i;
+	char	*tmp;
 
-    i = 0;
+	i = 0;
     tmp = NULL;
-    while(env[i++])
+	while(env[i++])
     {
         if (ft_strcmp(env[i], "LOGNAME") == 0)
         {
@@ -32,17 +30,26 @@ static char *get_shell_line(char **env)
         }
     }
     tmp = ft_strjoin(tmp, ":");
-    path = getcwd(NULL, 200); //понять бы с размерностью, ибо если выделено меньше байт, то возвращает null
+	return (tmp);
+}
+
+static char *get_shell_line(char **env)
+{
+    char    *path;
+    char    *tmp;
+    int     j;
+
+    tmp = NULL;
+	tmp = get_logname(env);
+    path = getcwd(NULL, 200);
     j = ft_strlen(path);
     j--;
 	while (path[j--])
-    {
 		if (path[j] == '/')
 		{
 			tmp = ft_strjoin(tmp, &path[++j]);
 			break ;
 		}
-    }
 	if (path)
     	free(path);
 	return (ft_strjoin(tmp, "$> "));
@@ -66,22 +73,17 @@ void    read_shell_line(t_struct *conf)
     char    *line;
     int     status;
 
-	printf("read sheel line\n");
     status = 1;
     while (status)
     {
 		line = NULL;
 		g_signal = 0;
-		printf("getting line\n");
         g_shell_line = get_shell_line(conf->env);
-		printf("got shell line\n");
         ft_putstr_fd(g_shell_line, 1);
         gnl_shell(0, &line, conf);
         if (!if_line_empty(line))
         {
-			printf("go into parser with line:%s\n", line);
-            parser_line(&line, conf); // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
-			printf("---------------------ok\n");
+            parser_line(&line, conf);
 			command_main(conf);
         }
 		if (conf->tokens)
