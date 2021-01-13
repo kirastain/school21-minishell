@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:05:06 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 19:24:22 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 23:00:43 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,17 @@ void    init_conf(t_struct *conf)
 		error_quit("Memory issue\n", conf);
 	conf->export[0] = NULL;
 	conf->betweens[0] = NULL;
-
 }
 
-t_command    *init_command(t_struct *conf)
+void		init_command_array(t_struct *conf, int pipes)
+{
+	if (!(conf->arr = (char***)malloc(sizeof(char**) * pipes)) ||
+		!(conf->arr_int = (int*)malloc(sizeof(int) * pipes)) ||
+		!(conf->command_array = (t_command**)malloc(sizeof(t_command*) * pipes)))
+		error_quit("Memory issue\n", conf);
+}
+
+t_command	*init_command(t_struct *conf)
 {
     t_command   *com;
     

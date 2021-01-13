@@ -6,11 +6,31 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 22:23:08 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:50:22 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	clear_command_array(t_struct *conf, int pipes)
+{
+	int i;
+
+	i = 0;
+	while (i < pipes)
+	{
+		if (conf->arr[i] != NULL)
+			ft_array_free(conf->arr[i]);
+		else
+			free(conf->arr[i]);
+		i++;
+	}
+	if (conf->arr_int)
+		free(conf->arr_int);
+	if (conf->arr)
+		free(conf->arr);
+	free(conf->command_array);
+}
 
 void	clear_command(t_command *coms)
 {

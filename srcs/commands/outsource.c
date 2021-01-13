@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 21:26:39 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:54:31 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,27 @@ int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
 		flag = 1;
 	close(fd);
 	return (flag);
+}
+
+char	**outsouce_arr(t_command *com, t_struct *conf)
+{
+	char	**args;
+	int		name;
+	int		flag;
+	int		i;
+
+	i = 0;
+	if (!(args = (char**)malloc(sizeof(char*))))
+		error_quit("Memory issue", conf);
+	args[0] = NULL;
+	args = ft_array_realloc(args, com->name);
+	while (com->args[i])
+		args = ft_array_realloc(args, com->name);
+	get_com_path(conf, args, &name);
+	g_flag = 1;
+	conf->error = ft_strdup("0");
+	flag = check_outsource(args[0], com, name, conf);
+	return (args);
 }
 
 void	outsource(t_command *com, t_struct *conf)

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:03:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 18:23:33 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:08:42 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,28 @@ char	*path_doubledot(char *path, char *curr_path)
 	}
 	new_path = path_new(path, curr_path, i);
 	return (new_path);
+}
+
+int		get_fd(t_command *com, t_struct *conf)
+{
+	int	fd;
+	int	flag;
+
+	if (com->arrows[0] == NULL)
+		return (0);
+	if (ft_strcmp(com->arrows[0], ">>") == 0)
+		flag = O_RDWR | O_CREAT | O_APPEND;
+	else if (ft_strcmp(com->arrows[0], ">") == 0)
+		flag = O_RDWR | O_CREAT | O_TRUNC;
+	else
+		flag = O_RDONLY;
+	if ((fd = open(com->file[0], flag, 0666)) == -1)
+	{
+		conf->error = ft_strdup("1");
+		error_code(com->name, -1, conf);
+		return (-1);
+	}
+	return (fd);
 }
 
 char	*outsource_relative(char *path, t_struct *conf)
