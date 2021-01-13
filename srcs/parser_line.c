@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 00:32:51 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 02:18:34 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,41 +72,25 @@ void	split_line(char *line, t_struct *conf)
 	}
 }
 
-void	analyze_tokens(t_struct *conf, t_list *tokens)
-{
-	char	*token;
-
-	while (tokens)
-	{
-		token = tokens->content;
-		if (ft_strcmp(token, ":") == 0 || ft_strcmp(token, "|") == 0)
-		{
-			conf->betweens = ft_array_realloc(conf->betweens, tokens->next->content);
-		}
-		else
-		{
-			create_command(tokens, conf);
-		}
-		tokens = tokens->next;
-	}
-}
-
 /*Основная работа со строкой
 *Вначале она проверяется на неправильные последовательности символов ы hecking_line
 *Далее она должна быть разбита в связный список токенов (split_line), пробелы опущены
 *Внутри кавычек сохраняется все содержимое
 *Одна кавычка - открывается поток на чтение до закрывающей кавычки
 */
-int    	parser_line(char *line, t_struct *conf)
+void    	parser_line(char *line, t_struct *conf)
 {
     //char    **spaces;
 
+	printf("checking line\n");
     checking_line(line, conf);
+	printf("checking line ok\n");
 	if (g_signal == 8)
 		return ;
+	printf("splitting into tokens\n");
 	split_line(line, conf);
+	printf("to analyzing tokens\n");
 	analyze_tokens(conf, conf->tokens);
 	//tokens = split_tokens(line);
 	//analyze_tokens(tokens, conf);
-	return (0);
 }

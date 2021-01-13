@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 17:14:40 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 02:10:40 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	clear_command(t_command **coms)
 		free((*coms)->file_in);
 		free((*coms)->file_out);
 		free(*coms);
-		if (*com->spaces)
-			clear_env_export(com->spaces);
+		//if (*com->spaces)
+		//	clear_env_export(com->spaces);
 		*coms = com;
 	}
 }

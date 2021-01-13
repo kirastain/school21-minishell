@@ -47,11 +47,11 @@
 
 |export|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 
 |unset|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 
 |Environment variables|Done|
 |:-:|:-:|

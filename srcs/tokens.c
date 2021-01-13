@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 01:18:00 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 02:42:34 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,36 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 	char		*arg;
 
 	com = NULL;
-	com = init_command();
+	com = init_command(conf);
 	arg = NULL;
 	flag_name = 0;
-	if (!(com = init_command(com)))
-		error_quit("Memory issue");
-	while (!(is_command_end(tokens->content)))
+	if (!(com = init_command(conf)))
+		error_quit("Memory issue", conf);
+	printf("com init done\n");
+	while (tokens &&!(is_command_end(tokens->content)))
 	{
 		if (flag_name == 0 && if_command_name(tokens->content))
 		{
+			printf("com name found\n");
 			com->name = ft_strdup(tokens->content);
 			flag_name = 1;
+			printf("com name is %s\n", com->name);
 		}
-		if (!(arg = edit_arg(tokens->content)))
-			error_quit("Invalid argument\n", conf);
-		com->args = ft_array_realloc(com->args, arg);
-		if (arg)
-			free(arg);
+		else 
+		{
+			printf("Args found...\n");
+			if (!(arg = edit_arg(tokens->content)))
+				error_quit("Invalid argument\n", conf);
+			com->args = ft_array_realloc(com->args, arg);
+			if (arg)
+				free(arg);
+		}
+		printf("Next token...\n");
 		tokens = tokens->next;
 	}
-	conf->command_array = ft_com_add(conf->command_array, com);
+	printf("adding com to the list...\n");
+	ft_comadd_back(&(conf->command), com);
+	printf("com added\n");
 	return (tokens);
 }
 
@@ -49,14 +59,19 @@ void	analyze_tokens(t_struct *conf, t_list *tokens)
 	while (tokens)
 	{
 		token = tokens->content;
+		printf("our token is %s\n", token);
 		if (ft_strcmp(token, ":") == 0 || ft_strcmp(token, "|") == 0)
 		{
 			conf->betweens = ft_array_realloc(conf->betweens, tokens->content);
 		}
 		else
 		{
+			printf("Start creating command\n");
 			tokens = create_command(tokens, conf);
+			printf("command created\n");
 		}
-		tokens = tokens->next;
+		if (tokens)
+			tokens = tokens->next;
 	}
+	printf("analyze finished\n");
 }

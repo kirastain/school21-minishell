@@ -6,14 +6,14 @@
 
 list tokens			| done
 
-анализ списка -> в	|
+анализ списка -> в	| +-
 структуру t_command	|
 
 ### Commands
 
 |echo|cd|pwd|export|unset|env|exit|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|check|check|DONE|check|check|DONE|DONE|
+|DONE|check|DONE|DONE|DONE|DONE|DONE|
 
 ### Extra
 
