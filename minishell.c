@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 22:41:05 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 23:04:20 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,9 @@ void    read_shell_line(t_struct *conf)
 		printf("finished %s\n", conf->command->name);
 		clear_conf(conf);
 		printf("clear done\n");
-		//if (line)
-		//	free(line);
+		if (g_shell_line)
+			free(g_shell_line);
+		free(line);
     }
 }
 

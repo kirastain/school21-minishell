@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 21:16:22 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 23:32:57 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,12 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 void	analyze_tokens(t_struct *conf, t_list *tokens)
 {
 	char	*token;
+	t_list	*tmp;
 
-	while (tokens)
+	tmp = tokens;
+	while (tmp)
 	{
-		token = tokens->content;
+		token = tmp->content;
 		printf("our token is %s\n", token);
 		if (ft_strcmp(token, ":") == 0 || ft_strcmp(token, "|") == 0)
 		{
@@ -122,11 +124,12 @@ void	analyze_tokens(t_struct *conf, t_list *tokens)
 		else
 		{
 			printf("hey command\n");
-			tokens = create_command(tokens, conf);
+			tmp = create_command(tmp, conf);
 			printf("command created\n");
 		}
-		if (tokens)
-			tokens = tokens->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
+	//clear_tokens(conf);
 	printf("analyze finished\n");
 }

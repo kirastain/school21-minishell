@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 22:38:50 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 23:20:17 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void	split_line(char **line, t_struct *conf)
 		i = i + len;
 	}
 	current = conf->tokens;
+	while (current)
+	{
+		printf("token is %s\n", current->content);
+		current = current->next;
+	}
 	free(tmp);
 }
 

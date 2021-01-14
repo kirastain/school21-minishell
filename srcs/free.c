@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 22:25:16 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 23:31:53 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,19 @@ void	clear_command(t_command *coms)
 void	clear_tokens(t_struct *conf)
 {
 	t_list	*current;
-	void	*clean;
+	//char	*clean;
 
 	if (!conf || !(conf->tokens))
 		return ;
 	while (conf->tokens)
 	{
 		current = conf->tokens->next;
-		clean = conf->tokens->content;
-		//free(clean);
-		//free(conf->tokens);
+		//clean = conf->tokens->content;
+		//free((void*)clean);
+		printf("t_list token is %s\n", conf->tokens->content);
+		printf("t_list token is %s\n", conf->tokens->next->content);
+		free(conf->tokens->content);
+		free(conf->tokens);
 		conf->tokens = current;
 	}
 }
