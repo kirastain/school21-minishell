@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 23:32:57 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 00:20:19 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,85 +50,87 @@ int		if_internal(char *name)
 	return (0);
 }
 
-t_list	*create_command(t_list *tokens, t_struct *conf)
+int		create_command(char **tokens, t_struct *conf)
 {
 	t_command	*com;
 	int			flag_name;
-	char		*arg;
+	//char		*arg;
+	int			i;
 
-	arg = NULL;
+	//arg = NULL;
 	flag_name = 0;
+	i = 0;
 	if (!(com = init_command(conf)))
 		error_quit("Memory issue", conf);
-	printf("tokens len is %d with first as %s\n", ft_lstsize(tokens), tokens->content);
-	while (tokens != NULL)
+	//com->name = ft_strdup("");
+	//com->name = NULL;
+	printf("tokens len is %d with first as %s\n", ft_arrlen(tokens), tokens[i]);
+	while (tokens[i])
 	{
 		if (flag_name == 0)
 		{
-			if (!(if_internal(tokens->content)) && !(if_command_name(tokens->content, get_env_var("PATH", conf->env))))
-				error_code(tokens->content, -5, conf);
-			com->name = ft_strdup(tokens->content);
+			if (!(if_internal(tokens[i])) && !(if_command_name(tokens[i], get_env_var("PATH", conf->env))))
+				error_code(tokens[i], -5, conf);
+			com->name = ft_strdup(tokens[i]);
 			flag_name = 1;
 			printf("com name is %s\n", com->name);
 		}
-		else if (ft_strcmp(tokens->content, ">") == 0 || ft_strcmp(tokens->content, "<") == 0 ||
-					ft_strcmp(tokens->content, ">>") == 0)
+		else if (ft_strcmp(tokens[i], ">") == 0 || ft_strcmp(tokens[i], "<") == 0 ||
+					ft_strcmp(tokens[i], ">>") == 0)
 		{
 			printf("arrow found\n");
-			com->arrows = ft_array_realloc(com->arrows, tokens->content);
-			tokens = tokens->next;
-			com->file = ft_array_realloc(com->file, tokens->content);
+			com->arrows = ft_array_realloc(com->arrows, tokens[i]);
+			i++;
+			com->file = ft_array_realloc(com->file, tokens[i]);
 		}
-		else if (ft_strcmp(tokens->content, "|") == 0 || ft_strcmp(tokens->content, ";") == 0)
+		else if (ft_strcmp(tokens[i], "|") == 0 || ft_strcmp(tokens[i], ";") == 0)
 		{
-			com->pipe_sc = ((char*)(tokens->content))[0];
+			com->pipe_sc = tokens[i][0];
 			printf("pipe_sc is %c\n", com->pipe_sc);
 			//tokens = tokens->next;
 			break ;
 		}
 		else
 		{
-			printf("arg is %s\n", tokens->content);
-			if (!(arg = edit_arg(tokens->content, conf)))
+			printf("arg is %s\n", tokens[i]);
+			if (!(tokens[i] = edit_arg(tokens[i], conf)))
 				error_quit("Invalid argument", conf);
-			com->args = ft_array_realloc(com->args, arg);
-			if (arg)
-				free(arg);
+			com->args = ft_array_realloc(com->args, tokens[i]);
 		}
-		if (is_command_end(tokens->content))
-		{
-			ft_comadd_back(&(conf->command), com);
-			return (tokens->next);
-		}
-		tokens = tokens->next;
+		//if (is_command_end(tokens[i]))
+		//{
+		//	ft_comadd_back(&(conf->command), com);
+		//	return (i++);
+		//}
+		i++;
 	}
 	ft_comadd_back(&(conf->command), com);
 	printf("com added\n");
-	return (tokens);
+	return (i);
 }
 
-void	analyze_tokens(t_struct *conf, t_list *tokens)
+void	analyze_tokens(t_struct *conf, char **tokens)
 {
-	char	*token;
-	t_list	*tmp;
+	//char	*token;
+	//t_list	*tmp;
+	int		i;
 
-	tmp = tokens;
-	while (tmp)
+	//tmp = tokens;
+	i = 0;
+	while (tokens[i])
 	{
-		token = tmp->content;
-		printf("our token is %s\n", token);
-		if (ft_strcmp(token, ":") == 0 || ft_strcmp(token, "|") == 0)
+		printf("our token is %s\n", tokens[i]);
+		if (ft_strcmp(tokens[i], ":") == 0 || ft_strcmp(tokens[i], "|") == 0)
 		{
-			conf->betweens = ft_array_realloc(conf->betweens, tokens->content);
+			conf->betweens = ft_array_realloc(conf->betweens, tokens[i]);
+			i++;
 		}
 		else
 		{
 			printf("hey command\n");
-			tmp = create_command(tmp, conf);
+			i = i + create_command(&tokens[i], conf); // ----------------------edit
 			printf("command created\n");
 		}
-		if (tmp)
-			tmp = tmp->next;
 	}
 	//clear_tokens(conf);
 	printf("analyze finished\n");

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:05:06 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 22:15:48 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 00:15:23 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void		init_betweens(t_struct *conf)
 	if (!(conf->betweens = (char **)malloc(sizeof(char *) * 1)))
 		error_quit("Memory issue", conf);
 	conf->betweens[0] = NULL;
+	if (!(conf->tokens = (char **)malloc(sizeof(char *) * 1)))
+		error_quit("Memory issue", conf);
+	conf->tokens[0] = NULL;
 }
 
 void		init_conf(t_struct *conf)
@@ -24,9 +27,12 @@ void		init_conf(t_struct *conf)
 	conf->env = NULL;
 	conf->command_array = NULL;
 	conf->command = NULL;
+	//if (!(conf->tokens = (char**)malloc(sizeof(char*) * 1)))
+	//	error_quit("Memory issue", conf);
+	//conf->tokens[0] = NULL;
 	conf->tokens = NULL;
 	conf->curr_command = NULL;
-	if (!(conf->export = (char **)malloc(sizeof(char *) * 1)))
+	if (!(conf->export = (char**)malloc(sizeof(char*) * 1)))
 		error_quit("Memory issue", conf);
 	conf->export[0] = NULL;
 	conf->betweens = NULL;

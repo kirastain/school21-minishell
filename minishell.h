@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 22:16:14 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 00:31:54 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct			s_struct
 	char				**env;
 	char				**export;
 	char				*error;
-	t_list				*tokens;
+	char				**tokens;
 	t_command			*command;
 	t_command			*curr_command;
 	t_command			**command_array;
@@ -87,7 +87,9 @@ char					**parser_env(char **env);
 void					parser_line(char **line, t_struct *conf);
 char					**split_tokens(char const *s);
 void					split_line(char **line, t_struct *conf);
-void					analyze_tokens(t_struct *conf, t_list *tokens);
+//void					analyze_tokens(t_struct *conf, t_list *tokens);
+void	analyze_tokens(t_struct *conf, char **tokens);
+
 
 /*
 ** -------------checks---------------
@@ -104,7 +106,8 @@ void					check_quotes(char *line, t_struct *conf);
 ** -------parser to command----------
 */
 
-t_list					*create_command(t_list *tokens, t_struct *conf);
+//t_list					*create_command(t_list *tokens, t_struct *conf);
+int		create_command(char **tokens, t_struct *conf);
 void					*delete_quotes(t_list *token, t_struct *conf);
 void					replace_env_var(char *arg, t_struct *conf, char **env);
 int						is_command_end(char *token);
@@ -151,7 +154,7 @@ void					write_command(t_command *com, char *response,
 							t_struct *conf);
 void					output_error(char *str, t_struct *conf);
 void					error_quit(char *str, t_struct *conf);
-void					simple_quit(t_struct *conf);
+void					simple_quit();
 void					error_code(char	*com, int code, t_struct *conf);
 int						get_fd(t_command *com, t_struct *conf);
 

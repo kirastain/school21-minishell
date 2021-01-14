@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 22:21:47 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 00:31:42 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	output_error(char *str, t_struct *conf)
 	error_quit(str_error, conf);
 }
 
-void	simple_quit(t_struct *conf)
+void	simple_quit()
 {
 	ft_putstr_fd("\n", 1);
-	clear_conf(conf);
+	//ft_array_free(conf->env);
 	exit(1);
 }
 

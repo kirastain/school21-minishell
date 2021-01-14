@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 23:20:17 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 00:22:15 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ void	split_line(char **line, t_struct *conf)
 	int		len;
 	char	*token;
 	char	*tmp;
-	t_list	*current;
+	//t_list	*current;
 
 	i = 0;
 	tmp = ft_strdup(*line);
+	token = NULL;
 	printf("-line tmp is %s-\n", tmp);
 	while (tmp[i] != '\0')
 	{
@@ -68,15 +69,23 @@ void	split_line(char **line, t_struct *conf)
 		ft_strlcpy(token, &tmp[i], len + 1);
 		token[len] = '\0';
 		printf("token is %s\n", token);
-		ft_lstadd_back(&(conf->tokens), ft_lstnew(token));
+		conf->tokens = ft_array_realloc(conf->tokens, token);
+		free(token);
+		//ft_lstadd_back(&(conf->tokens), ft_lstnew(token));
 		i = i + len;
 	}
-	current = conf->tokens;
-	while (current)
+	i = 0;
+	while (conf->tokens[i])
 	{
-		printf("token is %s\n", current->content);
-		current = current->next;
+		printf("token is %s\n", conf->tokens[i]);
+		i++;
 	}
+	//current = conf->tokens;
+	//while (current)
+	//{
+	//	printf("token is %s\n", current->content);
+	//	current = current->next;
+	//}
 	free(tmp);
 }
 

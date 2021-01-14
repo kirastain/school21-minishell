@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:49:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:46:22 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 00:24:17 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	env_command(t_command *com, char **env, t_struct *conf)
 	{
 		while (env[i])
 		{
-			response = ft_strjoin(response, env[i++]);
-			response = ft_strjoin(response, "=");
-			response = ft_strjoin(response, env[i++]);
-			response = ft_strjoin(response, "\n");
+			response = ft_strjoin_free(response, env[i++]);
+			response = ft_strjoin_free(response, "=");
+			response = ft_strjoin_free(response, env[i++]);
+			response = ft_strjoin_free(response, "\n");
 		}
 	}
 	write_command(com, response, conf);

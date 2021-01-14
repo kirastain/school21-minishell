@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 23:31:53 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 23:50:00 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	clear_command(t_command *coms)
 	}
 }
 
+/*
 void	clear_tokens(t_struct *conf)
 {
 	t_list	*current;
@@ -93,6 +94,7 @@ void	clear_tokens(t_struct *conf)
 		conf->tokens = current;
 	}
 }
+*/
 
 void	clear_env_export(char **arr)
 {
@@ -134,8 +136,7 @@ void	clear_conf(t_struct *conf)
 	if (conf->betweens != NULL)
 		ft_array_free(conf->betweens);
 	printf("done\n");
-	if (conf->tokens != NULL)
-		clear_tokens(conf);
+	ft_array_free(conf->tokens);
 	printf("all done\n");
 
 }
