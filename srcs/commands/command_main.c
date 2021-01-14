@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 20:22:13 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:55:13 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,21 @@ void	command_hub(t_command *com, t_struct *conf)
 		printf("----------------to outsource\n");
 		outsource(com, conf);
 	}
+	printf("hub finished\n");
 }
 
-int		count_pipes(t_struct *conf)
+int		count_pipes(t_command *coms)
 {
 	t_command	*com;
 	int			count;
 
 	count = 1;
-	com = conf->command;
+	com = coms;
 	while (com && com->pipe_sc == '|')
 	{
+		printf("counting pipes func with %s\n", com->name);
 		count++;
+		printf("pipes = %d\nnext is", count);
 		com = com->next;
 	}
 	return (count);
@@ -91,26 +94,31 @@ void	command_main(t_struct *conf)
 	int			pipes;
 	t_command	*com;
 
-	if (!(conf->command))
+	com = conf->command;
+	if (!com)
 		return ;
-	while (conf->command)
+	while (com)
 	{
-		if (conf->command->pipe_sc == '|')
+		printf("com main start %s and %c\n", com->name, com->pipe_sc);
+		if (com->pipe_sc == '|')
 		{
-			pipes = count_pipes(conf);
+			printf("pipe is ooon\n");
+			pipes = count_pipes(com);
+			printf("num of pipes is %d", pipes);
 			init_command_array(conf, pipes);
-			conf->command = pipes_command(conf, conf->command);
+			com = pipes_command(conf, com);
 			do_pipes(conf, pipes);
 			clear_command_array(conf, pipes);
 		}
 		else
 		{
-			//printf("to com hub\n");
-			command_hub(conf->command, conf);
-			//printf("finished %s\n", conf->command->name);
-			com = conf->command->next;
-			clear_command(conf->command);
-			conf->command = com;
+			printf("to com hub\n");
+			command_hub(com, conf);
+			printf("finished %s\n", com->name);
+			//com = conf->command->next;
+			//clear_command(conf->command);
+			//conf->command = com;
+			com = com->next;
 		}
 	}
 	//printf("finished %s\n", conf->command->name);

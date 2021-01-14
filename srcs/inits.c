@@ -6,11 +6,18 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:05:06 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 18:37:12 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:15:48 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void		init_betweens(t_struct *conf)
+{
+	if (!(conf->betweens = (char **)malloc(sizeof(char *) * 1)))
+		error_quit("Memory issue", conf);
+	conf->betweens[0] = NULL;
+}
 
 void		init_conf(t_struct *conf)
 {
@@ -18,11 +25,11 @@ void		init_conf(t_struct *conf)
 	conf->command_array = NULL;
 	conf->command = NULL;
 	conf->tokens = NULL;
-	if (!(conf->export = (char **)malloc(sizeof(char *) * 1)) ||
-		!(conf->betweens = (char **)malloc(sizeof(char *) * 1)))
+	conf->curr_command = NULL;
+	if (!(conf->export = (char **)malloc(sizeof(char *) * 1)))
 		error_quit("Memory issue", conf);
 	conf->export[0] = NULL;
-	conf->betweens[0] = NULL;
+	conf->betweens = NULL;
 }
 
 void		init_command_array(t_struct *conf, int pipes)
@@ -43,10 +50,10 @@ t_command	*init_command(t_struct *conf)
 	if (!(com->args = (char**)malloc(sizeof(char*) * 1)))
 		error_quit("Memory issue", conf);
 	com->args[0] = NULL;
-	if (!(com->file = (char **)malloc(sizeof(char *) * 1)))
+	if (!(com->file = (char**)malloc(sizeof(char*) * 1)))
 		error_quit("Memory issue", conf);
 	com->file[0] = NULL;
-	if (!(com->arrows = (char **)malloc(sizeof(char *) * 1)))
+	if (!(com->arrows = (char**)malloc(sizeof(char*) * 1)))
 		error_quit("Memory issue", conf);
 	com->arrows[0] = NULL;
 	com->name = NULL;

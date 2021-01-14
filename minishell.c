@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 20:24:47 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:41:05 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,15 @@ void    read_shell_line(t_struct *conf)
         if (!if_line_empty(line))
         {
             parser_line(&line, conf);
-			printf("go to command\n");
-			command_main(conf);
+			printf("go to command with %s\n", conf->command->name);
+			if (g_signal != 8)
+				command_main(conf);
         }
-		//printf("finished %s\n", conf->command->name);
-		if (conf->tokens)
-			clear_tokens(conf);
-		//if (conf->command)
-		//	clear_command(conf->command);
-        if (g_shell_line)
-            free(g_shell_line);
-		if (line)
-			free(line);
+		printf("finished %s\n", conf->command->name);
+		clear_conf(conf);
+		printf("clear done\n");
+		//if (line)
+		//	free(line);
     }
 }
 

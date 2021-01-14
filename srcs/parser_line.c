@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 19:28:20 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:38:50 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ int		count_len(char *line)
 	if (line[i] == '\"')
 	{
 		i++;
-		while (line[i] != '\"' && line[i] != '\0')
+		while (line[i] != '\0' && line[i] != '\"')
 			i++;
 		i++;
 	}
 	else if (line[i] == '\'')
 	{
 		i++;
-		while (line[i] != '\'' && line[i] != '\0')
+		while (line[i] != '\0' && line[i] != '\'')
 			i++;
 		i++;
 	}
 	else
 	{
-		while ((line[i] != ' ' && line[i] != 9) && line[i] != '\0')
+		while (line[i] != '\0' && (line[i] != ' ' && line[i] != 9))
 			i++;
 	}
 	return (i);
@@ -57,6 +57,7 @@ void	split_line(char **line, t_struct *conf)
 
 	i = 0;
 	tmp = ft_strdup(*line);
+	printf("-line tmp is %s-\n", tmp);
 	while (tmp[i] != '\0')
 	{
 		while (tmp[i] == ' ' || tmp[i] == 9)
@@ -66,8 +67,9 @@ void	split_line(char **line, t_struct *conf)
 			return ;
 		ft_strlcpy(token, &tmp[i], len + 1);
 		token[len] = '\0';
+		printf("token is %s\n", token);
 		ft_lstadd_back(&(conf->tokens), ft_lstnew(token));
-		i = i + len + 1;
+		i = i + len;
 	}
 	current = conf->tokens;
 	free(tmp);
@@ -84,6 +86,7 @@ void	split_line(char **line, t_struct *conf)
 
 void	parser_line(char **line, t_struct *conf)
 {
+	init_betweens(conf);
 	checking_line(*line, conf);
 	printf("checking line ok:%s\n", *line);
 	if (g_signal == 8)

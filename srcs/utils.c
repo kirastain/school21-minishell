@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:45:51 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 18:42:42 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 21:44:36 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	ft_array_free(char **arr)
 
 	i = 0;
 	while (arr[i] != NULL)
-		free(arr[i++]);
+	{
+		free(arr[i]);
+		i++;
+	}
 	free(arr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 20:23:59 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:25:16 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	clear_command_array(t_struct *conf, int pipes)
 	free(conf->command_array);
 }
 
+/*
 void	clear_command(t_command *coms)
 {
 	g_flag = 0;
@@ -47,29 +48,31 @@ void	clear_command(t_command *coms)
 		ft_array_free(coms->arrows);
 	free(coms);
 }
+*/
 
-/*void	clear_command(t_command *coms)
+void	clear_command(t_command *coms)
 {
 	t_command	*com;
 
 	g_flag = 0;
-	if (!coms)
-		return ;
 	while (coms)
 	{
 		printf("clear command\n");
 		com = coms->next;
 		free(coms->name);
-		if (coms->file)
-			ft_array_free(coms->file);
-		if (com->args)
-			ft_array_free(com->args);
-		if (com->arrows)
-			ft_array_free(com->arrows);
+		printf("cleared name\n");
+		ft_array_free(coms->file);
+		printf("cleared file\n");
+		printf("arg is\n");
+		//ft_array_free(com->args);
+		printf("cleared args\n");
+		//ft_array_free(com->arrows);
+		printf("cleared arrows\n");
 		free(coms);
 		coms = com;
+		printf("clear done\n");
 	}
-}*/
+}
 
 void	clear_tokens(t_struct *conf)
 {
@@ -82,8 +85,8 @@ void	clear_tokens(t_struct *conf)
 	{
 		current = conf->tokens->next;
 		clean = conf->tokens->content;
-		free(clean);
-		free(conf->tokens);
+		//free(clean);
+		//free(conf->tokens);
 		conf->tokens = current;
 	}
 }
@@ -104,14 +107,32 @@ void	clear_env_export(char **arr)
 
 void	clear_conf(t_struct *conf)
 {
+	t_command		*com;
+
 	g_flag = 0;
-	//if (g_shell_line)
-	//	free(g_shell_line);
-	//printf("shell_line cleared\n");
-	if (conf->tokens)
+	if (conf->command != NULL)
+	{
+		while (conf->command)
+		{
+			com = conf->command->next;
+			printf("done\n");
+			ft_array_free(conf->command->file);
+			printf("done\n");
+			ft_array_free(conf->command->arrows);
+			printf("done\n");
+			ft_array_free(conf->command->args);
+			printf("done\n");
+			free(conf->command->name);
+			free(conf->command);
+			conf->command = com;
+			printf("done\n");
+		}
+	}
+	if (conf->betweens != NULL)
+		ft_array_free(conf->betweens);
+	printf("done\n");
+	if (conf->tokens != NULL)
 		clear_tokens(conf);
-	//printf("tokens cleared\n");
-	clear_env_export(conf->env);
-	if (conf->export)
-		clear_env_export(conf->export);
+	printf("all done\n");
+
 }

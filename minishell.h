@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 19:51:35 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:16:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_struct
 	char				*error;
 	t_list				*tokens;
 	t_command			*command;
+	t_command			*curr_command;
 	t_command			**command_array;
 	char				**betweens;
 	char				***arr;
@@ -60,6 +61,7 @@ char		*g_error;
 void					init_conf(t_struct *conf);
 t_command				*init_command(t_struct *conf);
 void					init_command_array(t_struct *conf, int pipes);
+void					init_betweens(t_struct *conf);
 
 /*
 ** -------------main----------------
