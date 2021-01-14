@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:05:06 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 16:02:37 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 18:37:12 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ t_command	*init_command(t_struct *conf)
 
 	if (!(com = (t_command*)malloc(sizeof(t_command))))
 		error_quit("Memory issue", conf);
-	com->args = (char**)malloc(sizeof(char*) * 1);
+	if (!(com->args = (char**)malloc(sizeof(char*) * 1)))
+		error_quit("Memory issue", conf);
 	com->args[0] = NULL;
 	if (!(com->file = (char **)malloc(sizeof(char *) * 1)))
 		error_quit("Memory issue", conf);

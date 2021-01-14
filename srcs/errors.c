@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:57:29 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:04:25 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	error_code(char *com, int code, t_struct *conf)
 {
 	char	*response;
 
-	printf("error code\n");
+	//printf("error code\n");
 	response = NULL;
 	response = ft_strjoin(com, ": ");
 	if (code == -5)

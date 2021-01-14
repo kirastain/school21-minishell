@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:20:08 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:49:52 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 	int			flag_name;
 	char		*arg;
 
-	com = init_command(conf);
 	arg = NULL;
 	flag_name = 0;
 	if (!(com = init_command(conf)))
@@ -85,11 +84,12 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 		{
 			com->pipe_sc = ((char*)(tokens->content))[0];
 			printf("pipe_sc is %c\n", com->pipe_sc);
-			//tokens = tokens->next;
+			tokens = tokens->next;
 			break ;
 		}
 		else
 		{
+			printf("arg is %s\n", tokens->content);
 			if (!(arg = edit_arg(tokens->content, conf)))
 				error_quit("Invalid argument", conf);
 			com->args = ft_array_realloc(com->args, arg);
@@ -122,6 +122,7 @@ void	analyze_tokens(t_struct *conf, t_list *tokens)
 		}
 		else
 		{
+			printf("hey command\n");
 			tokens = create_command(tokens, conf);
 			printf("command created\n");
 		}

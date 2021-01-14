@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 14:42:32 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:51:35 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct			s_struct
 int			g_signal;
 int			g_flag;
 char		*g_shell_line;
+char		*g_error;
 
 /*
 ** -------------inits-----------------
@@ -109,6 +110,10 @@ int						if_command_name(char *token, char *path);
 char					*edit_arg(char *token, t_struct *conf);
 void					ft_comadd_back(t_command **lst, t_command *new);
 int						if_internal(char *name);
+char					*edit_arg_main(char *token, char **env);
+char 			*find_env_var(char *token, int *i, int *j);
+char			*quotes(char *token, int *i, int *j, char **env);
+char	*get_env_var(char *arg, char **env);
 
 /*
 ** -------------commsnds-------------

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:37:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 16:14:34 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:56:28 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	write_fail(char *name, int errnum, char *response, t_struct *conf)
 {
-	conf->error = ft_strdup("1");
+	g_error = "1";
 	free(response);
 	error_code(name, errnum, conf);
 }
@@ -40,8 +40,8 @@ void		write_command(t_command *com, char *response, t_struct *conf)
 
 	i = -1;
 	errno = 0;
-	printf("write_command\n");
-	conf->error = ft_strdup("0");
+	//printf("write_command\n");
+	g_error = "0";
 	if (com->pipe_sc == '|')
 		ft_putstr_fd(response, 1);
 	else

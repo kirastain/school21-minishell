@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:49:03 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:55:36 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
 	{
 		if (name == 1)
 		{
-			conf->error = ft_strdup("127");
+			g_error = "127";
 		}
 		else
-			conf->error = ft_strdup("1");
+			g_error = "1";
 		error_code(com->name, -5, conf);
 		flag = -1;
 		return (flag);
@@ -99,7 +99,7 @@ char	**outsouce_arr(t_command *com, t_struct *conf)
 		args = ft_array_realloc(args, com->name);
 	get_com_path(conf, args, &name);
 	g_flag = 1;
-	conf->error = ft_strdup("0");
+	g_error = "0";
 	flag = check_outsource(args[0], com, name, conf);
 	return (args);
 }
@@ -120,7 +120,7 @@ void	outsource(t_command *com, t_struct *conf)
 		args = ft_array_realloc(args, com->name);
 	get_com_path(conf, args, &name);
 	g_flag = 1;
-	conf->error = ft_strdup("0");
+	g_error = "0";
 	flag = check_outsource(args[0], com, name, conf);
 	do_forks(com, args, flag, conf);
 	ft_array_free(args);

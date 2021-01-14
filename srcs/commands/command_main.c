@@ -6,16 +6,16 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:51:20 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:22:13 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	get_current_error(t_struct *conf)
+void	get_current_error()
 {
-	ft_putstr_fd(ft_strjoin(conf->error, ": command not found\n"), 1);
-	conf->error = ft_strdup("127");
+	ft_putstr_fd(ft_strjoin(g_error, ": command not found\n"), 1);
+	g_error = "127";
 }
 
 void	command_hub(t_command *com, t_struct *conf)
@@ -62,7 +62,7 @@ void	command_hub(t_command *com, t_struct *conf)
 	else if (ft_strcmp(com->name, "$?") == 0)
 	{
 		printf("---------------error output\n");
-		get_current_error(conf);
+		get_current_error();
 	}
 	else
 	{
@@ -88,7 +88,8 @@ int		count_pipes(t_struct *conf)
 
 void	command_main(t_struct *conf)
 {
-	int	pipes;
+	int			pipes;
+	t_command	*com;
 
 	if (!(conf->command))
 		return ;
@@ -104,8 +105,13 @@ void	command_main(t_struct *conf)
 		}
 		else
 		{
+			//printf("to com hub\n");
 			command_hub(conf->command, conf);
-			conf->command = conf->command->next;
+			//printf("finished %s\n", conf->command->name);
+			com = conf->command->next;
+			clear_command(conf->command);
+			conf->command = com;
 		}
 	}
+	//printf("finished %s\n", conf->command->name);
 }

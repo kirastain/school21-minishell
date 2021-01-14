@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 01:38:56 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:24:47 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static char	*get_logname(char **env)
 {
 	int	i;
 	char	*tmp;
+	char	*temp;
 
 	i = 0;
     tmp = NULL;
@@ -23,14 +24,13 @@ static char	*get_logname(char **env)
     {
         if (ft_strcmp(env[i], "LOGNAME") == 0)
         {
-            if (tmp)
-                free(tmp);
             tmp = ft_strdup(env[++i]);
             break ;
         }
     }
-    tmp = ft_strjoin(tmp, ":");
-	return (tmp);
+    temp = ft_strjoin(tmp, ":");
+	free(tmp);
+	return (temp);
 }
 
 static char *get_shell_line(char **env)
@@ -41,18 +41,19 @@ static char *get_shell_line(char **env)
 
     tmp = NULL;
 	tmp = get_logname(env);
-    path = getcwd(NULL, 200);
+    path = getcwd(NULL, 50);
     j = ft_strlen(path);
     j--;
 	while (path[j--])
 		if (path[j] == '/')
 		{
-			tmp = ft_strjoin(tmp, &path[++j]);
+			tmp = ft_strjoin_free(tmp, &path[++j]);
 			break ;
 		}
 	if (path)
     	free(path);
-	return (ft_strjoin(tmp, "$> "));
+	tmp = ft_strjoin_free(tmp, "$> ");
+	return (tmp);
 }
 
 int     if_line_empty(char *line)
@@ -84,12 +85,14 @@ void    read_shell_line(t_struct *conf)
         if (!if_line_empty(line))
         {
             parser_line(&line, conf);
+			printf("go to command\n");
 			command_main(conf);
         }
+		//printf("finished %s\n", conf->command->name);
 		if (conf->tokens)
 			clear_tokens(conf);
-		if (conf->command)
-			clear_command(conf->command);
+		//if (conf->command)
+		//	clear_command(conf->command);
         if (g_shell_line)
             free(g_shell_line);
 		if (line)
@@ -102,7 +105,7 @@ int main(int argc, char **argv, char **envp)
     t_struct    conf;
 
 	g_signal = 0;
-	conf.error = ft_strdup("0");
+	g_error = "0";
 	g_flag = 0;
 	g_shell_line = NULL;
 	if (argc == 1 && argv[0])

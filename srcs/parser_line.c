@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 16:08:10 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:28:20 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	split_line(char **line, t_struct *conf)
 		i = i + len + 1;
 	}
 	current = conf->tokens;
+	free(tmp);
 }
 
 /*
@@ -88,5 +89,6 @@ void	parser_line(char **line, t_struct *conf)
 	if (g_signal == 8)
 		return ;
 	split_line(line, conf);
+	printf("to analyze\n");
 	analyze_tokens(conf, conf->tokens);
 }

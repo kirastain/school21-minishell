@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:03:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:57:56 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:56:16 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		get_fd(t_command *com, t_struct *conf)
 		flag = O_RDONLY;
 	if ((fd = open(com->file[0], flag, 0666)) == -1)
 	{
-		conf->error = ft_strdup("1");
+		g_error = "1";
 		error_code(com->name, -1, conf);
 		return (-1);
 	}

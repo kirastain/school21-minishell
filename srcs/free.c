@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:59:17 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:23:59 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,32 @@ void	clear_command_array(t_struct *conf, int pipes)
 
 void	clear_command(t_command *coms)
 {
+	g_flag = 0;
+	if (!coms)
+		return ;
+	printf("clear command\n");
+	free(coms->name);
+	if (coms->file)
+		ft_array_free(coms->file);
+	if (coms->args)
+		ft_array_free(coms->args);
+	if (coms->arrows)
+		ft_array_free(coms->arrows);
+	free(coms);
+}
+
+/*void	clear_command(t_command *coms)
+{
 	t_command	*com;
 
+	g_flag = 0;
 	if (!coms)
 		return ;
 	while (coms)
 	{
+		printf("clear command\n");
 		com = coms->next;
-		if (coms->name)
-			free(coms->name);
+		free(coms->name);
 		if (coms->file)
 			ft_array_free(coms->file);
 		if (com->args)
@@ -52,18 +69,20 @@ void	clear_command(t_command *coms)
 		free(coms);
 		coms = com;
 	}
-}
+}*/
 
 void	clear_tokens(t_struct *conf)
 {
 	t_list	*current;
+	void	*clean;
 
 	if (!conf || !(conf->tokens))
 		return ;
 	while (conf->tokens)
 	{
 		current = conf->tokens->next;
-		free(conf->tokens->content);
+		clean = conf->tokens->content;
+		free(clean);
 		free(conf->tokens);
 		conf->tokens = current;
 	}
@@ -86,12 +105,12 @@ void	clear_env_export(char **arr)
 void	clear_conf(t_struct *conf)
 {
 	g_flag = 0;
-	if (g_shell_line)
-		free(g_shell_line);
-	printf("shell_line cleared\n");
+	//if (g_shell_line)
+	//	free(g_shell_line);
+	//printf("shell_line cleared\n");
 	if (conf->tokens)
 		clear_tokens(conf);
-	printf("tokens cleared\n");
+	//printf("tokens cleared\n");
 	clear_env_export(conf->env);
 	if (conf->export)
 		clear_env_export(conf->export);

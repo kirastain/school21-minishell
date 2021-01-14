@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:32:08 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:40:32 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:05:52 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void		echo_command(t_command *com, t_struct *conf)
 	while (com->args[i])
 	{
 		if (com->args[i + 1])
-			response = ft_strjoin(response, ft_strjoin(com->args[i], " "));
+			response = ft_strjoin_free(response, ft_strjoin(com->args[i], " "));
 		else
-			response = ft_strjoin(response, com->args[i]);
+			response = ft_strjoin_free(response, com->args[i]);
 		i++;
 	}
 	if (if_n == 0)
-		response = ft_strjoin(response, "\n");
+		response = ft_strjoin_free(response, "\n");
 	write_command(com, response, conf);
 }
