@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 01:30:54 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 14:42:32 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void					*delete_quotes(t_list *token, t_struct *conf);
 void					replace_env_var(char *arg, t_struct *conf, char **env);
 int						is_command_end(char *token);
 int						if_command_name(char *token, char *path);
-char					*edit_arg(char *token);
+char					*edit_arg(char *token, t_struct *conf);
 void					ft_comadd_back(t_command **lst, t_command *new);
 int						if_internal(char *name);
 

@@ -6,16 +6,17 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:51:27 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:01:37 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:15:30 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *edit_arg(char *token)
+char *edit_arg(char *token, t_struct *conf)
 {
 	char	*name;
 
+	printf("edir arg %s\n", conf->error);
 	name = ft_strdup(token);
 	return (name);
 }

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 01:53:14 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:20:08 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,13 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 	int			flag_name;
 	char		*arg;
 
-	com = NULL;
 	com = init_command(conf);
 	arg = NULL;
 	flag_name = 0;
 	if (!(com = init_command(conf)))
 		error_quit("Memory issue", conf);
 	printf("tokens len is %d\n", ft_lstsize(tokens));
-	while ((tokens != NULL) && !(is_command_end(tokens->content)))
+	while (tokens != NULL)
 	{
 		if (flag_name == 0)
 		{
@@ -73,15 +72,35 @@ t_list	*create_command(t_list *tokens, t_struct *conf)
 			flag_name = 1;
 			printf("com name is %s\n", com->name);
 		}
-		else 
+		else if (ft_strcmp(tokens->content, ">") == 0 || ft_strcmp(tokens->content, "<") == 0 ||
+					ft_strcmp(tokens->content, ">>") == 0)
 		{
-			printf("Args found...\n");
-			if (!(arg = edit_arg(tokens->content)))
+			printf("arrow found\n");
+			com->arrows = ft_array_realloc(com->arrows, tokens->content);
+			//error what
+			tokens = tokens->next;
+			com->file = ft_array_realloc(com->file, tokens->content);
+		}
+		else if (ft_strcmp(tokens->content, "|") == 0 || ft_strcmp(tokens->content, ";") == 0)
+		{
+			com->pipe_sc = ((char*)(tokens->content))[0];
+			printf("pipe_sc is %c\n", com->pipe_sc);
+			//tokens = tokens->next;
+			break ;
+		}
+		else
+		{
+			if (!(arg = edit_arg(tokens->content, conf)))
 				error_quit("Invalid argument", conf);
 			com->args = ft_array_realloc(com->args, arg);
 			if (arg)
 				free(arg);
 		}
+		//if (is_command_end(tokens->content))
+		//{
+		//	ft_comadd_back(&(conf->command), com);
+		//	return (tokens->next);
+		//}
 		tokens = tokens->next;
 	}
 	ft_comadd_back(&(conf->command), com);
