@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 00:54:31 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:49:03 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ char	*path_com(char *name, char **env)
 			path[j] = ft_strjoin(path[j], name);
 			if (open(path[j], O_RDONLY) != -1)
 			{
-				if (name)
-					free(name);
 				name = ft_strdup(path[j]);
 				break ;
 			}
@@ -48,7 +46,7 @@ void	get_com_path(t_struct *conf, char **args, int *name)
 	if (args[0][0] == '/')
 		*name = 0;
 	else if (is_in(args[0], '/'))
-		args[0] = outsource_relative(args[0], conf); //do this
+		args[0] = outsource_relative(args[0], conf);
 	else
 	{
 		args[0] = path_com(args[0], conf->env);
@@ -58,8 +56,8 @@ void	get_com_path(t_struct *conf, char **args, int *name)
 
 int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
 {
-	int	flag;
-	int	fd;
+	int			flag;
+	int			fd;
 	struct stat	buffer;
 
 	flag = 0;
@@ -113,7 +111,6 @@ void	outsource(t_command *com, t_struct *conf)
 	int		name;
 	int		flag;
 
-	printf("outsource %s\n", com->name);
 	i = 0;
 	if (!(args = (char**)malloc(sizeof(char*))))
 		error_quit("Memory issue", conf);

@@ -6,13 +6,14 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 23:04:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 00:57:44 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 16:10:39 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		redirect_pipefork(t_struct *conf, int fid, char **args, t_command *command_array)
+void		redirect_pipefork(t_struct *conf, int fid,
+					char **args, t_command *command_array)
 {
 	pid_t	curr_pid;
 	int		fd[2];
@@ -60,7 +61,6 @@ void		next_pipe(t_struct *conf, int *fd, int pipe_from, int i)
 	exit(0);
 }
 
-
 void		do_pipes(t_struct *conf, int pipes)
 {
 	pid_t	pid;
@@ -95,8 +95,8 @@ t_command	*pipes_command(t_struct *conf, t_command *com)
 	int flag;
 
 	i = 0;
-	flag = 0; 
-	while (!flag) 
+	flag = 0;
+	while (!flag)
 	{
 		if (if_internal(com->name) == 0)
 		{
@@ -108,10 +108,10 @@ t_command	*pipes_command(t_struct *conf, t_command *com)
 			conf->arr[i] = NULL;
 			conf->command_array[i] = com;
 		}
-		conf->arr_int[i++] = get_fd(com, conf); 
-		flag = 1; 
+		conf->arr_int[i++] = get_fd(com, conf);
+		flag = 1;
 		if (com->pipe_sc == '|')
-			flag = 0; 
+			flag = 0;
 		com = com->next;
 	}
 	return (com);

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 21:22:54 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 21:19:33 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 16:11:48 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ void	work_signals(int sgnl)
 		{
 			ft_putstr_fd("\n", 1);
 			ft_putstr_fd(g_shell_line, 1);
-		}		
+		}
 	}
 	else if (sgnl == SIGQUIT)
-	{
 		if (g_flag == 1)
 			ft_putstr_fd("Quit\n", 1);
-	}
 }

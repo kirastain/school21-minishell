@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 02:00:01 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:57:29 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	simple_quit(t_struct *conf)
 	exit(1);
 }
 
-void	error_code(char	*com, int code, t_struct *conf)
+void	error_code(char *com, int code, t_struct *conf)
 {
 	char	*response;
 
@@ -53,8 +53,8 @@ void	error_code(char	*com, int code, t_struct *conf)
 		clear_tokens(conf);
 	if (conf->command)
 		clear_command(conf->command);
-    if (g_shell_line)
-    	free(g_shell_line);
+	if (g_shell_line)
+		free(g_shell_line);
 	read_shell_line(conf);
 }
 
@@ -67,8 +67,8 @@ void	error_quit(char *str, t_struct *conf)
 		clear_tokens(conf);
 	if (conf->command)
 		clear_command(conf->command);
-    if (g_shell_line)
-    	free(g_shell_line);
+	if (g_shell_line)
+		free(g_shell_line);
 	free(conf->command);
 	free(conf->tokens);
 	read_shell_line(conf);

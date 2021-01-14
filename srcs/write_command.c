@@ -6,16 +6,16 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:37:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 02:04:48 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 16:14:34 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static	void	write_fail(char *name, int errnum, char *response, t_struct *conf)
+static void	write_fail(char *name, int errnum, char *response, t_struct *conf)
 {
 	conf->error = ft_strdup("1");
-	free (response);
+	free(response);
 	error_code(name, errnum, conf);
 }
 
@@ -32,10 +32,10 @@ static int	return_fd_flag(char *arrow)
 	return (flag);
 }
 
-void	write_command(t_command *com, char *response, t_struct *conf)
+void		write_command(t_command *com, char *response, t_struct *conf)
 {
 	int i;
-    int flag;
+	int flag;
 	int fd;
 
 	i = -1;
@@ -47,10 +47,7 @@ void	write_command(t_command *com, char *response, t_struct *conf)
 	else
 	{
 		if (com->arrows[0] == NULL)
-		{
-			printf("printing stdout\n");
 			ft_putstr_fd(response, 1);
-		}
 		while (com->arrows[++i])
 		{
 			flag = return_fd_flag(com->arrows[i]);

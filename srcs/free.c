@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 01:56:16 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:59:17 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	clear_command_array(t_struct *conf, int pipes)
 void	clear_command(t_command *coms)
 {
 	t_command	*com;
+
 	if (!coms)
 		return ;
-	while(coms)
+	while (coms)
 	{
 		com = coms->next;
 		if (coms->name)
@@ -78,7 +79,7 @@ void	clear_env_export(char **arr)
 		free(arr[i]);
 		i++;
 	}
-	if(arr)
+	if (arr)
 		free(arr);
 }
 

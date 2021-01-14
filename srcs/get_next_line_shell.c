@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:34:08 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 15:33:24 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 16:00:47 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,5 @@ int				gnl_shell(int fd, char **line, t_struct *conf)
 	}
 	*line = get_line(left, fd);
 	left[fd] = what_left(left, fd);
-	if (rd == 0)
-		return (0);
-	return (1);
+	return (rd == 0 ? 0 : 1);
 }

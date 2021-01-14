@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/14 15:46:48 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/14 15:47:24 by bbelen           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-int			check_arg(char **args)
+int		check_arg(char **args)
 {
 	int		i;
 
@@ -14,7 +26,7 @@ int			check_arg(char **args)
 	return (0);
 }
 
-void		export_command_2(t_struct *conf, t_command *com, int i)
+void	export_command_2(t_struct *conf, t_command *com, int i)
 {
 	int		j;
 
@@ -32,7 +44,7 @@ void		export_command_2(t_struct *conf, t_command *com, int i)
 		conf->export = ft_array_realloc(conf->export, com->args[i]);
 }
 
-void    export_command(t_command *com, t_struct *conf)
+void	export_command(t_command *com, t_struct *conf)
 {
 	int	i;
 
