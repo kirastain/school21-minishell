@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 01:10:09 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:39:32 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 22:35:47 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	check_quotes(char *line, t_struct *conf)
 	flag_single = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '\"')
+		if (line[i] == '\"' && line[i - 1] != '\\')
 			flag_double++;
-		else if (line[i] == "\'")
+		else if (line[i] == '\'' && line[i - 1] != '\\')
 			flag_single++;
 		i++;
 	}

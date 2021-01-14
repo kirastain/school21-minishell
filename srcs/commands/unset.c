@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 19:14:10 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 16:10:55 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 01:43:28 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void    unset_command(t_command *com, t_struct *conf)
         return ;
     }
     ft_array_free(conf->env);
-    conf->env = NULL; //пришлось вынести сюда из-зз 25 строк в другой
+    conf->env = NULL;
     conf->env = new_env;
 }

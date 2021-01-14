@@ -6,11 +6,25 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:45:51 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 00:34:38 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:00:46 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_in(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (c == str[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_arrlen(char **arr)
 {

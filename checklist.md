@@ -2,11 +2,11 @@
 
 |Single Command|Done|
 |:-:|:-:|
-|simple command absolute path| |
+|simple command absolute path|+|
 
 |Arguments|Done|
 |:-:|:-:|
-|Absolute path with args no quotes| |
+|Absolute path with args no quotes|+|
 
 |echo|Done|
 |:-:|:-:|
@@ -15,7 +15,7 @@
 
 |exit|Done|
 |:-:|:-:|
-|with or without args| |
+|with or without args|+|
 
 |Return value|Done|
 |:-:|:-:|
@@ -28,14 +28,14 @@
 |Signals|Done|
 |:-:|:-:|
 |ctrl+C empty prompt|+|
-|ctrl+\ empty prompt| |
+|ctrl+\ empty prompt|+|
 |ctrl+D empty prompt|+|
 |ctrl+C after wrote stuff|+|
-|ctrl+\ after wrote stuff| |
+|ctrl+\ after wrote stuff|+|
 |ctrl+D after wrote stuff|+|
-|ctrl+C after cat or grep with no args| |
-|ctrl+\ after cat or grep with no args| |
-|ctrl+D after cat or grep with no args| |
+|ctrl+C after cat or grep with no args|+|
+|ctrl+\ after cat or grep with no args|+|
+|ctrl+D after cat or grep with no args|+|
 
 |Double Quotes|Done|
 |:-:|:-:|
@@ -60,9 +60,9 @@
 
 |cd|Done|
 |:-:|:-:|
-|Works| |
-|.| |
-| .. | |
+|Works|+|
+|.|+|
+| .. |+|
 
 |pwd|Done|
 |:-:|:-:|
@@ -70,12 +70,12 @@
 
 |Relative path|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 
 |Environment path|Done|
 |:-:|:-:|
-|unset $PATH and check| |
-|set multiple dirs and check| |
+|unset $PATH and check|+|
+|set multiple dirs and check|+|
 
 |Simple quotes|Done|
 |:-:|:-:|
@@ -83,10 +83,10 @@
 
 |Redirection|Done|
 |:-:|:-:|
-|/ or >| |
+|/ or >| - + watch checks|
 
 |Pipes|Done|
 |:-:|:-:|
-|Works| |
-|Pipes and redirections| |
+|Works|+|
+|Pipes and redirections|watch checks|
 

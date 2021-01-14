@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 02:18:34 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 01:41:04 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,25 @@ int		count_len(char *line)
 * Команда - флаги - аргументы
 * Смотреть на всякие пайпы, > < | ; в соответствии с шеллом
 */
-void	split_line(char *line, t_struct *conf)
+void	split_line(char **line, t_struct *conf)
 {
 	int		i;
 	int		len;
 	char	*token;
+	char	*tmp;
 	t_list	*current;
 
 	i = 0;
-	while (line[i] != '\0')
+	tmp = ft_strdup(*line);
+	while (tmp[i] != '\0')
 	{
-		while (line[i] == ' ' || line[i] == 9)
+		while (tmp[i] == ' ' || tmp[i] == 9)
 			i++;
-		len = count_len(&line[i]);
+		len = count_len(&tmp[i]);
 		if (!(token = (char*)malloc(sizeof(char) * (len + 1))))
 			return ;
-		ft_strlcpy(token, &line[i], len + 1);
+		ft_strlcpy(token, &tmp[i], len + 1);
+		token[len] = '\0';
 		ft_lstadd_back(&(conf->tokens), ft_lstnew(token));
 		i = i + len + 1;
 	}
@@ -78,19 +81,12 @@ void	split_line(char *line, t_struct *conf)
 *Внутри кавычек сохраняется все содержимое
 *Одна кавычка - открывается поток на чтение до закрывающей кавычки
 */
-void    	parser_line(char *line, t_struct *conf)
+void    	parser_line(char **line, t_struct *conf)
 {
-    //char    **spaces;
-
-	printf("checking line\n");
-    checking_line(line, conf);
-	printf("checking line ok\n");
+    checking_line(*line, conf);
+	printf("checking line ok:%s\n", *line);
 	if (g_signal == 8)
 		return ;
-	printf("splitting into tokens\n");
 	split_line(line, conf);
-	printf("to analyzing tokens\n");
 	analyze_tokens(conf, conf->tokens);
-	//tokens = split_tokens(line);
-	//analyze_tokens(tokens, conf);
 }
