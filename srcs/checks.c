@@ -6,95 +6,109 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 15:11:21 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/10 20:24:00 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 00:02:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_for_pc_vertline(char *line)
+void	check_for_pc_vertline(char *line, t_struct *conf)
 {
-    int i;
+	int i;
 
-    i = 1;
-    while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
-        i++;
-    if (line[i] == ';')
-		return output_error(";");
-	else if (line[i] == '|')
-		return output_error("|");
-	return (1);
-}
-
-int check_streams(char *line)
-{
-    int i;
-
-    i = 1;
-    if (line[i - 1] == '>' && line[i + 1] == '>')
-    {
+	i = 1;
+	while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
 		i++;
-        while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
-            i++;
-        if (line[i] == '>')
-			return output_error(">");
-		else if (line[i] == '<')
-            return output_error("<");
-    }
-    else if (line[i - 1] == '>')
-    {
-        while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
-            i++;
-        if (line[i] == '<')
-			return output_error("<");
+	if (line[i] == ';')
+		output_error(";", conf);
+	else if (line[i] == '|')
+		output_error("|", conf);
+	return ;
+}
+
+void	check_double_stream(char *line, t_struct *conf)
+{
+	int	i;
+
+	i = 2;
+	while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
+		i++;
+	if (line[i] == '>')
+		output_error(">", conf);
+	else if (line[i] == '<')
+		output_error("<", conf);
+	return ;
+}
+
+void	check_streams(char *line, t_struct *conf)
+{
+	int i;
+
+	i = 1;
+	if (line[i - 1] == '>')
+	{
+		while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
+			i++;
+		if (line[i] == '<')
+			output_error("<", conf);
 		else if (line[i] == '>')
-            return output_error(">");
-    }
-    else
-    {
-        while ((line[i] == ' ' || line[i] == 9) && line != '\0')
-            i++;
-        if (line[i] == '>')
-			return output_error(">");
+			output_error(">", conf);
+	}
+	else
+	{
+		while ((line[i] == ' ' || line[i] == 9) && line != '\0')
+			i++;
+		if (line[i] == '>')
+			output_error(">", conf);
 		else if (line[i] == '<')
-			return output_error("<");
+			output_error("<", conf);
 		else if (line[i] == '|')
-            return output_error("|");
-    }
-    return (1);
+			output_error("|", conf);
+	}
+	return ;
 }
 
-void    check_after_vertline(char *line)
+void	check_after_vertline(char *line, t_struct *conf)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
-        i++;
-    if (!line[i])
-        printf("write next function\n");
+	i = 0;
+	while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
+		i++;
+	if (!line[i])
+		error_quit("Pipeline in the end of the line", conf);
+	return ;
 }
 
-int checking_line(char *line)
+void	checking_line(char *line, t_struct *conf)
 {
-    int i;
-    int check;
+	int	i;
+	int	flag;
 
-    i = 0;
-    check = 1;
-    while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
-        i++;
-    if (line[i] == '|')
-        return (0);
-    while (line[i] != '\0' && check)
-    {
-        if (line[i] == ';' || line[i] == '|')
-            check = check_for_pc_vertline(&line[i]);
-        if (line[i] == '>' || line[i] == '<' || (line[i] == '>' && line[i + 1] == '>'))
-            check = check_streams(&line[i]);
-        if (line[i] == '|')
-            check_after_vertline(&line[i]);
-        i++;
-    }
-    return (check);
+	i = 0;
+	check_quotes(&line[i], conf);
+	while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
+		i++;
+	if (line[i] == '|')
+		output_error("|", conf);
+	else if (line[i] == ';')
+		output_error(";", conf);
+	while (line[i] != '\0')
+	{
+		if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] ||
+				line[i - 1] != '\\') && !flag)
+			flag = 1;
+		else if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] ||
+				line[i - 1] != '\\') && flag)
+			flag = 0;
+		if (flag && (line[i] == ';' || line[i] == '|'))
+			check_for_pc_vertline(&line[i], conf);
+		else if (flag && (line[i] == '>' && line[i + 1] == '>'))
+			check_double_stream(&line[i], conf);
+		else if (flag && (line[i] == '>' || line[i] == '<'))
+			check_streams(&line[i], conf);
+		else if (flag && line[i] == '|')
+			check_after_vertline(&line[i], conf);
+		i++;
+	}
 }

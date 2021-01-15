@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 23:41:09 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:41:06 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/11 23:41:15 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/15 23:33:36 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	exit_command(t_struct *conf)
+char	*delete_quotes(char *token)
 {
-	clear_conf(conf);
-	exit(0);
+	char	*new;
+	char	*old;
+	int		len;
+
+	old = token;
+	len = ft_strlen(old);
+	new = ft_substr(old, 1, len - 2);
+	return (new);
 }

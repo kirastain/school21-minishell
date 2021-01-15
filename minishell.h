@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 01:09:43 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 00:10:37 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,72 +23,168 @@
 # include <stdio.h>
 # include "libft/libft.h"
 # include <signal.h>
+# include <sys/wait.h>
 
 typedef struct			s_command
 {
 	char				*name;
 	char				**args;
-	char				*file_in;
-	char				*file_out;
+	char				**file;
 	struct s_command	*next;
-	char				**spaces; //потому что 100500 пробелов на выводе сольется в 1 между аргами
+	char				**arrows;
+	char				pipe_sc;
 }						t_command;
 
 typedef struct			s_struct
 {
-	char				**env; //массив переменных окружения
-	char				*shell_line; //изначальная строка, которую считали
-	int					signal;
-	t_list				*tokens;
-	t_command			*command; //текущая команда
-	t_command			**command_array; //массив команд (на случай пайплайна) 
+	char				**env;
+	char				**export;
+	char				*error;
+	char				**tokens;
+	t_command			*command;
+	t_command			*curr_command;
+	t_command			**command_array;
+	char				**betweens;
+	char				***arr;
+	int					*arr_int;
 }						t_struct;
 
-int			signal_num;
+int			g_signal;
+int			g_flag;
+char		*g_shell_line;
+char		*g_error;
 
-/*-------------inits-----------------*/
+/*
+** -------------inits-----------------
+*/
 
-void		init_conf(t_struct *conf);
-t_command	*init_command();
+void					init_conf(t_struct *conf);
+t_command				*init_command(t_struct *conf);
+void					init_command_array(t_struct *conf, int pipes);
+void					init_betweens(t_struct *conf);
 
-/*-------------utils---------------*/
+/*
+** -------------main----------------
+*/
 
-int			ft_arrlen(char **arr);
-char		**ft_array_realloc(char **src, char *line);
-void		ft_array_free(char **arr);
+void					read_shell_line(t_struct *conf);
+int						gnl_shell(int fd, char **line, t_struct *conf);
 
-/*-------------parser---------------*/
+/*
+** -------------utils---------------
+*/
 
-char		**parser_env(char **env);
-int			parser_line(char *line, t_struct *conf);
-char		**split_tokens(char const *s);
-void		analyze_tokens(char **tokens, t_struct *conf);
+int						ft_arrlen(char **arr);
+char					**ft_array_realloc(char **src, char *line);
+void					ft_array_free(char **arr);
+int						is_in(char *str, char c);
 
-/*-------------checks---------------*/
+/*
+** -------------parser---------------
+*/
 
-int			checking_line(char *line);
-void		check_after_vertline(char *line);
-int			check_streams(char *line);
-int			check_for_pc_vertline(char *line);
+char					**parser_env(char **env);
+void					parser_line(char **line, t_struct *conf);
+char					**split_tokens(char const *s);
+void					split_line(char **line, t_struct *conf);
+void					analyze_tokens(t_struct *conf, char **tokens);
 
-/*-------------commsnds-------------*/
+/*
+** -------------checks---------------
+*/
 
-void		pwd_command(t_command *com);
-void		echo_command(t_command *command);
-void		env_command(t_command *com, char **env);
-void		unset_command(t_command *com, t_struct *conf);
+void					checking_line(char *line, t_struct *conf);
+void					check_after_vertline(char *line, t_struct *conf);
+void					check_streams(char *line, t_struct *conf);
+void					check_double_stream(char *line, t_struct *conf);
+void					check_for_pc_vertline(char *line, t_struct *conf);
+void					check_quotes(char *line, t_struct *conf);
 
-/*-------------output----------------*/
+/*
+** -------parser to command----------
+*/
 
-void		write_command(t_command *command, char *response);
-int			output_error(char *str);
+int						create_command(char **tokens, t_struct *conf);
+char					*delete_quotes(char *token);
+int						is_command_end(char *token);
+int						if_command_name(char *token, char *path);
+char					*edit_arg(char *token, t_struct *conf);
+void					ft_comadd_back(t_command **lst, t_command *new);
+int						if_internal(char *name);
+char					*edit_arg_main(char *token, char **env);
+char					*find_env_var(char *token, int *i, int *j);
+char					*quotes(char *token, int *i, int *j, char **env);
+char					*get_env_var(char *arg, char **env);
+char					*edit_arg_2(char *token, char **env, int flag);
+char					*add_char(char *old, char c);
 
-/*-------------signals---------------*/
+/*
+** -------------commsnds-------------
+*/
 
-void		work_signals(int sgnl);
+void					command_main(t_struct *conf);
+void					command_hub(t_command *com, t_struct *conf);
+void					pwd_command(t_command *com, t_struct *conf);
+void					echo_command(t_command *com, t_struct *conf);
+void					env_command(t_command *com, char **env, t_struct *conf);
+void					unset_command(t_command *com, t_struct *conf);
+void					export_command(t_command *com, t_struct *conf);
+void					export_command_2(t_struct *conf, t_command *com, int i);
+int						check_arg(char **args);
+char					**add_arg_new(char **env, char *value);
+char					**change_exist_arg(char **env, char *value);
+int						check_arg_env(char **env, char *value);
+void					exit_command(t_struct *conf);
+int						cd_command(t_command *com, t_struct *conf);
+void					outsource(t_command *com, t_struct *conf);
+char					*outsource_relative(char *path, t_struct *conf);
+t_command				*pipes_command(t_struct *conf, t_command *com);
+char					**outsouce_arr(t_command *com, t_struct *conf);
+void					do_pipes(t_struct *conf, int pipes);
+void					next_pipe(t_struct *conf, int *fd, int pipe_from,
+							int i);
 
-/*-------------free------------------*/
+/*
+** -------------output----------------
+*/
 
-void		clear_tokens(t_struct *conf);
+void					write_command(t_command *com, char *response,
+							t_struct *conf);
+void					output_error(char *str, t_struct *conf);
+void					error_quit(char *str, t_struct *conf);
+void					simple_quit();
+void					error_code(char	*com, int code, t_struct *conf);
+int						get_fd(t_command *com, t_struct *conf);
+
+/*
+** -------------signals---------------
+*/
+
+void					work_signals(int sgnl);
+
+/*
+** -------------free------------------
+*/
+
+void					clear_tokens(t_struct *conf);
+void					clear_conf(t_struct *conf);
+void					clear_env_export(char **arr);
+void					clear_command(t_command *coms);
+void					clear_command_array(t_struct *conf, int pipes);
+
+/*
+** --------------forkszhopa-----------
+*/
+
+void					do_forks(t_command *com, char **args, int flag,
+							t_struct *conf);
+void					do_fork(t_command *com, char **args, t_struct *conf);
+void					redirect_fork(char *file, char *sym, char **args);
+void					arrow_to(int fd, char **args, pid_t curr_pid,
+							int *p_fd);
+void					arrow_from(int fd, char **args, pid_t curr_pid,
+							int *p_fd);
+void					redirect_pipefork(t_struct *conf, int fid, char **args,
+							t_command *command_array);
 
 #endif

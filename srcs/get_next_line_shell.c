@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_shell.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/25 20:45:56 by lryan             #+#    #+#             */
-/*   Updated: 2021/01/12 16:33:05 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/12 16:34:08 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/14 18:38:24 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 static char		*fill_buff(char **left, int fd, char *buff)
 {
@@ -86,10 +86,10 @@ static int		is_strchr(char **left, int fd)
 	return (0);
 }
 
-int				get_next_line(int fd, char **line)
+int				gnl_shell(int fd, char **line, t_struct *conf)
 {
 	static char	*left[65535];
-	char		buff[BUFFER_SIZE + 1];
+	char		buff[1 + 1];
 	int			rd;
 
 	if (fd < 0 || !line || read(fd, buff, 0) < 0)
@@ -97,17 +97,19 @@ int				get_next_line(int fd, char **line)
 	rd = 1;
 	while (is_strchr(left, fd) == 0 && rd != 0)
 	{
-		if ((rd = read(fd, buff, BUFFER_SIZE)) >= 0)
+		if ((rd = read(fd, buff, 1)) >= 0)
 		{
+			if (g_signal == 1)
+				return (0);
 			buff[rd] = '\0';
 			left[fd] = fill_buff(left, fd, buff);
+			if (rd == 0 && left[fd][0] == 0 && g_signal != 7)
+				simple_quit(conf);
 		}
 		else
 			return (-1);
 	}
 	*line = get_line(left, fd);
 	left[fd] = what_left(left, fd);
-	if (rd == 0)
-		return (0);
-	return (1);
+	return (rd == 0 ? 0 : 1);
 }

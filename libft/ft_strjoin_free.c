@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/30 22:27:02 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 14:54:18 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/14 18:45:56 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/14 19:01:20 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+char		*ft_strjoin_free(char *s1, char *s2)
 {
-	size_t len;
+	char	*s;
+	int		i;
+	int		j;
+	int		len;
 
-	len = 0;
-	if (!s)
-		return (0);
-	while (*s != '\0')
+	if (!s1 && !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	if (!(s = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	j = 0;
+	if (s1)
 	{
-		len++;
-		s++;
+		while (s1[i] != '\0')
+			s[j++] = s1[i++];
 	}
-	return (len);
+	i = 0;
+	while (s2[i] != '\0')
+		s[j++] = s2[i++];
+	s[len] = '\0';
+	free((void*)s1);
+	return (s);
 }

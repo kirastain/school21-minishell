@@ -6,108 +6,110 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 01:15:57 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 00:09:10 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static char *get_shell_line(char **env)
+static char	*get_logname(char **env)
 {
-    char    *path;
-    int     i;
-    char    *tmp;
-    int     j;
+	int		i;
+	char	*tmp;
+	char	*temp;
 
-    i = 0;
-    tmp = NULL;
-    while(env[i++])
-    {
-        if (ft_strcmp(env[i], "LOGNAME") == 0)
-        {
-            if (tmp)
-                free(tmp);
-            tmp = ft_strdup(env[++i]);
-            break ;
-        }
-    }
-    tmp = ft_strjoin(tmp, ":");
-    path = getcwd(NULL, 50); //понять бы с размерностью, ибо если выделено меньше байт, то возвращает null
-    j = ft_strlen(path);
-    j--;
-	while (path[j--])
-    {
-		if (path[j] == '/')
+	i = 0;
+	tmp = NULL;
+	while (env[i++])
+	{
+		if (ft_strcmp(env[i], "LOGNAME") == 0)
 		{
-			tmp = ft_strjoin(tmp, &path[++j]);
+			tmp = ft_strdup(env[++i]);
 			break ;
 		}
-    }
-    free(path);
-	return (ft_strjoin(tmp, "$> "));
+	}
+	temp = ft_strjoin(tmp, ":");
+	free(tmp);
+	return (temp);
 }
 
-int     if_line_empty(char *line)
+static char	*get_shell_line(char **env)
 {
-    if (ft_strcmp(line, "") == 0)
-        return (1);
-    while (*line != '\0')
-    {
-        if (*line != ' ')
-            return (0);
-        line++;
-    }
-    return (1);
+	char	*path;
+	char	*tmp;
+	int		j;
+
+	tmp = NULL;
+	tmp = get_logname(env);
+	path = getcwd(NULL, 50);
+	j = ft_strlen(path);
+	j--;
+	while (path[j--])
+		if (path[j] == '/')
+		{
+			tmp = ft_strjoin_free(tmp, &path[++j]);
+			break ;
+		}
+	if (path)
+		free(path);
+	tmp = ft_strjoin_free(tmp, "$> ");
+	return (tmp);
 }
 
-void    shell_line(t_struct *conf)
+int			if_line_empty(char *line)
 {
-    char    *line;
-    int     status;
-
-    status = 1;
-    while (status)
-    {
-        if (conf->shell_line)
-            free(conf->shell_line);
-        conf->shell_line = get_shell_line(conf->env);
-        ft_putstr_fd(conf->shell_line, 1);
-        get_next_line(0, &line);
-        if (!if_line_empty(line))
-        {
-           if (ft_strcmp(line, "pwd") == 0)
-            {
-                pwd_command(conf->command);
-            }
-            //check echo here
-            else if (ft_strcmp(line, "env") == 0)
-            {
-                env_command(conf->command, conf->env);
-            }
-            if (parser_line(line, conf)) // <---------------------вот здесь уходит в парсер и нужно добавить в структуру
-            {
-				printf("---------------------ok\n");
-                //status = run_command(conf); <-------------------------------вот сюда пошла команда 
-            }
-        }
-        free(line);
-    }
+	if (ft_strcmp(line, "") == 0)
+		return (1);
+	while (*line != '\0')
+	{
+		if (*line != ' ')
+			return (0);
+		line++;
+	}
+	return (1);
 }
 
-int main(int argc, char **argv, char **envp)
+void		read_shell_line(t_struct *conf)
 {
-    t_struct    conf;
+	char	*line;
+	int		status;
 
-	signal_num = 0;
+	status = 1;
+	while (status)
+	{
+		line = NULL;
+		g_signal = 0;
+		g_shell_line = get_shell_line(conf->env);
+		ft_putstr_fd(g_shell_line, 1);
+		gnl_shell(0, &line, conf);
+		if (!if_line_empty(line))
+		{
+			parser_line(&line, conf);
+			if (g_signal != 8)
+				command_main(conf);
+		}
+		clear_conf(conf);
+		if (g_shell_line)
+			free(g_shell_line);
+		free(line);
+	}
+}
+
+int			main(int argc, char **argv, char **envp)
+{
+	t_struct	conf;
+
+	g_signal = 0;
+	g_error = "0";
+	g_flag = 0;
+	g_shell_line = NULL;
 	if (argc == 1 && argv[0])
 	{
-    	conf.shell_line = NULL;
-    	init_conf(&conf);
-		printf("ok start\n");
-    	conf.env = parser_env(envp);
+		init_conf(&conf);
+		conf.env = parser_env(envp);
 		signal(SIGINT, work_signals);
 		signal(SIGQUIT, work_signals);
-    	shell_line(&conf);
-    	return (0);
+		read_shell_line(&conf);
+		return (0);
 	}
 }
