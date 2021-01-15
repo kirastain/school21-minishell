@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 15:11:21 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 19:31:17 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 00:02:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	checking_line(char *line, t_struct *conf)
 
 	i = 0;
 	check_quotes(&line[i], conf);
-	//printf("%s\n", line);
 	while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
 		i++;
 	if (line[i] == '|')
@@ -96,9 +95,11 @@ void	checking_line(char *line, t_struct *conf)
 		output_error(";", conf);
 	while (line[i] != '\0')
 	{
-		if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] || line[i - 1] != '\\') && !flag)
+		if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] ||
+				line[i - 1] != '\\') && !flag)
 			flag = 1;
-		else if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] || line[i - 1] != '\\') && flag)
+		else if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] ||
+				line[i - 1] != '\\') && flag)
 			flag = 0;
 		if (flag && (line[i] == ';' || line[i] == '|'))
 			check_for_pc_vertline(&line[i], conf);
@@ -110,5 +111,4 @@ void	checking_line(char *line, t_struct *conf)
 			check_after_vertline(&line[i], conf);
 		i++;
 	}
-	//printf("check ok\n");
 }

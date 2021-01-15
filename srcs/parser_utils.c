@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 23:41:15 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 23:25:07 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:33:36 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ char	*delete_quotes(char *token)
 	old = token;
 	len = ft_strlen(old);
 	new = ft_substr(old, 1, len - 2);
-	//free(old);
 	return (new);
 }

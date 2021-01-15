@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 23:10:23 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 00:10:37 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ char					**parser_env(char **env);
 void					parser_line(char **line, t_struct *conf);
 char					**split_tokens(char const *s);
 void					split_line(char **line, t_struct *conf);
-//void					analyze_tokens(t_struct *conf, t_list *tokens);
-void	analyze_tokens(t_struct *conf, char **tokens);
-
+void					analyze_tokens(t_struct *conf, char **tokens);
 
 /*
 ** -------------checks---------------
@@ -106,7 +104,7 @@ void					check_quotes(char *line, t_struct *conf);
 ** -------parser to command----------
 */
 
-int		create_command(char **tokens, t_struct *conf);
+int						create_command(char **tokens, t_struct *conf);
 char					*delete_quotes(char *token);
 int						is_command_end(char *token);
 int						if_command_name(char *token, char *path);
@@ -114,12 +112,11 @@ char					*edit_arg(char *token, t_struct *conf);
 void					ft_comadd_back(t_command **lst, t_command *new);
 int						if_internal(char *name);
 char					*edit_arg_main(char *token, char **env);
-char 			*find_env_var(char *token, int *i, int *j);
-char			*quotes(char *token, int *i, int *j, char **env);
-char	*get_env_var(char *arg, char **env);
-char	*edit_arg_2(char *token, char **env, int flag);
-char *add_char(char *old, char c);
-
+char					*find_env_var(char *token, int *i, int *j);
+char					*quotes(char *token, int *i, int *j, char **env);
+char					*get_env_var(char *arg, char **env);
+char					*edit_arg_2(char *token, char **env, int flag);
+char					*add_char(char *old, char c);
 
 /*
 ** -------------commsnds-------------

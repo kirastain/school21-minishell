@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 23:13:14 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 00:01:30 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ void	output_error(char *str, t_struct *conf)
 	error_quit(str_error, conf);
 }
 
-void	simple_quit()
+void	simple_quit(void)
 {
 	ft_putstr_fd("\n", 1);
-	//ft_array_free(conf->env);
 	exit(1);
 }
 
@@ -38,7 +37,6 @@ void	error_code(char *com, int code, t_struct *conf)
 {
 	char	*response;
 
-	//printf("error code\n");
 	response = NULL;
 	response = ft_strjoin(com, ": ");
 	if (code == -5)
