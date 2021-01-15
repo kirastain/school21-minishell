@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 12:44:53 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:13:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	output_error(char *str, t_struct *conf)
 	char	*str_error;
 	char	*tmp;
 
-	str_error = ft_strdup("bash: syntax error near unexpected token \'");
+	str_error = ft_strdup("syntax error near unexpected token \'");
 	tmp = str_error;
 	str_error = ft_strjoin(str_error, str);
 	free(tmp);
@@ -55,7 +55,7 @@ void	error_code(char *com, int code, t_struct *conf)
 
 void	error_quit(char *str, t_struct *conf)
 {
-	ft_putstr_fd("Error: ", 1);
+	ft_putstr_fd("bash: ", 1);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd("\n", 1);
 	clear_conf(conf);
