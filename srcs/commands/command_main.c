@@ -6,13 +6,13 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 12:44:24 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 21:59:34 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	get_current_error()
+void	get_current_error(void)
 {
 	ft_putstr_fd(ft_strjoin(g_error, ": command not found\n"), 1);
 	g_error = "127";
@@ -81,9 +81,7 @@ int		count_pipes(t_command *coms)
 	com = coms;
 	while (com && com->pipe_sc == '|')
 	{
-		//printf("counting pipes func with %s\n", com->name);
 		count++;
-		//printf("pipes = %d\nnext is", count);
 		com = com->next;
 	}
 	return (count);
@@ -102,7 +100,6 @@ void	command_main(t_struct *conf)
 		//printf("com main start %s and %c\n", com->name, com->pipe_sc);
 		if (com->pipe_sc == '|')
 		{
-			//printf("pipe is ooon\n");
 			pipes = count_pipes(com);
 			//printf("num of pipes is %d", pipes);
 			init_command_array(conf, pipes);
@@ -115,9 +112,6 @@ void	command_main(t_struct *conf)
 			//printf("to com hub\n");
 			command_hub(com, conf);
 			//printf("finished %s\n", com->name);
-			//com = conf->command->next;
-			//clear_command(conf->command);
-			//conf->command = com;
 			com = com->next;
 		}
 	}

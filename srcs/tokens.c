@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 19:30:48 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 22:23:32 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int		create_command(char **tokens, t_struct *conf)
 	i = 0;
 	if (!(com = init_command(conf)))
 		error_quit("Memory issue", conf);
-	//com->name = ft_strdup("");
-	//com->name = NULL;
 	//printf("tokens len is %d with first as %s\n", ft_arrlen(tokens), tokens[i]);
 	while (tokens[i])
 	{
@@ -98,12 +96,8 @@ int		create_command(char **tokens, t_struct *conf)
 			if (!(arg = edit_arg(arg, conf)))
 				error_quit("Invalid argument", conf);
 			com->args = ft_array_realloc(com->args, arg);
+			free(arg);
 		}
-		//if (is_command_end(tokens[i]))
-		//{
-		//	ft_comadd_back(&(conf->command), com);
-		//	return (i++);
-		//}
 		i++;
 	}
 	ft_comadd_back(&(conf->command), com);
@@ -114,10 +108,8 @@ int		create_command(char **tokens, t_struct *conf)
 void	analyze_tokens(t_struct *conf, char **tokens)
 {
 	//char	*token;
-	//t_list	*tmp;
 	int		i;
 
-	//tmp = tokens;
 	i = 0;
 	while (tokens[i])
 	{

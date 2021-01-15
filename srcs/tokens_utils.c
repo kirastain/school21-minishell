@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:51:27 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 19:33:02 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 22:41:39 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,30 @@
 
 char *edit_arg(char *token, t_struct *conf)
 {
-	//int			i;
+	int			i;
 	char		*tmp;
+	char		*res;
 	//int			flag;
 
 	//printf("token is %s\n", token);
-	tmp = edit_arg_main(token, conf->env);
+	//tmp = edit_arg_main(token, conf->env);
 	//free (token);
-	/*
+	
 	tmp = NULL;
-	printf("token is is %s\n", token);
+	//printf("token is is %s\n", token);
 	//flag = 0;
+	i = 0;
 	if (token[0] == '\'')
 		tmp = edit_arg_2(token, conf->env, 1);
 	else if (token[0] == '\"')
 		tmp = edit_arg_2(token, conf->env, 2);
 	else
 		tmp = edit_arg_2(token, conf->env, 0);
-	*/
+	res = tmp;
 	//printf("tmp is %s\n", tmp);
-	return (tmp);
+	//free(token);
+	//printf("tmp is %s\n", tmp);
+	return (res);
 }
 
 int	if_command_name(char *token, char *path)
