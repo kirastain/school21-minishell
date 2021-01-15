@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 01:01:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 23:50:00 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 12:44:49 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,20 @@ void	clear_command(t_command *coms)
 	g_flag = 0;
 	while (coms)
 	{
-		printf("clear command\n");
+		//printf("clear command\n");
 		com = coms->next;
 		free(coms->name);
-		printf("cleared name\n");
+		//printf("cleared name\n");
 		ft_array_free(coms->file);
-		printf("cleared file\n");
-		printf("arg is\n");
+		//printf("cleared file\n");
+		//printf("arg is\n");
 		//ft_array_free(com->args);
-		printf("cleared args\n");
+		//printf("cleared args\n");
 		//ft_array_free(com->arrows);
-		printf("cleared arrows\n");
+		//printf("cleared arrows\n");
 		free(coms);
 		coms = com;
-		printf("clear done\n");
+		//printf("clear done\n");
 	}
 }
 
@@ -120,23 +120,23 @@ void	clear_conf(t_struct *conf)
 		while (conf->command)
 		{
 			com = conf->command->next;
-			printf("done\n");
+			//("done\n");
 			ft_array_free(conf->command->file);
-			printf("done\n");
+			//printf("done\n");
 			ft_array_free(conf->command->arrows);
-			printf("done\n");
+			//printf("done\n");
 			ft_array_free(conf->command->args);
-			printf("done\n");
+			//printf("done\n");
 			free(conf->command->name);
 			free(conf->command);
 			conf->command = com;
-			printf("done\n");
+			//printf("done\n");
 		}
 	}
 	if (conf->betweens != NULL)
 		ft_array_free(conf->betweens);
-	printf("done\n");
+	//printf("done\n");
 	ft_array_free(conf->tokens);
-	printf("all done\n");
+	//printf("all done\n");
 
 }

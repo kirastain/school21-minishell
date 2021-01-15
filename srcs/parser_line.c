@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 00:22:15 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 13:49:09 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,17 @@ int		count_len(char *line)
 			i++;
 		i++;
 	}
+	else if (line[i] == ';' || line[i] == '|')
+		return (1);
 	else
 	{
 		while (line[i] != '\0' && (line[i] != ' ' && line[i] != 9))
+		{
+			if ((line[i] == ';' || line[i] == '|') && i != 0)
+				return (i);
 			i++;
+		}
+		//printf("stopped on %c\n", line[i]);
 	}
 	return (i);
 }
@@ -58,7 +65,7 @@ void	split_line(char **line, t_struct *conf)
 	i = 0;
 	tmp = ft_strdup(*line);
 	token = NULL;
-	printf("-line tmp is %s-\n", tmp);
+	//printf("-line tmp is %s-\n", tmp);
 	while (tmp[i] != '\0')
 	{
 		while (tmp[i] == ' ' || tmp[i] == 9)
@@ -68,7 +75,7 @@ void	split_line(char **line, t_struct *conf)
 			return ;
 		ft_strlcpy(token, &tmp[i], len + 1);
 		token[len] = '\0';
-		printf("token is %s\n", token);
+		//printf("token is %s\n", token);
 		conf->tokens = ft_array_realloc(conf->tokens, token);
 		free(token);
 		//ft_lstadd_back(&(conf->tokens), ft_lstnew(token));
@@ -77,7 +84,7 @@ void	split_line(char **line, t_struct *conf)
 	i = 0;
 	while (conf->tokens[i])
 	{
-		printf("token is %s\n", conf->tokens[i]);
+		//printf("token is %s\n", conf->tokens[i]);
 		i++;
 	}
 	//current = conf->tokens;
@@ -102,10 +109,10 @@ void	parser_line(char **line, t_struct *conf)
 {
 	init_betweens(conf);
 	checking_line(*line, conf);
-	printf("checking line ok:%s\n", *line);
+	//printf("checking line ok:%s\n", *line);
 	if (g_signal == 8)
 		return ;
 	split_line(line, conf);
-	printf("to analyze\n");
+	//printf("to analyze\n");
 	analyze_tokens(conf, conf->tokens);
 }

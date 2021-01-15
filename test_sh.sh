@@ -1,3 +1,47 @@
 #!/bin/sh
 
-echo "test script hi"
+echo""
+echo "---------------simple - valid--------------------"
+# VALID
+/bin/ls
+/usr/bin/make
+/bin/echo
+/bin/date
+/bin/ps
+
+echo ""
+echo "----------------simple - invalid-------------------"
+# INVALID
+/sbin/ls
+/xxx
+/bin/ddate
+
+echo ""
+echo "----------------outsource with args----------------"
+/bin/ls -la
+/usr/bin/make
+/bin/echo hello
+
+echo ""
+echo "-------------outsource with args - invalid---------"
+/bin/ps hello
+
+echo ""
+echo "---------------------test echo---------------------"
+echo
+echo d
+echo coffee
+echo -m black
+echo pumpkin;echo pumpkin
+echo bla\; bla
+echo "test no error ;| hehehe"
+echo 'test no error ;| hehehe'
+echo \| pumpkin
+echo $?
+
+echo ""
+echo "-------------------env---------------------"
+env
+
+echo ""
+echo ""

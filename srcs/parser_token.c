@@ -6,13 +6,13 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:07:50 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 18:24:22 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:18:37 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*char	*get_env_var(char *arg, char **env)
+/*char	*get_env_var_2(char *arg, char **env)
 {
 	char	*value;
 	char 	*str;
@@ -138,7 +138,7 @@ char			*edit_arg_main(char *token, char **env)
 			tmp = get_env_var(str, env);
 			free(str);
 			str = ft_strjoin(str2, tmp);
-			free(str2);
+			//free(str2);
 			free(tmp);
 			str2 = str;
 			j = ++i;
