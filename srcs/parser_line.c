@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 13:49:09 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:53:47 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,45 @@
 int		count_len(char *line)
 {
 	int	i;
+	int	flag;
 
 	i = 0;
+	flag = 0;
+	while (line[i])
+	{
+		//printf("char is %c flag is %d\n", line[i], flag);
+		if (!flag && i == 0 && (line[i] == ';' || line[i] == '|'))
+		{
+			//printf("furute pipe_sc busted %c\n", line[i]);
+			return (1);
+		}
+		if (flag == 0 && (line[i] == ' ' || line[i] == 9))
+		{
+			//printf("here token len is %d\n", i);
+			return (i);
+		}
+		if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] || line[i - 1] != '\\') && !flag)
+			flag = 1;
+		else if ((line[i] == '\"' || line[i] == '\'') && (!line[i - 1] || line[i - 1] != '\\') && flag)
+			flag = 0;
+		if (!flag && i != 0 && (line[i] == '|' || line[i] == ';'))
+			return (i);
+		i++;
+	}
+	//printf("token len is %d\n", i);
+	return (i);
+	/*
 	if (line[i] == '\"')
 	{
-		i++;
-		while (line[i] != '\0' && line[i] != '\"')
+		//i++;
+		while (line[i++] != '\0' && line[i] != '\"')
 			i++;
 		i++;
 	}
 	else if (line[i] == '\'')
 	{
-		i++;
-		while (line[i] != '\0' && line[i] != '\'')
+		//i++;
+		while (line[i++] != '\0' && line[i] != '\'')
 			i++;
 		i++;
 	}
@@ -43,7 +69,7 @@ int		count_len(char *line)
 		}
 		//printf("stopped on %c\n", line[i]);
 	}
-	return (i);
+	return (i);*/
 }
 
 /*
@@ -63,13 +89,16 @@ void	split_line(char **line, t_struct *conf)
 	//t_list	*current;
 
 	i = 0;
-	tmp = ft_strdup(*line);
+	tmp = *line;
 	token = NULL;
 	//printf("-line tmp is %s-\n", tmp);
 	while (tmp[i] != '\0')
 	{
 		while (tmp[i] == ' ' || tmp[i] == 9)
+		{
+			//printf("space skipped\n");
 			i++;
+		}
 		len = count_len(&tmp[i]);
 		if (!(token = (char*)malloc(sizeof(char) * (len + 1))))
 			return ;
@@ -80,6 +109,12 @@ void	split_line(char **line, t_struct *conf)
 		free(token);
 		//ft_lstadd_back(&(conf->tokens), ft_lstnew(token));
 		i = i + len;
+		//if (tmp[i + 1])
+		//{
+		//	printf("there is %c\n", tmp[i]);
+		//	i++;
+		//}
+		//printf("next from %s\n", line[i]);
 	}
 	i = 0;
 	while (conf->tokens[i])
@@ -93,7 +128,7 @@ void	split_line(char **line, t_struct *conf)
 	//	printf("token is %s\n", current->content);
 	//	current = current->next;
 	//}
-	free(tmp);
+	//free(tmp);
 }
 
 /*
