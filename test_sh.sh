@@ -31,7 +31,7 @@ echo "---------------------test echo---------------------"
 echo
 echo d
 echo coffee
-echo -m black
+echo -n black
 echo pumpkin;echo pumpkin
 echo bla\; bla
 echo "test no error ;| hehehe"
@@ -41,7 +41,6 @@ echo $?
 
 echo ""
 echo "-------------------env---------------------"
-env
 
 echo ""
 echo ""

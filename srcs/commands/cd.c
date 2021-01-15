@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:37:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 12:44:28 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 20:36:25 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int		cd_command(t_command *com, t_struct *conf)
 	path = NULL;
 	if (len > 1)
 		return (error_cd(conf, &cur_path, &path));
-	//printf("no error cd\n");
 	if (len == 0)
 	{
 		i = 0;
@@ -83,9 +82,6 @@ int		cd_command(t_command *com, t_struct *conf)
 	if (chdir(path) != 0)
 		return (error_cd(conf, &cur_path, &path));
 	else
-	{
-		//printf("changinf_pwd %s\n", cur_path);
 		change_pwd(&cur_path, conf);
-	}
 	return (reset_cd(cur_path, path, conf));
 }

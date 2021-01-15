@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:37:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 12:44:31 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 20:39:01 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void		write_command(t_command *com, char *response, t_struct *conf)
 
 	i = -1;
 	errno = 0;
-	//printf("write_command\n");
 	g_error = "0";
 	if (com->pipe_sc == '|')
 		ft_putstr_fd(response, 1);

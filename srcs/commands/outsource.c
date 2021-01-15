@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 13:05:10 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 20:38:17 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	outsource(t_command *com, t_struct *conf)
 	int		flag;
 
 	i = 0;
-	//printf("outsource %s\n", com->name);
 	if (!(args = (char**)malloc(sizeof(char*))))
 		error_quit("Memory issue", conf);
 	args[0] = NULL;
@@ -122,9 +121,7 @@ void	outsource(t_command *com, t_struct *conf)
 	get_com_path(conf, args, &name);
 	g_flag = 1;
 	g_error = "0";
-	//printf("check outsouce\n");
 	flag = check_outsource(args[0], com, name, conf);
-	//printf("do forks\n");
 	do_forks(com, args, flag, conf);
 	ft_array_free(args);
 }

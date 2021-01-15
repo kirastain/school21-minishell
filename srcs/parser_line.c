@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 17:53:47 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 20:41:04 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,6 @@ int		count_len(char *line)
 	}
 	//printf("token len is %d\n", i);
 	return (i);
-	/*
-	if (line[i] == '\"')
-	{
-		//i++;
-		while (line[i++] != '\0' && line[i] != '\"')
-			i++;
-		i++;
-	}
-	else if (line[i] == '\'')
-	{
-		//i++;
-		while (line[i++] != '\0' && line[i] != '\'')
-			i++;
-		i++;
-	}
-	else if (line[i] == ';' || line[i] == '|')
-		return (1);
-	else
-	{
-		while (line[i] != '\0' && (line[i] != ' ' && line[i] != 9))
-		{
-			if ((line[i] == ';' || line[i] == '|') && i != 0)
-				return (i);
-			i++;
-		}
-		//printf("stopped on %c\n", line[i]);
-	}
-	return (i);*/
 }
 
 /*
@@ -109,11 +81,6 @@ void	split_line(char **line, t_struct *conf)
 		free(token);
 		//ft_lstadd_back(&(conf->tokens), ft_lstnew(token));
 		i = i + len;
-		//if (tmp[i + 1])
-		//{
-		//	printf("there is %c\n", tmp[i]);
-		//	i++;
-		//}
 		//printf("next from %s\n", line[i]);
 	}
 	i = 0;
@@ -122,13 +89,6 @@ void	split_line(char **line, t_struct *conf)
 		//printf("token is %s\n", conf->tokens[i]);
 		i++;
 	}
-	//current = conf->tokens;
-	//while (current)
-	//{
-	//	printf("token is %s\n", current->content);
-	//	current = current->next;
-	//}
-	//free(tmp);
 }
 
 /*
