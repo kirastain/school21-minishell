@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:46:48 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:47:24 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:14:18 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_arg(char **args)
 	i = 0;
 	while (args[i])
 	{
-		if (args[i][0] == '=')
+		if (args[i][0] == '=' || ft_isdigit(args[i][0]))
 			return (1);
 		i++;
 	}
@@ -60,7 +60,7 @@ void	export_command(t_command *com, t_struct *conf)
 		}
 	}
 	else if ((check_arg(com->args)) == 1)
-		error_quit(com->name, conf);
+		error_quit("wrong identifier in export", conf);
 	i = 0;
 	while (com->args[i])
 		export_command_2(conf, com, i++);

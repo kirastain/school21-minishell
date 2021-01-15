@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:27:46 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 22:48:43 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:25:16 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ char	*edit_arg_2(char *token, char **env, int flag)
 	tmp = NULL;
 	//printf("first is in env %s\n", env[0]);
 	tmp = token;
+	if (flag == 1 || flag == 2)
+	{
+		tmp = delete_quotes(tmp);
+		//free(tmp);
+		//tmp = new;
+	}
 	while (tmp[i])
 	{
 		//printf("token char is %c\n", token[i]);
@@ -90,18 +96,18 @@ char	*edit_arg_2(char *token, char **env, int flag)
 			new = add_char(new, tmp[++i]);
 		else if  (tmp[i + 1] && tmp[i] == '\\' && tmp[i + 1] == '\"' && flag == 2)
 			new = add_char(new, tmp[++i]);
-		else if (tmp[i] == '$' && (flag == 0 || flag == 1))
+		else if (tmp[i] == '$' && (flag == 0 || flag == 2))
 		{
 			//printf("env var is %s\n", tmp);
 			//printf("current new is %s\n", new);
 			//printf("token is %s\n", token);
 			i += add_env_var(&new, &tmp[i], env);
-			printf("token is %s\n", new);
+			//printf("token is %s\n", new);
 		}
 		else
 			new = add_char(new, tmp[i]);
 		i++;
 	}
-	//free(token);
+	free(tmp);
 	return (new);
 }
