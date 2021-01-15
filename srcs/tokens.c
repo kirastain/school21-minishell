@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 13:52:31 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 19:30:48 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int		create_command(char **tokens, t_struct *conf)
 {
 	t_command	*com;
 	int			flag_name;
-	//char		*arg;
+	char		*arg;
 	int			i;
 
-	//arg = NULL;
+	arg = NULL;
 	flag_name = 0;
 	i = 0;
 	if (!(com = init_command(conf)))
@@ -94,9 +94,10 @@ int		create_command(char **tokens, t_struct *conf)
 		else
 		{
 			//printf("arg is %s\n", tokens[i]);
-			if (!(tokens[i] = edit_arg(tokens[i], conf)))
+			arg = tokens[i];
+			if (!(arg = edit_arg(arg, conf)))
 				error_quit("Invalid argument", conf);
-			com->args = ft_array_realloc(com->args, tokens[i]);
+			com->args = ft_array_realloc(com->args, arg);
 		}
 		//if (is_command_end(tokens[i]))
 		//{

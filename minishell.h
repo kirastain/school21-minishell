@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 00:31:54 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 19:11:58 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,9 @@ char					*edit_arg_main(char *token, char **env);
 char 			*find_env_var(char *token, int *i, int *j);
 char			*quotes(char *token, int *i, int *j, char **env);
 char	*get_env_var(char *arg, char **env);
+char	*edit_arg_2(char *token, char **env, int flag);
+char *add_char(char *old, char c);
+
 
 /*
 ** -------------commsnds-------------

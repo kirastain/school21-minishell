@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:07:50 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 14:18:37 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 19:38:59 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char			*edit_arg_main(char *token, char **env)
 			tmp = get_env_var(str, env);
 			free(str);
 			str = ft_strjoin(str2, tmp);
-			//free(str2);
+			free(str2);
 			free(tmp);
 			str2 = str;
 			j = ++i;

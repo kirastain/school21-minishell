@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbelen <bbelen@21-school.ru>               +#+  +:+       +#+        */
+/*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 22:27:02 by bbelen            #+#    #+#             */
-/*   Updated: 2020/05/16 19:14:09 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:54:18 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (*s != '\0')
 	{
 		len++;
