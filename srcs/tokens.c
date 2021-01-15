@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 22:23:32 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:58:59 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,58 +62,50 @@ int		create_command(char **tokens, t_struct *conf)
 	i = 0;
 	if (!(com = init_command(conf)))
 		error_quit("Memory issue", conf);
-	//printf("tokens len is %d with first as %s\n", ft_arrlen(tokens), tokens[i]);
 	while (tokens[i])
 	{
 		if (flag_name == 0)
 		{
-			if (!(if_internal(tokens[i])) && !(if_command_name(tokens[i], get_env_var("PATH", conf->env))))
+			if (!(if_internal(tokens[i])) && !(if_command_name(tokens[i],
+					get_env_var("PATH", conf->env))))
 				error_code(tokens[i], -5, conf);
 			com->name = ft_strdup(tokens[i]);
 			flag_name = 1;
-			//printf("com name is %s\n", com->name);
 		}
-		else if (ft_strcmp(tokens[i], ">") == 0 || ft_strcmp(tokens[i], "<") == 0 ||
-					ft_strcmp(tokens[i], ">>") == 0)
+		else if (ft_strcmp(tokens[i], ">") == 0 ||
+			ft_strcmp(tokens[i], "<") == 0 || ft_strcmp(tokens[i], ">>") == 0)
 		{
-			//printf("arrow found\n");
 			com->arrows = ft_array_realloc(com->arrows, tokens[i]);
 			i++;
 			com->file = ft_array_realloc(com->file, tokens[i]);
 		}
-		else if (ft_strcmp(tokens[i], "|") == 0 || ft_strcmp(tokens[i], ";") == 0)
+		else if (ft_strcmp(tokens[i], "|") == 0 ||
+			ft_strcmp(tokens[i], ";") == 0)
 		{
 			com->pipe_sc = tokens[i][0];
-			//printf("pipe_sc is %c\n", com->pipe_sc);
-			//tokens = tokens->next;
 			i++;
 			break ;
 		}
 		else
 		{
-			//printf("arg is %s\n", tokens[i]);
 			arg = tokens[i];
 			if (!(arg = edit_arg(arg, conf)))
 				error_quit("Invalid argument", conf);
 			com->args = ft_array_realloc(com->args, arg);
-			free(arg);
 		}
 		i++;
 	}
 	ft_comadd_back(&(conf->command), com);
-	//printf("com added\n");
 	return (i);
 }
 
 void	analyze_tokens(t_struct *conf, char **tokens)
 {
-	//char	*token;
 	int		i;
 
 	i = 0;
 	while (tokens[i])
 	{
-		//printf("our token is %s\n", tokens[i]);
 		if (ft_strcmp(tokens[i], ":") == 0 || ft_strcmp(tokens[i], "|") == 0)
 		{
 			conf->betweens = ft_array_realloc(conf->betweens, tokens[i]);
@@ -121,11 +113,7 @@ void	analyze_tokens(t_struct *conf, char **tokens)
 		}
 		else
 		{
-			//printf("hey command\n");
-			i = i + create_command(&tokens[i], conf); // ----------------------edit
-			//printf("command created\n");
+			i = i + create_command(&tokens[i], conf);
 		}
 	}
-	//clear_tokens(conf);
-	//printf("analyze finished\n");
 }
