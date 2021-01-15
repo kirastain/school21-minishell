@@ -10,8 +10,8 @@
 
 |echo|Done|
 |:-:|:-:|
-|Diff cases| |
-|Quotes| |
+|Diff cases|+|
+|Quotes|+|
 
 |exit|Done|
 |:-:|:-:|
@@ -19,11 +19,11 @@
 
 |Return value|Done|
 |:-:|:-:|
-|Absolute path and echo $?| |
+|Absolute path and echo $?|+|
 
 |Semicolons|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 
 |Signals|Done|
 |:-:|:-:|
@@ -39,7 +39,7 @@
 
 |Double Quotes|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 
 |env|Done|
 |:-:|:-:|
@@ -55,12 +55,12 @@
 
 |Environment variables|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 |With double quotes| |
 
 |cd|Done|
 |:-:|:-:|
-|Works|+|
+|Works|+| ---------------------посмотреть нужно ли асолютный
 |.|+|
 | .. |+|
 
@@ -79,11 +79,11 @@
 
 |Simple quotes|Done|
 |:-:|:-:|
-|Works| |
+|Works|+|
 
 |Redirection|Done|
 |:-:|:-:|
-|/ or >| - + watch checks|
+|/ or >| - + watch checks| -------------------посмотреть
 
 |Pipes|Done|
 |:-:|:-:|

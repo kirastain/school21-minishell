@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks_quotes.c                                    :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 01:10:09 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:55:26 by bbelen           ###   ########.fr       */
+/*   Created: 2021/01/14 18:45:56 by bbelen            #+#    #+#             */
+/*   Updated: 2021/01/14 19:01:20 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	check_quotes(char *line, t_struct *conf)
+char		*ft_strjoin_free(char *s1, char *s2)
 {
-	int	i;
-	int	flag_double;
-	int	flag_single;
+	char	*s;
+	int		i;
+	int		j;
+	int		len;
 
+	if (!s1 && !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	if (!(s = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
 	i = 0;
-	flag_double = 0;
-	flag_single = 0;
-	while (line[i] != '\0')
+	j = 0;
+	if (s1)
 	{
-		if (line[i] == '\"' && line[i - 1] != '\\')
-			flag_double++;
-		else if (line[i] == '\'' && line[i - 1] != '\\')
-			flag_single++;
-		i++;
+		while (s1[i] != '\0')
+			s[j++] = s1[i++];
 	}
-	if (flag_double % 2 != 0 || flag_single % 2 != 0)
-		error_quit("Wrong number of quotes", conf);
-	return ;
+	i = 0;
+	while (s2[i] != '\0')
+		s[j++] = s2[i++];
+	s[len] = '\0';
+	free((void*)s1);
+	return (s);
 }

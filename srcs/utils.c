@@ -6,13 +6,13 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:45:51 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/13 18:00:46 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 21:44:36 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_in(char *str, char c)
+int		is_in(char *str, char c)
 {
 	int i;
 
@@ -26,7 +26,7 @@ int	is_in(char *str, char c)
 	return (0);
 }
 
-int	ft_arrlen(char **arr)
+int		ft_arrlen(char **arr)
 {
 	int i;
 
@@ -42,7 +42,10 @@ void	ft_array_free(char **arr)
 
 	i = 0;
 	while (arr[i] != NULL)
-		free(arr[i++]);
+	{
+		free(arr[i]);
+		i++;
+	}
 	free(arr);
 }
 

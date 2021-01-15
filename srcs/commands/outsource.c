@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 00:54:31 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 13:05:10 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ char	*path_com(char *name, char **env)
 			path[j] = ft_strjoin(path[j], name);
 			if (open(path[j], O_RDONLY) != -1)
 			{
-				if (name)
-					free(name);
 				name = ft_strdup(path[j]);
 				break ;
 			}
@@ -48,7 +46,7 @@ void	get_com_path(t_struct *conf, char **args, int *name)
 	if (args[0][0] == '/')
 		*name = 0;
 	else if (is_in(args[0], '/'))
-		args[0] = outsource_relative(args[0], conf); //do this
+		args[0] = outsource_relative(args[0], conf);
 	else
 	{
 		args[0] = path_com(args[0], conf->env);
@@ -58,8 +56,8 @@ void	get_com_path(t_struct *conf, char **args, int *name)
 
 int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
 {
-	int	flag;
-	int	fd;
+	int			flag;
+	int			fd;
 	struct stat	buffer;
 
 	flag = 0;
@@ -67,10 +65,10 @@ int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
 	{
 		if (name == 1)
 		{
-			conf->error = ft_strdup("127");
+			g_error = "127";
 		}
 		else
-			conf->error = ft_strdup("1");
+			g_error = "1";
 		error_code(com->name, -5, conf);
 		flag = -1;
 		return (flag);
@@ -101,7 +99,7 @@ char	**outsouce_arr(t_command *com, t_struct *conf)
 		args = ft_array_realloc(args, com->name);
 	get_com_path(conf, args, &name);
 	g_flag = 1;
-	conf->error = ft_strdup("0");
+	g_error = "0";
 	flag = check_outsource(args[0], com, name, conf);
 	return (args);
 }
@@ -113,18 +111,20 @@ void	outsource(t_command *com, t_struct *conf)
 	int		name;
 	int		flag;
 
-	printf("outsource %s\n", com->name);
 	i = 0;
+	//printf("outsource %s\n", com->name);
 	if (!(args = (char**)malloc(sizeof(char*))))
 		error_quit("Memory issue", conf);
 	args[0] = NULL;
 	args = ft_array_realloc(args, com->name);
 	while (com->args[i])
-		args = ft_array_realloc(args, com->name);
+		args = ft_array_realloc(args, com->args[i++]);
 	get_com_path(conf, args, &name);
 	g_flag = 1;
-	conf->error = ft_strdup("0");
+	g_error = "0";
+	//printf("check outsouce\n");
 	flag = check_outsource(args[0], com, name, conf);
+	//printf("do forks\n");
 	do_forks(com, args, flag, conf);
 	ft_array_free(args);
 }

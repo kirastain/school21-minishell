@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:50:05 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/11 14:19:08 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:41:33 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,3 @@ char		**add_arg_new(char **env, char *value)
 	free(new_value);
 	return (env);
 }
-
-

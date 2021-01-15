@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:04:41 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 00:43:47 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:56:20 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	do_forks(t_command *com, char **args, int flag, t_struct *conf)
 		do_fork(com, args, conf);
 	else
 	{
-		conf->error = ft_strdup("1");
+		g_error = "1";
 		if (flag == 0)
 		{
 			error_code(com->name, 13, conf);

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:51:27 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 15:15:30 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 12:44:36 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 char *edit_arg(char *token, t_struct *conf)
 {
-	char	*name;
+	//int			i;
+	char		*tmp;
 
-	printf("edir arg %s\n", conf->error);
-	name = ft_strdup(token);
-	return (name);
+	tmp = edit_arg_main(token, conf->env);
+	//printf("tmp is %s\n", tmp);
+	free (token);
+	token = tmp;
+	return (tmp);
 }
 
 int	if_command_name(char *token, char *path)

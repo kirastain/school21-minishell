@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 14:42:32 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 00:31:54 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef struct			s_struct
 	char				**env;
 	char				**export;
 	char				*error;
-	t_list				*tokens;
+	char				**tokens;
 	t_command			*command;
+	t_command			*curr_command;
 	t_command			**command_array;
 	char				**betweens;
 	char				***arr;
@@ -51,6 +52,7 @@ typedef struct			s_struct
 int			g_signal;
 int			g_flag;
 char		*g_shell_line;
+char		*g_error;
 
 /*
 ** -------------inits-----------------
@@ -59,6 +61,7 @@ char		*g_shell_line;
 void					init_conf(t_struct *conf);
 t_command				*init_command(t_struct *conf);
 void					init_command_array(t_struct *conf, int pipes);
+void					init_betweens(t_struct *conf);
 
 /*
 ** -------------main----------------
@@ -84,7 +87,9 @@ char					**parser_env(char **env);
 void					parser_line(char **line, t_struct *conf);
 char					**split_tokens(char const *s);
 void					split_line(char **line, t_struct *conf);
-void					analyze_tokens(t_struct *conf, t_list *tokens);
+//void					analyze_tokens(t_struct *conf, t_list *tokens);
+void	analyze_tokens(t_struct *conf, char **tokens);
+
 
 /*
 ** -------------checks---------------
@@ -101,7 +106,8 @@ void					check_quotes(char *line, t_struct *conf);
 ** -------parser to command----------
 */
 
-t_list					*create_command(t_list *tokens, t_struct *conf);
+//t_list					*create_command(t_list *tokens, t_struct *conf);
+int		create_command(char **tokens, t_struct *conf);
 void					*delete_quotes(t_list *token, t_struct *conf);
 void					replace_env_var(char *arg, t_struct *conf, char **env);
 int						is_command_end(char *token);
@@ -109,6 +115,10 @@ int						if_command_name(char *token, char *path);
 char					*edit_arg(char *token, t_struct *conf);
 void					ft_comadd_back(t_command **lst, t_command *new);
 int						if_internal(char *name);
+char					*edit_arg_main(char *token, char **env);
+char 			*find_env_var(char *token, int *i, int *j);
+char			*quotes(char *token, int *i, int *j, char **env);
+char	*get_env_var(char *arg, char **env);
 
 /*
 ** -------------commsnds-------------
@@ -144,7 +154,7 @@ void					write_command(t_command *com, char *response,
 							t_struct *conf);
 void					output_error(char *str, t_struct *conf);
 void					error_quit(char *str, t_struct *conf);
-void					simple_quit(t_struct *conf);
+void					simple_quit();
 void					error_code(char	*com, int code, t_struct *conf);
 int						get_fd(t_command *com, t_struct *conf);
 

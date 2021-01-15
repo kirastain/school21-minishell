@@ -6,14 +6,14 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:41:09 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 01:44:24 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:41:06 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    exit_command(t_struct *conf)
+void	exit_command(t_struct *conf)
 {
-    clear_conf(conf);
-    exit(0);
+	clear_conf(conf);
+	exit(0);
 }

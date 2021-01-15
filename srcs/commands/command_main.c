@@ -6,82 +6,84 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 01:45:39 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/15 12:44:24 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	get_current_error(t_struct *conf)
+void	get_current_error()
 {
-	ft_putstr_fd(ft_strjoin(conf->error, ": command not found\n"), 1);
-	conf->error = ft_strdup("127");
+	ft_putstr_fd(ft_strjoin(g_error, ": command not found\n"), 1);
+	g_error = "127";
 }
 
 void	command_hub(t_command *com, t_struct *conf)
 {
 	if (ft_strcmp(com->name, "pwd") == 0)
 	{
-		printf("------------------to pwd\n");
-    	pwd_command(com, conf);
+		//printf("------------------to pwd\n");
+		pwd_command(com, conf);
 	}
 	else if (ft_strcmp(com->name, "env") == 0)
 	{
-		printf("------------------to env\n");
-        env_command(com, conf->env, conf);
+		//printf("------------------to env\n");
+		env_command(com, conf->env, conf);
 	}
 	else if (ft_strcmp(com->name, "export") == 0)
 	{
-		printf("---------------to export\n");
+		//printf("---------------to export\n");
 		export_command(com, conf);
 	}
 	else if (ft_strcmp(com->name, "exit") == 0)
 	{
-		printf("------------to exit\n");
+		//printf("------------to exit\n");
 		exit_command(conf);
 	}
 	else if (ft_strcmp(com->name, "cd") == 0)
 	{
-		printf("--------------to cd\n");
+		//printf("--------------to cd\n");
 		cd_command(com, conf);
 	}
 	else if (ft_strcmp(com->name, "unset") == 0)
 	{
-		printf("-----------to unset\n");
+		//printf("-----------to unset\n");
 		unset_command(com, conf);
 	}
 	else if (ft_strcmp(com->name, "echo") == 0)
 	{
-		printf("--------------to echo\n");
+		//printf("--------------to echo\n");
 		echo_command(com, conf);
 	}
 	else if (ft_strcmp(com->name, ">") == 0)
 	{
-		printf("------------to redirect\n");
-		//redirect_arrow_command(com, conf);
+		//printf("------------to redirect\n");
 	}
 	else if (ft_strcmp(com->name, "$?") == 0)
 	{
-		printf("---------------error output\n");
-		get_current_error(conf);
+		//printf("---------------error output\n");
+		get_current_error();
 	}
 	else
 	{
-		printf("----------------to outsource\n");
-		outsource(com, conf);	
+		//printf("----------------to outsource\n");
+		outsource(com, conf);
 	}
+	//printf("hub finished\n");
 }
 
-int		count_pipes(t_struct *conf)
+int		count_pipes(t_command *coms)
 {
 	t_command	*com;
 	int			count;
 
 	count = 1;
-	com = conf->command;
+	com = coms;
 	while (com && com->pipe_sc == '|')
 	{
+		//printf("counting pipes func with %s\n", com->name);
 		count++;
+		//printf("pipes = %d\nnext is", count);
 		com = com->next;
 	}
 	return (count);
@@ -89,24 +91,35 @@ int		count_pipes(t_struct *conf)
 
 void	command_main(t_struct *conf)
 {
-	int	pipes;
+	int			pipes;
+	t_command	*com;
 
-	if (!(conf->command))
+	com = conf->command;
+	if (!com)
 		return ;
-	while (conf->command)
+	while (com)
 	{
-		if (conf->command->pipe_sc == '|')
+		//printf("com main start %s and %c\n", com->name, com->pipe_sc);
+		if (com->pipe_sc == '|')
 		{
-			pipes = count_pipes(conf);
+			//printf("pipe is ooon\n");
+			pipes = count_pipes(com);
+			//printf("num of pipes is %d", pipes);
 			init_command_array(conf, pipes);
-			conf->command = pipes_command(conf, conf->command);
+			com = pipes_command(conf, com);
 			do_pipes(conf, pipes);
-			clear_command_array(conf, pipes); //to do
+			clear_command_array(conf, pipes);
 		}
 		else
 		{
-			command_hub(conf->command, conf);
-			conf->command = conf->command->next;
+			//printf("to com hub\n");
+			command_hub(com, conf);
+			//printf("finished %s\n", com->name);
+			//com = conf->command->next;
+			//clear_command(conf->command);
+			//conf->command = com;
+			com = com->next;
 		}
 	}
+	//printf("finished %s\n", conf->command->name);
 }

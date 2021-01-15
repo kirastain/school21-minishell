@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 23:41:15 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/12 01:05:19 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:53:54 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	replace_env_var(char *arg, t_struct *conf, char **env)
 	{
 		new = ft_strdup(&arg[2]);
 		tmp = new;
-		new = ft_strjoin(conf->error, new);
+		new = ft_strjoin(g_error, new);
 		free(tmp);
 	}
 	else
