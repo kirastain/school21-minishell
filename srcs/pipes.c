@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 23:04:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 11:46:34 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:25:58 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void		do_pipes(t_struct *conf, int pipes)
 			pipe(fd);
 		pid = fork();
 		if (pid < 0)
-			error_code("fork issue", errno, conf);
+			error_code("fork issue", errno);
 		else if (pid == 0)
 			next_pipe(conf, fd, pipe_from, i);
 		else
@@ -108,7 +108,7 @@ t_command	*pipes_command(t_struct *conf, t_command *com)
 			conf->arr[i] = outsouce_arr(com, conf);
 			conf->command_array[i] = NULL;
 		}
-		conf->arr_int[i++] = get_fd(com, conf);
+		conf->arr_int[i++] = get_fd(com);
 		flag = 1;
 		if (com->pipe_sc == '|')
 			flag = 0;

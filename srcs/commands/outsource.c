@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 12:39:46 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 21:16:48 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ char	*path_com(char *name, char **env)
 		j = -1;
 		while (path[++j])
 		{
-			path[j] = ft_strjoin(path[j], "/");
-			path[j] = ft_strjoin(path[j], name);
+			path[j] = ft_strjoin_free(path[j], "/");
+			path[j] = ft_strjoin_free(path[j], name);
 			if (open(path[j], O_RDONLY) != -1)
 			{
+				free(name);
 				name = ft_strdup(path[j]);
 				break ;
 			}
@@ -54,7 +55,7 @@ void	get_com_path(t_struct *conf, char **args, int *name)
 	}
 }
 
-int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
+int		check_outsource(char *file, t_command *com, int name)
 {
 	int			flag;
 	int			fd;
@@ -69,7 +70,7 @@ int		check_outsource(char *file, t_command *com, int name, t_struct *conf)
 		}
 		else
 			g_error = "1";
-		error_code(com->name, -5, conf);
+		error_code(com->name, -5);
 		flag = -1;
 		return (flag);
 	}
@@ -103,16 +104,16 @@ char	**outsouce_arr(t_command *com, t_struct *conf)
 	get_com_path(conf, args, &name);
 	g_flag = 1;
 	g_error = "0";
-	flag = check_outsource(args[0], com, name, conf);
+	flag = check_outsource(args[0], com, name);
 	return (args);
 }
 
 void	outsource(t_command *com, t_struct *conf)
 {
 	char	**args;
-	int		i;
 	int		name;
 	int		flag;
+	int		i;
 
 	i = 0;
 	if (!(args = (char**)malloc(sizeof(char*))))
@@ -124,7 +125,7 @@ void	outsource(t_command *com, t_struct *conf)
 	get_com_path(conf, args, &name);
 	g_flag = 1;
 	g_error = "0";
-	flag = check_outsource(args[0], com, name, conf);
-	do_forks(com, args, flag, conf);
+	flag = check_outsource(args[0], com, name);
+	do_forks(com, args, flag);
 	ft_array_free(args);
 }

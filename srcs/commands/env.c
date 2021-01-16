@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:49:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 11:32:08 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:32:55 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	env_command(t_command *com, char **env, t_struct *conf)
 	response = ft_strdup("");
 	if (com->args[0] != NULL)
 	{
-		ft_putstr_fd("Error: env: Too many arguments\n", 1);
+		error_quit("too many arguments", conf);
 		return ;
 	}
 	else
@@ -34,5 +34,5 @@ void	env_command(t_command *com, char **env, t_struct *conf)
 			response = ft_strjoin_free(response, "\n");
 		}
 	}
-	write_command(com, response, conf);
+	write_command(com, response);
 }

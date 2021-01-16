@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:37:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 12:48:46 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:33:45 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		reset_cd(char *cwd, char *path, t_struct *conf)
 {
 	free(cwd);
 	free(path);
-	write_command(conf->command, ft_strdup(""), conf);
+	write_command(conf->command, ft_strdup(""));
 	return (0);
 }
 

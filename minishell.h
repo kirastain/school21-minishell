@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 13:57:35 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:58:40 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ int						fill_pipe_sc(t_command *com, char *token,
 int						fill_arrows(t_command *com, char **tokens);
 void					fill_com_name(t_command *com, char *token,
 								int *flag_name);
+int						fill_arrows_case(t_command *com, char **tokens,
+								int *flag_name);
 
 /*
 ** -------------commsnds-------------
@@ -131,7 +133,7 @@ void					fill_com_name(t_command *com, char *token,
 void					command_main(t_struct *conf);
 void					command_hub(t_command *com, t_struct *conf);
 void					pwd_command(t_command *com, t_struct *conf);
-void					echo_command(t_command *com, t_struct *conf);
+void					echo_command(t_command *com);
 void					env_command(t_command *com, char **env, t_struct *conf);
 void					unset_command(t_command *com, t_struct *conf);
 void					export_command(t_command *com, t_struct *conf);
@@ -149,18 +151,18 @@ char					**outsouce_arr(t_command *com, t_struct *conf);
 void					do_pipes(t_struct *conf, int pipes);
 void					next_pipe(t_struct *conf, int *fd, int pipe_from,
 							int i);
+void					arrow_command(t_command *com, t_struct *conf);
 
 /*
 ** -------------output----------------
 */
 
-void					write_command(t_command *com, char *response,
-							t_struct *conf);
+void					write_command(t_command *com, char *response);
 void					output_error(char *str, t_struct *conf);
 void					error_quit(char *str, t_struct *conf);
 void					simple_quit();
-void					error_code(char	*com, int code, t_struct *conf);
-int						get_fd(t_command *com, t_struct *conf);
+void					error_code(char	*com, int code);
+int						get_fd(t_command *com);
 
 /*
 ** -------------signals---------------
@@ -182,9 +184,8 @@ void					clear_command_array(t_struct *conf, int pipes);
 ** --------------forkszhopa-----------
 */
 
-void					do_forks(t_command *com, char **args, int flag,
-							t_struct *conf);
-void					do_fork(t_command *com, char **args, t_struct *conf);
+void					do_forks(t_command *com, char **args, int flag);
+void					do_fork(t_command *com, char **args);
 void					redirect_fork(char *file, char *sym, char **args);
 void					arrow_to(int fd, char **args, pid_t curr_pid,
 							int *p_fd);

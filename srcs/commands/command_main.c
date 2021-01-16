@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:52:26 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 11:46:41 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:59:29 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ void	command_hub(t_command *com, t_struct *conf)
 	else if (ft_strcmp(com->name, "unset") == 0)
 		unset_command(com, conf);
 	else if (ft_strcmp(com->name, "echo") == 0)
-		echo_command(com, conf);
+		echo_command(com);
 	else if (ft_strcmp(com->name, "$?") == 0)
 		get_current_error();
+	else if (ft_strcmp(com->name, ">") == 0)
+		arrow_command(com, conf);
 	else
 		outsource(com, conf);
 }

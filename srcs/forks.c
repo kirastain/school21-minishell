@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:04:41 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 13:05:17 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:28:05 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	redirect_fork(char *file, char *sym, char **args)
 		arrow_from(fd, args, curr_pid, p_fd);
 }
 
-void	do_fork(t_command *com, char **args, t_struct *conf)
+void	do_fork(t_command *com, char **args)
 {
 	pid_t	pid;
 	pid_t	wait_pid;
@@ -86,7 +86,7 @@ void	do_fork(t_command *com, char **args, t_struct *conf)
 	}
 	else if (pid == -1)
 	{
-		error_code(com->name, errno, conf);
+		error_code(com->name, errno);
 	}
 	else
 	{
@@ -95,7 +95,7 @@ void	do_fork(t_command *com, char **args, t_struct *conf)
 	kill(pid, SIGKILL);
 }
 
-void	do_forks(t_command *com, char **args, int flag, t_struct *conf)
+void	do_forks(t_command *com, char **args, int flag)
 {
 	int i;
 
@@ -107,13 +107,13 @@ void	do_forks(t_command *com, char **args, int flag, t_struct *conf)
 			i++;
 		}
 	else if (flag == 1 && com->file[i] == NULL)
-		do_fork(com, args, conf);
+		do_fork(com, args);
 	else
 	{
 		g_error = "1";
 		if (flag == 0)
 		{
-			error_code(com->name, 13, conf);
+			error_code(com->name, 13);
 		}
 	}
 }

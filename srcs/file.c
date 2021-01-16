@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:03:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 11:32:18 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 21:04:12 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ char	*path_join(char *path, char *curr_path, int flag)
 		free(curr_path);
 	if (flag == 0)
 	{
-		new_path = ft_strjoin(new_path, "/");
-		new_path = ft_strjoin(new_path, path);
+		new_path = ft_strjoin_free(new_path, "/");
+		new_path = ft_strjoin_free(new_path, path);
 	}
 	else
-		new_path = ft_strjoin(new_path, &path[1]);
+		new_path = ft_strjoin_free(new_path, &path[1]);
 	if (path)
 		free(path);
 	return (new_path);
@@ -40,8 +40,8 @@ char	*path_new(char *path, char *curr_path, int i)
 	new_path = ft_strdup(curr_path);
 	if (curr_path)
 		free(curr_path);
-	new_path = ft_strjoin(new_path, "/");
-	new_path = ft_strjoin(new_path, &path[i]);
+	new_path = ft_strjoin_free(new_path, "/");
+	new_path = ft_strjoin_free(new_path, &path[i]);
 	return (new_path);
 }
 
@@ -74,7 +74,7 @@ char	*path_doubledot(char *path, char *curr_path)
 	return (new_path);
 }
 
-int		get_fd(t_command *com, t_struct *conf)
+int		get_fd(t_command *com)
 {
 	int	fd;
 	int	flag;
@@ -90,7 +90,7 @@ int		get_fd(t_command *com, t_struct *conf)
 	if ((fd = open(com->file[0], flag, 0666)) == -1)
 	{
 		g_error = "1";
-		error_code(com->name, -1, conf);
+		error_code(com->name, -1);
 		return (-1);
 	}
 	return (fd);

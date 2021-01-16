@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:05:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 00:00:18 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 18:46:11 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,16 @@ void	split_line(char **line, t_struct *conf)
 		while (tmp[i] == ' ' || tmp[i] == 9)
 			i++;
 		len = count_len(&tmp[i]);
+		if (len == 0)
+			continue ;
 		if (!(token = (char*)malloc(sizeof(char) * (len + 1))))
-			return ;
+			error_quit("memory issue", conf);
 		ft_strlcpy(token, &tmp[i], len + 1);
 		token[len] = '\0';
 		conf->tokens = ft_array_realloc(conf->tokens, token);
 		free(token);
 		i = i + len;
 	}
-	i = 0;
-	while (conf->tokens[i])
-		i++;
 }
 
 /*

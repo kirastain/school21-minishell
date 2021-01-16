@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:33:40 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 13:59:36 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:49:30 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int		create_command(char **tokens, t_struct *conf)
 		error_quit("Memory issue", conf);
 	while (tokens[++i])
 	{
+		if (flag_name == 0 && if_arrows(tokens[i]))
+			fill_arrows_case(com, &tokens[i], &flag_name);
 		if (flag_name == 0)
 			fill_com_name(com, tokens[i], &flag_name);
 		else if (if_arrows(tokens[i]))

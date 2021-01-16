@@ -6,7 +6,7 @@
 #    By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/16 23:04:16 by bbelen            #+#    #+#              #
-#    Updated: 2021/01/16 13:54:29 by bbelen           ###   ########.fr        #
+#    Updated: 2021/01/16 19:59:17 by bbelen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = ./srcs/inits.c ./minishell.c ./srcs/parser.c ./srcs/utils.c \
 		./srcs/tokens.c ./srcs/tokens_utils.c ./srcs/file.c ./srcs/forks.c \
 		./srcs/commands/redirect.c ./srcs/pipes.c \
 		./srcs/parser_token_2.c ./srcs/checks_utils.c ./srcs/parser_utils.c \
-		./srcs/token_fills.c
+		./srcs/token_fills.c ./srcs/commands/arrow_command.c
 HEADER = ./minishell.h
 CC = clang
 OBJS = $(SRC:.c=.o) 

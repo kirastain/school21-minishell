@@ -6,17 +6,17 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:37:04 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 11:32:26 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:22:42 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	write_fail(char *name, int errnum, char *response, t_struct *conf)
+static void	write_fail(char *name, int errnum, char *response)
 {
 	g_error = "1";
 	free(response);
-	error_code(name, errnum, conf);
+	error_code(name, errnum);
 }
 
 static int	return_fd_flag(char *arrow)
@@ -32,7 +32,7 @@ static int	return_fd_flag(char *arrow)
 	return (flag);
 }
 
-void		write_command(t_command *com, char *response, t_struct *conf)
+void		write_command(t_command *com, char *response)
 {
 	int i;
 	int flag;
@@ -51,10 +51,10 @@ void		write_command(t_command *com, char *response, t_struct *conf)
 		{
 			flag = return_fd_flag(com->arrows[i]);
 			if ((fd = open(com->file[i], flag, 0666)) == -1)
-				return (write_fail(com->name, errno, response, conf));
+				return (write_fail(com->name, errno, response));
 			ft_putstr_fd(response, fd);
 			if (close(fd) == -1)
-				return (write_fail(com->name, errno, response, conf));
+				return (write_fail(com->name, errno, response));
 		}
 	}
 	free(response);

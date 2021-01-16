@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:32:08 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 19:05:52 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:31:57 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_flag_n(char **args, int *if_n)
 	return (i);
 }
 
-void		echo_command(t_command *com, t_struct *conf)
+void		echo_command(t_command *com)
 {
 	int		i;
 	int		if_n;
@@ -50,5 +50,5 @@ void		echo_command(t_command *com, t_struct *conf)
 	}
 	if (if_n == 0)
 		response = ft_strjoin_free(response, "\n");
-	write_command(com, response, conf);
+	write_command(com, response);
 }
