@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:51:27 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 00:03:10 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 13:58:25 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ char	*edit_arg(char *token, t_struct *conf)
 		tmp = edit_arg_2(token, conf->env, 0);
 	res = tmp;
 	return (res);
+}
+
+char	*get_env_var(char *arg, char **env)
+{
+	char	*value;
+	int		i;
+
+	i = 0;
+	value = NULL;
+	if (arg[0] == '?' && ft_strlen(arg) == 1)
+	{
+		value = ft_strdup(g_error);
+		return (value);
+	}
+	while (env[i])
+	{
+		if (ft_strcmp(arg, env[i]) == 0)
+		{
+			value = ft_strdup(env[i + 1]);
+			return (value);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 int		if_command_name(char *token, char *path)

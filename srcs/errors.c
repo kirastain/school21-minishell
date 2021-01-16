@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 18:53:43 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 00:01:30 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 12:49:06 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	error_code(char *com, int code, t_struct *conf)
 
 void	error_quit(char *str, t_struct *conf)
 {
+	g_error = "1";
 	ft_putstr_fd("bash: ", 1);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd("\n", 1);

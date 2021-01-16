@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:37:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 20:36:25 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 12:48:46 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		error_cd(t_struct *conf, char **cwd, char **path)
 	free(*cwd);
 	if (*path)
 		free(*path);
-	error_quit("cd: Too many arguments", conf);
+	error_quit("cd: no such file or directory", conf);
 	return (1);
 }
 

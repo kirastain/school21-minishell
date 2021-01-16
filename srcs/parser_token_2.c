@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:27:46 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 23:56:01 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 10:15:14 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*edit_arg_2(char *token, char **env, int flag)
 	while (tmp[i])
 	{
 		if (tmp[i + 1] && tmp[i] == '\\' && (tmp[i + 1] == '\\' ||
-						tmp[i + 1] == '|' || tmp[i + 1] == ';'))
+				tmp[i + 1] == '|' || tmp[i + 1] == ';' || tmp[i + 1] == '$'))
 			new = add_char(new, tmp[++i]);
 		else if (if_slashes(&tmp[i], flag))
 			new = add_char(new, tmp[++i]);

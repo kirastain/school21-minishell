@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:24:24 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 00:09:10 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 11:45:10 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ void		read_shell_line(t_struct *conf)
 			parser_line(&line, conf);
 			if (g_signal != 8)
 				command_main(conf);
+			clear_conf(conf);
 		}
-		clear_conf(conf);
+		if (conf->command)
+			clear_conf(conf);
 		if (g_shell_line)
 			free(g_shell_line);
 		free(line);

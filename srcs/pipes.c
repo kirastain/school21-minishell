@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 23:04:58 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/14 16:10:39 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 11:46:34 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		redirect_pipefork(t_struct *conf, int fid,
 	}
 	else if (curr_pid < 0)
 	{
-		error_quit("FORK", conf);
+		error_quit("fork issue", conf);
 		exit(1);
 	}
 	else
@@ -77,13 +77,13 @@ void		do_pipes(t_struct *conf, int pipes)
 			pipe(fd);
 		pid = fork();
 		if (pid < 0)
-			error_code("FORK", errno, conf);
+			error_code("fork issue", errno, conf);
 		else if (pid == 0)
 			next_pipe(conf, fd, pipe_from, i);
 		else
 			waitpid(pid, &status, WUNTRACED);
-		close(fd[1]);
 		close(pipe_from);
+		close(fd[1]);
 		pipe_from = fd[0];
 		i++;
 	}
@@ -98,15 +98,15 @@ t_command	*pipes_command(t_struct *conf, t_command *com)
 	flag = 0;
 	while (!flag)
 	{
-		if (if_internal(com->name) == 0)
-		{
-			conf->arr[i] = outsouce_arr(com, conf);
-			conf->command_array[i] = NULL;
-		}
-		else
+		if (if_internal(com->name) == 1)
 		{
 			conf->arr[i] = NULL;
 			conf->command_array[i] = com;
+		}
+		else
+		{
+			conf->arr[i] = outsouce_arr(com, conf);
+			conf->command_array[i] = NULL;
 		}
 		conf->arr_int[i++] = get_fd(com, conf);
 		flag = 1;
