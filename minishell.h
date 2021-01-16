@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:12:57 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 00:10:37 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 13:57:35 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,12 @@ char					*quotes(char *token, int *i, int *j, char **env);
 char					*get_env_var(char *arg, char **env);
 char					*edit_arg_2(char *token, char **env, int flag);
 char					*add_char(char *old, char c);
+void					fill_arg(t_command *com, char *token, t_struct *conf);
+int						fill_pipe_sc(t_command *com, char *token,
+								t_struct *conf, int i);
+int						fill_arrows(t_command *com, char **tokens);
+void					fill_com_name(t_command *com, char *token,
+								int *flag_name);
 
 /*
 ** -------------commsnds-------------

@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:10:13 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 20:38:17 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 12:39:46 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ char	**outsouce_arr(t_command *com, t_struct *conf)
 	args[0] = NULL;
 	args = ft_array_realloc(args, com->name);
 	while (com->args[i])
-		args = ft_array_realloc(args, com->name);
+	{
+		args = ft_array_realloc(args, com->args[i]);
+		i++;
+	}
 	get_com_path(conf, args, &name);
 	g_flag = 1;
 	g_error = "0";

@@ -1,16 +1,70 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks_quotes.c                                    :+:      :+:    :+:   */
+/*   checks_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 01:10:09 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/15 20:42:23 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 13:14:06 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	check_double_stream(char *line, t_struct *conf)
+{
+	int	i;
+
+	i = 2;
+	while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
+		i++;
+	if (line[i] == '>')
+		output_error(">", conf);
+	else if (line[i] == '<')
+		output_error("<", conf);
+	return ;
+}
+
+void	check_streams(char *line, t_struct *conf)
+{
+	int i;
+
+	i = 1;
+	if (line[i - 1] == '>')
+	{
+		while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
+			i++;
+		if (line[i] == '<')
+			output_error("<", conf);
+		else if (line[i] == '>')
+			output_error(">", conf);
+	}
+	else
+	{
+		while ((line[i] == ' ' || line[i] == 9) && line != '\0')
+			i++;
+		if (line[i] == '>')
+			output_error(">", conf);
+		else if (line[i] == '<')
+			output_error("<", conf);
+		else if (line[i] == '|')
+			output_error("|", conf);
+	}
+	return ;
+}
+
+void	check_after_vertline(char *line, t_struct *conf)
+{
+	int i;
+
+	i = 0;
+	while ((line[i] == ' ' || line[i] == 9) && line[i] != '\0')
+		i++;
+	if (!line[i])
+		error_quit("Pipeline in the end of the line", conf);
+	return ;
+}
 
 int		if_in_str(char *str, char c)
 {
@@ -46,5 +100,5 @@ void	check_quotes(char *line, t_struct *conf)
 		i++;
 	}
 	if (flag_double % 2 != 0 || flag_single % 2 != 0)
-		error_quit("Wrong number of quotes\n", conf);
+		error_quit("Wrong number of quotes", conf);
 }
