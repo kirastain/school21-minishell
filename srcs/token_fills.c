@@ -6,7 +6,7 @@
 /*   By: bbelen <bbelen@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 13:51:19 by bbelen            #+#    #+#             */
-/*   Updated: 2021/01/16 13:56:41 by bbelen           ###   ########.fr       */
+/*   Updated: 2021/01/16 14:02:24 by bbelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ void	fill_arg(t_command *com, char *token, t_struct *conf)
 	if (!(arg = edit_arg(arg, conf)))
 		error_quit("Invalid argument", conf);
 	com->args = ft_array_realloc(com->args, arg);
+	free(arg);
 }
